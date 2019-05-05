@@ -8,134 +8,96 @@ include 'model.php';
 <div class="container">
 
 
-    <table class="picnic-table">
-        <thead>
-        <tr>
-            <th>Picnic Reference ID</th>
-            <th>Place</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Cost per one</th>
-            <th>Departure Time</th>
-            <th>Departure Location</th>
-            <th>Arrival Time</th>
-            <th>Return time</th>
+    <form method="post" action="confirmation.php">
+        <table class="picnic-table">
+            <thead>
+            <tr>
+                <th>Picnic Reference ID</th>
+                <th>Place</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Cost per one</th>
+                <th>Departure Time</th>
+                <th>Departure Location</th>
+                <th>Arrival Time</th>
+                <th>Return Time</th>
 
-        </tr>
-        </thead>
-        <tbody>
+            </tr>
+            </thead>
+            <tbody>
 
-        <?php
-        $res = null;
+            <?php
+            $res = null;
 
-
-        $rowsNum = 0;
-
-
-        $page = 0;
-        if (!isset($_GET['page'])) {
-            $page = 1;
-            $_GET['page'] = 1;
-        } else {
-            $page = $_GET['page'];
-        }
-
-
-        if (isset($_GET['NumOfPages']))
-            $_SESSION['NumOfPages'] = $_GET['NumOfPages'];
-
-
-        if (isset($_SESSION['NumOfPages']) && !empty($_SESSION['NumOfPages']))
-            $RecordsPerPage = $_SESSION['NumOfPages'];
-        else
-            $RecordsPerPage = 10;
-
-
-        if (isset($_GET['page']))
-            $start_limit = ($_GET['page'] - 1) * $RecordsPerPage;
-
-
-        //Filtration Side
-        if (!isset($_GET['filter']) || (isset($_GET['filter']) && isset($_GET['NumOfPages']) && empty($_GET['place']) && empty($_GET['date']))) {
-            $res = getPinicsForTable($start_limit, $RecordsPerPage);
-            if ($row = getRowNum()->fetch())
-                $rowsNum = $row[0];
-        } else {
-
-            $res = getPinicsForTableWithFilter($_GET['place'], $_GET['date'], $start_limit, $RecordsPerPage);
-
-            $row = getRowNumFiltered($_GET['place'], $_GET['date']);
-            if (!is_numeric($row))
-                if ($row = $row->fetch())
-                    $rowsNum = $row[0];
-                else
-                    $rowsNum = 0;
-
-
-        }
-
-
-        $pages = ceil($rowsNum / $RecordsPerPage);
-
-
-        $keys = ["pid", "place", "date", "description", "cost"];
-
-        if ($res != null)
-            $row = $res->fetch();
-        if (!isset($row) || empty($row))
-        echo "<tr><td colspan='6'>No Matches Found!</td></tr>";
-        else
-        while ($row) {
-
-        ?>
-
-        <tr><?php
-            $desc = array();
-            foreach ($keys as $i) {
-
-                if ($row[$i] == "description") {
-                    $desc = explode(',', $row[$i]);
-                    $row[$i] = $desc[0];
-                }
-                if ($i == "pid") {
-                    echo "<td style='padding-left: 80px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
-                } else if ($i == "cost") {
-                    ?>
-                    <td style="padding-left: 80px"><?= $row[$i] ?> &#8362;</td><?php
-                } else { ?>
-                    <td><?= $row[$i] ?></td><?php
-                }
-
-
+            if (isset($_GET['id'])) {
+                $res = getPicnicById($_GET['id']);
             }
-            echo "<td><a href='booking.php?id=" . $row['pid'] . "' class='button' style='text-decoration:none;padding-top:5px'>Book</a></td></tr>";
 
-            $row = $res->fetch();
-            } ?>
+            $keys = ["pid", "place", "date", "description", "cost", "departuretime", "departurelocation", "arrivaltime", "returntime"];
+
+            $hidden = ["pid", "cost"];
+            if ($row = $res->fetch()) {
+
+            ?>
+
+            <tr><?php
+                $desc = array();
+                $time = array();
+                foreach ($keys as $i) {
+
+                    if ($row[$i] == "description") {
+                        $desc = explode(',', $row[$i]);
+                        $row[$i] = $desc[0];
+                    }
+
+                    if (strpos($i, "time")) {
+                        $time = explode(":", $row[$i]);
+                        unset($time[2]);
+                        $row[$i] = implode(":", $time);
+                    }
+                    if ($i == "pid") {
+                        $hidden["pid"] = $row[$i];
+                        echo "<td style='padding-left: 80px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
+                    } else if ($i == "cost") {
+                        $hidden["cost"] = $row[$i];
+                        ?>
+                        <td style="padding-left: 40px"><?= $row[$i] ?> &#8362;</td><?php
+                    } else { ?>
+                        <td><?= $row[$i] ?></td><?php
+                    }
 
 
-        </tbody>
+                }
+                echo "</tr>";
+
+                } ?>
+
+            <tr>
+
+                <td colspan="4"><input type="text" class="filter-input"
+                                       name="additions" id="additions"
+                                       placeholder="If you want ant additions state it here... e.g Birthday cake"></td>
+
+                <td colspan="3"><input type="number" min="1" max="2"
+                                       class="filter-input"
+                                       name="numOfSeats"
+                                       placeholder="Please Enter Number of People intend to come "
+                                       id="NumberOfPeople"></td>
+                <td colspan="2"><input style="width: 200px" type="submit" name="confirm" value="Confirm The Booking"
+                                       class="button"><input type="hidden" value="<?= $hidden["pid"] ?>"
+                                                             name="pid"><input type="hidden"
+                                                                               value="<?= $hidden["cost"] ?>"
+                                                                               name="cost"></td>
+
+            </tr>
+
+            </tbody>
 
 
-    </table>
+        </table>
 
-    <div class="pagination">
-        <a href="#">&laquo;</a>
-        <?php
+    </form>
 
-        for ($page = 1; $page <= $pages; $page++) {
-            if ($page == $_GET['page'])
-                echo "<a href='picnics.php?page=" . $page . "'class='active'>" . $page . "</a>";
-
-            else
-                echo "<a href='picnics.php?page=" . $page . "'>" . $page . "</a>";
-
-        }
-        ?>
-
-        <a href="#">&raquo;</a>
-
-    </div>
 </div>
 
 </body>

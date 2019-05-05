@@ -79,12 +79,23 @@ function getRowNumFiltered($place, $date)
     return $res;
 }
 
+
+function getPicnicById($pid)
+{
+
+    global $pdo;
+
+    return $pdo->query("select pid , place , date , description , cost , departuretime , departurelocation , arrivaltime , returntime from picnic where pid = " . $pid . ";");
+}
+
 function getbookings()
 {
     global $pdo;
 
     return $pdo->query("select * from book");
 }
+
+
 
 function getSchedual()
 {

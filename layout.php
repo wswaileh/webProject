@@ -9,3 +9,5 @@
     <link rel="stylesheet" href="css/mainStylesheet.css" type="text/css">
 </head>
 <body>
+    <?php require 'navbar.php';
+            require 'footer.php'?>

@@ -20,22 +20,22 @@ if(!isset($_SESSION))
     </div>
 
     <div class="nav-links">
-        <?php
-        if ($_SESSION['userType'] === 1) //"GUEST"  LINKS NEED TO BE UPDATED
-            echo '<a href="main.php">About Us</a> 
-                  <a href="main.php">Register</a>
-                  <a href="main.php">Login</a>
-            ';
-        else if ($_SESSION['userType'] === 2) //"USER"      LINKS NEED TO BE UPDATED
-            echo '<a href="main.php">Main</a> 
-                  <a href="main.php">Logout</a>
-            ';
-        else //ADMIN        LINKS NEED TO BE UPDATED
-            echo '<a href="main.php">Main</a> 
-                  <a href="main.php">Add Picnic</a>
-                  <a href="main.php">Logout</a>
-            ';
-
-        ?>
+<!--        --><?php
+//        if ($_SESSION['userType'] === 1) //"GUEST"  LINKS NEED TO BE UPDATED
+//            echo '<a href="main.php">About Us</a>
+//                  <a href="main.php">Register</a>
+//                  <a href="main.php">Login</a>
+//            ';
+//        else if ($_SESSION['userType'] === 2) //"USER"      LINKS NEED TO BE UPDATED
+//            echo '<a href="main.php">Main</a>
+//                  <a href="main.php">Logout</a>
+//            ';
+//        else //ADMIN        LINKS NEED TO BE UPDATED
+//            echo '<a href="main.php">Main</a>
+//                  <a href="main.php">Add Picnic</a>
+//                  <a href="main.php">Logout</a>
+//            ';
+//
+//        ?>
     </div>
 </nav>

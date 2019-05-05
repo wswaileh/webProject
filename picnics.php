@@ -3,8 +3,6 @@
 include 'layout.php';
 include 'model.php';
 
-session_name("Laflef");
-session_start()
 
 ?>
 
