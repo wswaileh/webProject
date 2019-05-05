@@ -1,0 +1,106 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    font-family: 'segoe ui';
+}
+
+.container {
+
+    margin-top: 10%;
+    width: 100%;
+}
+
+.picnic-table {
+
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.picnic-table td, .picnic-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.picnic-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.picnic-table tr:hover {
+    background-color: #ddd;
+}
+
+.picnic-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #5F5F5F;
+    color: white;
+}
+
+.button {
+    background-color: #5F5F5F;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    border: none;
+    width: 100px;
+    height: 35px;
+    margin-left: 20px;
+    font-size: 15px;
+
+}
+
+
+.filter-input {
+    width: 100%;
+    font-size: 15px;
+    text-align: center;
+    border: none;
+    border-bottom: 2px #4D4D4D solid;
+    overflow: hidden;
+    outline: none;
+    background: none;
+    color: black;
+}
+
+
+
+#filter-submit {
+    width: 100px;
+}
+
+.pagination {
+    display: inline-block;
+    margin: 40px 40%;
+}
+
+.pagination a {
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: black;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.pagination a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pagination a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
