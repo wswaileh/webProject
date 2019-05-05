@@ -9,7 +9,7 @@ include 'layout.php';
     <a href="picnics.php">Picnics</a><br>
     <a href="booking.php">Booking Dashboard</a><br>
 </nav>
-<?php require 'footer.php'?>
+<?php //require 'footer.php'?>
 </html>
 
 <?
