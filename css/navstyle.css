@@ -1,97 +1,67 @@
-* {
-    box-sizing: border-box;
+.topnav {
+    overflow: hidden;
+    background-color: #333;
 }
 
-body {
-    margin: 0px;
-    font-family: 'segoe ui';
-}
-
-.nav {
-    height: 50px;
-    width: 100%;
-    background-color: #4d4d4d;
-    position: relative;
-}
-
-.nav > .nav-header {
-    display: inline;
-}
-
-.nav > .nav-header > .nav-title {
-    display: inline-block;
-    font-size: 22px;
-    color: #fff;
-    padding: 10px 10px 10px 10px;
-}
-
-.nav > .nav-btn {
-    display: none;
-}
-
-.nav > .nav-links {
-    display: inline;
-    float: right;
-    font-size: 18px;
-}
-
-.nav > .nav-links > a {
-    display: inline-block;
-    padding: 13px 10px 13px 10px;
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
     text-decoration: none;
-    color: #efefef;
+    font-size: 17px;
 }
 
-.nav > .nav-links > a:hover {
-    background-color: rgba(0, 0, 0, 0.3);
+.topnav a#companyTitle{
+    display: inline-block;
+}
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
 }
 
-.nav > #nav-check {
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.topnav .icon {
     display: none;
 }
+.topnav .links{
 
-@media (max-width:600px) {
-    .nav > .nav-btn {
-        display: inline-block;
+    float: right;
+}
+
+.topnav.responsive .links{
+    width: 100%;
+    float: left;
+}
+
+@media screen and (max-width: 600px) {
+    .topnav .links a{display: none;}
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .topnav.responsive {
+        position: relative;
+    }
+
+    .topnav.responsive .icon {
         position: absolute;
-        right: 0px;
-        top: 0px;
+        right: 0;
+        top: 0;
     }
-    .nav > .nav-btn > label {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        padding: 13px;
-    }
-    .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
-        background-color: rgba(0, 0, 0, 0.3);
-    }
-    .nav > .nav-btn > label > span {
+
+    .topnav.responsive a {
+        float: none;
         display: block;
-        width: 25px;
-        height: 10px;
-        border-top: 2px solid #eee;
+        text-align: left;
     }
-    .nav > .nav-links {
-        position: absolute;
-        display: block;
-        width: 100%;
-        background-color: #333;
-        height: 0px;
-        transition: all 0.3s ease-in;
-        overflow-y: hidden;
-        top: 50px;
-        left: 0px;
-    }
-    .nav > .nav-links > a {
-        display: block;
-        width: 100%;
-    }
-    .nav > #nav-check:not(:checked) ~ .nav-links {
-        height: 0px;
-    }
-    .nav > #nav-check:checked ~ .nav-links {
-        height: calc(100vh - 50px);
-        overflow-y: auto;
-    }
+
 }
