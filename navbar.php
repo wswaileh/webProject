@@ -1,9 +1,3 @@
-<?php
-session_name("name");
-if(!isset($_SESSION))
-{
-    session_start();
-} ?>
 <nav class="topnav" id="myTopnav">
     <a href="#home" id="companyTitle">LafLef</a>
     <div class="links">
