@@ -8,7 +8,7 @@ include 'model.php';
 <div class="container">
 
 
-    <form method="post" action="confirmation.php">
+    <form method="get" action="confirmation.php" target="_blank">
         <table class="picnic-table">
             <thead>
             <tr>
@@ -99,10 +99,13 @@ include 'model.php';
                                        id="NumberOfPeople"></td>
 
                 <td colspan="2"><input style="width: 200px" type="submit" name="confirm" value="Confirm The Booking"
-                                       class="button"><input type="hidden" value="<?= $hidden["pid"] ?>"
-                                                             name="pid"><input type="hidden"
-                                                                               value="<?= $hidden["cost"] ?>"
-                                                                               name="cost"></td>
+                                       class="button" onClick="window.open('confirmation.php','Confirm','resizable,height=600,width=800');
+                                       document.getElementById('confirm').submit();
+                                       return false;"><input
+                            type="hidden" value="<?= $hidden["pid"] ?>"
+                            name="pid"><input type="hidden"
+                                              value="<?= $hidden["cost"] ?>"
+                                              name="cost"></td>
 
             </tr>
 
