@@ -1,9 +1,9 @@
 <nav class="topnav" id="myTopnav">
-    <a href="#home" id="companyTitle">LafLef</a>
+    <a href="main.php" id="companyTitle">LafLef</a>
     <div class="links">
         <a href="main.php">Main</a>
         <?php
-            if ($_SESSION['userType'] == 1) //GUEST         LINKS MUST BE UPDATED LATER
+            if (!isset($_SESSION['userType']) ||  $_SESSION['userType'] == 1) //GUEST         LINKS MUST BE UPDATED LATER
                 echo '
                     <a href="main.php">About Us</a>
                     <a href="main.php">Register</a>

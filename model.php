@@ -19,7 +19,7 @@ function getmanagers()
 {
     global $pdo;
 
-    return $pdo->query("select * from managers");
+    return $pdo->query("select * from manager");
 }
 
 function getcustomers()

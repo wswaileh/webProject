@@ -7,9 +7,9 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>LafLef</title>
+    <link rel="stylesheet" href="css/mainStylesheet.css" type="text/css">
     <link rel="stylesheet" href="css/navstyle.css" type="text/css">
     <link rel="stylesheet" href="css/footerStyle.css" type="text/css">
-    <link rel="stylesheet" href="css/mainStylesheet.css" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
