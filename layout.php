@@ -10,6 +10,8 @@ session_start();
     <link rel="stylesheet" href="css/navstyle.css" type="text/css">
     <link rel="stylesheet" href="css/footerStyle.css" type="text/css">
     <link rel="stylesheet" href="css/mainStylesheet.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 <body>
     <?php require 'navbar.php';
