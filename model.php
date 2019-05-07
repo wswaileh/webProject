@@ -103,6 +103,7 @@ function getSchedual()
     return $pdo->query("select * from scheduledby");
 }
 
+
 //Customers : login and register
 
 function checkCustomer($email, $password)

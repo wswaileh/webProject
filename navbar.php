@@ -6,17 +6,17 @@
             if (!isset($_SESSION['userType']) ||  $_SESSION['userType'] == 1) //GUEST         LINKS MUST BE UPDATED LATER
                 echo '
                     <a href="main.php">About Us</a>
-                    <a href="main.php">Register</a>
-                    <a href="main.php">Login</a>
+                    <a href="register.php">Register</a>
+                    <a href="login.php">Login</a>
                 ';
             else if ($_SESSION['userType'] == 2) //USER         LINKS MUST BE UPDATED LATER
                 echo '
-                    <a href="main.php">Logout</a>
+                    <a href="logout.php">Logout</a>
                 ';
             else
                 echo '
                     <a href="main.php">Add Picnic</a>
-                    <a href="main.php">Logout</a>
+                    <a href="logout.php">Logout</a>
                 ';
         ?>
     </div>
