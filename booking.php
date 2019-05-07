@@ -1,8 +1,8 @@
 <?php
 include 'layout.php';
 include 'model.php';
-if ($_SESSION['userType'] == 1 ){
-    $_SESSION['pageCameFrom'] = "booking.php?".$_SERVER["QUERY_STRING"] ;
+if ($_SESSION['userType'] == 1) {
+    $_SESSION['pageCameFrom'] = "booking.php?" . $_SERVER["QUERY_STRING"];
     header("Location: Login.php");
 }
 
@@ -85,7 +85,7 @@ if ($_SESSION['userType'] == 1 ){
 
                 <td colspan="1" style="padding-left: 20px">
                     <div class="tooltip"><input type="checkbox" name="Birthday_cake" value="Birthday Cake"
-                                                placeholder=" " id="Birthday_cake">
+                                                placeholder=" " id="Birthday_cake" onclick="checkCake()">
                         <span class="tooltiptext">Check the box if you want to add birthday cake to your order!</span>
                     </div>
                 </td>
@@ -124,22 +124,22 @@ if ($_SESSION['userType'] == 1 ){
 
                 <script type="text/javascript">
 
-                    var cake = document.getElementById("Birthday_cake").checked;
 
-                    if (cake == true) {
-                        document.getElementById("cakeNum").removeAttribute('disabled');
+                    function checkCake() {
+
+                        let cake = document.getElementById("Birthday_cake").checked;
+
+                        if (cake == true)
+                            document.getElementById("cakeNum").disabled = false;
+                        else
+                            document.getElementById("cakeNum").disabled = true;
                     }
+
 
                     function error(body) {
 
-                        let er = document.getElementById("error-alert");
 
-                        // er.style.margin = "30px auto";
-                        // er.style.width = "550px";
-                        // er.style.height = "100px";
-                        // er.style.background = "#ececec";
-                        // er.style.border = "2px solid #8f2203";
-                        // er.style.borderRadius = "0px 5px 0px 5px";
+                        let er = document.getElementById("error-alert");
                         er.style.display = "block";
 
                         er.innerHTML = "  <div class=\"alert-heading\">\n" +
@@ -156,6 +156,8 @@ if ($_SESSION['userType'] == 1 ){
 
                     function f() {
 
+                        let cake = document.getElementById("Birthday_cake").checked;
+                        
                         let people = document.getElementById("NumberOfPeople").value;
 
                         let cakeNum = document.getElementById("cakeNum").value;
