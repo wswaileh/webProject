@@ -57,7 +57,7 @@ if (!empty($_POST)) {
         header('Location: register.php?error=2&name=' . $_POST['name'] . '&email=' . $_POST['email'] . '&phone=' . $_POST['phone'] . '&address=' . $_POST['address'] . '&dob=' . $_POST['dob']);
     } elseif (checkEmail($_POST['email']) > 0) {
         header('Location: register.php?error=1&name=' . $_POST['name'] . '&email=' . $_POST['email'] . '&phone=' . $_POST['phone'] . '&address=' . $_POST['address'] . '&dob=' . $_POST['dob']);
-    } elseif (addUser($_POST['name'], $_POST['email'], $_POST['phone'], $_POST['password'], $_POST['adress'], $_POST['dob']) == 1)
+    } elseif (addUser($_POST['name'], $_POST['email'], $_POST['phone'], $_POST['password'], $_POST['address'], $_POST['dob']) == 1)
         header('Location: register.php?added=1');
 
     else  header('Location: register.php?wrong=1&name=' . $_POST['name'] . '&email=' . $_POST['email'] . '&phone=' . $_POST['phone'] . '&address=' . $_POST['address'] . '&dob=' . $_POST['dob'] . '');

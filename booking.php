@@ -8,8 +8,8 @@ include 'model.php';
 <div class="container">
 
 
-    <form method="post" action="confirmation.php" id="form">
-               <table class="picnic-table">
+    <form method="post" action="confirmation.php" id="form" onsubmit="return f();">
+        <table class="picnic-table">
             <thead>
             <tr>
                 <th>Picnic Reference ID</th>
@@ -78,28 +78,42 @@ include 'model.php';
             <tr>
 
                 <td colspan="1"><label style="font-size: 16px">Additions~Birthday cake:</label></td>
+
+
                 <td colspan="1" style="padding-left: 20px">
-                    <div class="tooltip"><input type="checkbox" name="Birthday_cake" value="Birthday Cake">
+                    <div class="tooltip"><input type="checkbox" name="Birthday_cake" value="Birthday Cake"
+                                                placeholder=" " id="Birthday_cake">
                         <span class="tooltiptext">Check the box if you want to add birthday cake to your order!</span>
                     </div>
                 </td>
+
+
                 <td colspan="1">
-                    <div class="tooltip"><input type="number" class="filter-input"
-                                                name="cakeNum" id="cakeNum" placeholder="#People">
-                        <span class="tooltiptext">For how many people do you want the cake?</span>
+                    <div class="tooltip"><input type="number" class="filter-input" min="1" max="50"
+                                                name="cakeNum" id="cakeNum" placeholder=" " disabled>
+                        <label for="cakeNum" class="placeholder-label">#people</label>
+                        <span class="tooltiptext">For how many people do you want the cake? Maximum 50</span>
                     </div>
                 </td>
+
+
                 <td colspan="1">
 
                 </td>
-                <td colspan="3"><input type="number" min="1" max="2"
-                                       class="filter-input"
-                                       name="numOfSeats"
-                                       placeholder="Please Enter Number of People intend to come "
-                                       id="NumberOfPeople"></td>
+
+
+                <td colspan="3">
+                    <div><input type="number" min="1" max="2"
+                                class="filter-input"
+                                name="numOfSeats" id="NumberOfPeople" placeholder=" ">
+                        <label for="NumberOfPeople" class="placeholder-label">Please Enter Number of People intend to
+                            come</label>
+
+                    </div>
+                </td>
 
                 <td colspan="2"><input style="width: 200px" type="submit" name="confirm" value="Confirm The Booking"
-                                       class="button" onclick="f()"><input
+                                       class="button"><input
                             type="hidden" value="<?= $hidden["pid"] ?>"
                             name="pid"><input type="hidden"
                                               value="<?= $hidden["cost"] ?>"
@@ -107,14 +121,62 @@ include 'model.php';
 
                 <script type="text/javascript">
 
+                    var cake = document.getElementById("Birthday_cake").checked;
+
+                    if (cake == true) {
+                        document.getElementById("cakeNum").removeAttribute('disabled');
+                    }
+
+                    function error(body) {
+
+                        let er = document.getElementById("error-alert");
+
+                        // er.style.margin = "30px auto";
+                        // er.style.width = "550px";
+                        // er.style.height = "100px";
+                        // er.style.background = "#ececec";
+                        // er.style.border = "2px solid #8f2203";
+                        // er.style.borderRadius = "0px 5px 0px 5px";
+                        er.style.display = "block";
+
+                        er.innerHTML = "  <div class=\"alert-heading\">\n" +
+                            "                <span></span><h2>Error!</h2>\n" +
+                            "          </div>\n" +
+                            "          <div class=\"inner-msg\">\n" +
+                            "                <p>" + body + "</p>\n" +
+                            "          </div>"
+
+                        return false;
+
+                    }
+
+
                     function f() {
 
-                        let left = (screen.width - 800) / 2;
-                        let top = (screen.height - 600) / 4;
-                        document.getElementById('form').target = "confirmation.php";
-                        let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
+                        let people = document.getElementById("NumberOfPeople").value;
 
-                        document.getElementById('form').submit();
+                        let cakeNum = document.getElementById("cakeNum").value;
+
+
+                        if (cake == true && (cakeNum == null || cakeNum == 0)) {
+
+                            return error("Please assign value for how many people do you want the cake.");
+
+                        }
+
+                        if (people) {
+
+                            let left = (screen.width - 800) / 2;
+                            let top = (screen.height - 600) / 4;
+                            document.getElementById('form').target = "confirmation.php";
+                            let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
+                            document.getElementById("error-alert").style.display = "none";
+
+                            document.getElementById('form').submit();
+                        } else {
+
+                            return error("Please enter how many people intend to come!");
+                        }
                     }
                 </script>
 
@@ -127,6 +189,10 @@ include 'model.php';
 
     </form>
 
+
+    <div id="error-alert">
+
+    </div>
 </div>
 
 </body>

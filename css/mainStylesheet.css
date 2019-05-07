@@ -142,7 +142,6 @@ time {
 /*cards Section*/
 
 
-*,
 *:before,
 *:after {
     box-sizing: border-box;
@@ -244,5 +243,91 @@ time {
 
 .price-option--low .price-option__purchase:before {
     border-color: transparent transparent #a7d155;
+}
+
+/*Inputs Check*/
+
+
+form input[type="text"]:not(:placeholder-shown):valid, form input[type="email"]:not(:placeholder-shown):valid form input[type="password"]:not(:placeholder-shown):valid, form input[type="number"]:not(:placeholder-shown):valid {
+    background: url('../img/checked.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 5px, 20px;
+    padding-left: 10px;
+
+}
+
+
+form input[type="text"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
+    background: url('../img/cancel.svg');
+    background-size: 20px;
+    padding-left: 10px !important;
+    background-repeat: no-repeat;
+    background-position: 5px, 20px;
+}
+
+form input:invalid:focus:not(:placeholder-shown) ~ .requirements {
+    max-height: 200px;
+    padding: 0 30px 20px 50px;
+
+}
+
+.requirements {
+    padding: 0 30px 0 50px;
+    color: #999;
+    max-height: 0;
+    transition: 0.28s;
+    overflow: hidden;
+    color: red;
+    font-style: italic;
+}
+
+
+form div {
+    position: relative;
+}
+
+form div label {
+
+    opacity: 0.4;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+form input:focus ~ .placeholder-label {
+    opacity: 0;
+}
+
+form input:not(:placeholder-shown) ~ .placeholder-label {
+    opacity: 0;
+}
+
+/*Error Handling*/
+div#error-alert {
+    display: none;
+
+    background: #ececec;
+    width: 550px;
+    height: 100px;
+    margin: 30px auto;
+    border: 2px solid #8f2203;
+    border-radius: 0px 5px 0px 5px;
+
+}
+
+div#error-alert .alert-heading {
+    background: #c12d02;
+
+    width: 100%;
+    height: 31px;
+    color: white;
+    margin: 0;
+    position: relative;
+    top: 0px;
+}
+
+div#error-alert p{
+    margin-left:5px;
 }
 
