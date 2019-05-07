@@ -96,10 +96,53 @@ function getbookings()
 }
 
 
-
 function getSchedual()
 {
     global $pdo;
 
     return $pdo->query("select * from scheduledby");
+}
+
+//Customers : login and register
+
+function checkCustomer($email, $password)
+{
+    global $pdo;
+    $res = $pdo->query("select count(*) from customers where email = '" . $email . "' and password = '" . $password . "'");
+
+    return $res->fetchColumn();
+}
+
+function checkManger($email, $password)
+{
+    global $pdo;
+    $res = $pdo->query("select count(*) from manager where email = '" . $email . "' and password = '" . $password . "'");
+
+    return $res->fetchColumn();
+}
+
+function checkEmail($email)
+{
+    global $pdo;
+    $res = $pdo->query("select count(*) from manager where email = '" . $email . "'");
+
+    $count1 = $res->fetchColumn();
+
+    $res = $pdo->query("select count(*) from customers where email = '" . $email . "'");
+
+    $count2 = $res->fetchColumn();
+
+    return ($count2 > $count1) ? $count2 : $count1;
+}
+
+function addUser($name, $email, $phone, $password, $address, $dob)
+{
+
+    global $pdo;
+    $sql = "INSERT INTO customers (name, email, phone ,password,address,DOB)
+VALUES ('" . $name . "','" . $email . "','" . $phone . "','" . $password . "','" . $address . "','" . $dob . "')";
+
+    if ($pdo->exec($sql) === false) {
+        return 0;
+    } else return 1;
 }

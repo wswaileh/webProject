@@ -8,8 +8,8 @@ include 'model.php';
 <div class="container">
 
 
-    <form method="get" action="confirmation.php" target="_blank">
-        <table class="picnic-table">
+    <form method="post" action="confirmation.php" id="form">
+               <table class="picnic-table">
             <thead>
             <tr>
                 <th>Picnic Reference ID</th>
@@ -99,13 +99,24 @@ include 'model.php';
                                        id="NumberOfPeople"></td>
 
                 <td colspan="2"><input style="width: 200px" type="submit" name="confirm" value="Confirm The Booking"
-                                       class="button" onClick="window.open('confirmation.php','Confirm','resizable,height=600,width=800');
-                                       document.getElementById('confirm').submit();
-                                       return false;"><input
+                                       class="button" onclick="f()"><input
                             type="hidden" value="<?= $hidden["pid"] ?>"
                             name="pid"><input type="hidden"
                                               value="<?= $hidden["cost"] ?>"
                                               name="cost"></td>
+
+                <script type="text/javascript">
+
+                    function f() {
+
+                        let left = (screen.width - 800) / 2;
+                        let top = (screen.height - 600) / 4;
+                        document.getElementById('form').target = "confirmation.php";
+                        let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
+
+                        document.getElementById('form').submit();
+                    }
+                </script>
 
             </tr>
 
