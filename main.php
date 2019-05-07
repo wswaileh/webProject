@@ -1,6 +1,7 @@
 <?php
 include 'layout.php';
-$_SESSION['userType'] = 1; //GUEST USER
+if (!isset($_SESSION['userType']))
+    $_SESSION['userType']= 1; //GUEST USER
 ?>
     <nav>
         <a href="customers.php">Customers</a><br>

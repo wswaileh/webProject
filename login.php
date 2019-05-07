@@ -12,21 +12,22 @@ error_reporting(E_ALL);
  	<title>Login</title>
  </head>
  <body>
- 
+
   <div class="form">
     <form class="form1" action="" method="post">       
       <h2 id="h">login</h2>
-      <label>Email : </label><input type="email" name="email" value="<?php echo (isset($_GET['email']) ? $_GET['email'] : ''); ?>" 
-      placeholder="Email Address"  required="" /><?php if(!isset($_GET['password']) && isset($_GET['email']))echo "<sup style="."color:red;margin-left:125px;".";> email doesn't exist </sup>"; ?><br><br>
-      <label>Password :</label><input type="password" name="password" placeholder="Password" required="" /> <?php if((isset($_GET['password']))) echo "<sup style="."color:red;margin-left:125px;"."> wrong password </sup>"; ?>
-
-    
-
-<br><br>
-      <button class="button" type="submit">Login</button>   
+      <label>Email : </label>
+        <input type="email" name="email" placeholder="Email Address"  required="" />
+      <label>Password :</label>
+        <input type="password" name="password" placeholder="Password" required="" />
+        <?php
+        if (isset($_SESSION['message']) and !empty($_SESSION['message']))
+            echo "<p class='ErrorMsg'>".$_SESSION['message']."</p>";
+        unset($_SESSION['message']);
+        ?>
+        <button class="button" type="submit">Login</button>
     </form>
   </div>
-
 
 
  </body>
@@ -36,26 +37,28 @@ error_reporting(E_ALL);
  <?php
 	include 'model.php';
 	
-if(!empty($_POST)) {
+if($_SERVER['REQUEST_METHOD'] === "POST") {
+    //Manager
+    if (checkManger($_POST['email'], $_POST['password']) > 0) {
+        $_SESSION['userType'] = 3;
+        $_SESSION['email'] = $_POST['email'];
+        if (isset( $_SESSION['pageCameFrom']) and !empty( $_SESSION['pageCameFrom']))
+            header("Location:". $_SESSION['pageCameFrom']);
+        else
+            header("Location:main.php");
+    } //Customer
+    elseif (checkCustomer($_POST['email'], $_POST['password']) > 0) {
+        $_SESSION['userType'] = 2;
+        $_SESSION['email'] = $_POST['email'];
+        if (isset( $_SESSION['pageCameFrom']) and !empty( $_SESSION['pageCameFrom']))
+            header("Location:". $_SESSION['pageCameFrom']);
+        else
+            header("Location:main.php");
+    } //Wrong Email / Password
+    else{
+        $_SESSION['message']="Please Check Email/Password.";
+        header("Location:login.php");
+    }
 
-		if(checkEmail($_POST['email']) == 0){
-			header("Location:login.php?email=".$_POST['email']);
-		}
-
-		elseif(checkManger($_POST['email'],$_POST['password']) > 0 ){
- 			$_SESSION['userType'] = 3 ;
- 			header("Location:main.php"); 
-		}
-		elseif(checkCustomer($_POST['email'],$_POST['password'])> 0 ){
- 			$_SESSION['userType'] = 2 ;
- 			header("Location:main.php"); 
-		}
-		else header("Location:login.php?password&email=".$_POST['email']); ;
-			 
-				
-	}
-
-			
-		
+}
 ?>
-
