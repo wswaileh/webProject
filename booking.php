@@ -1,7 +1,10 @@
 <?php
-
 include 'layout.php';
 include 'model.php';
+if ($_SESSION['userType'] == 1 ){
+    $_SESSION['pageCameFrom'] = "booking.php?".$_SERVER["QUERY_STRING"] ;
+    header("Location: Login.php");
+}
 
 ?>
 

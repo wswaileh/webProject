@@ -5,13 +5,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ?>
 
-
-<link rel="stylesheet" href="css/register.css" type="text/css">
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Register</title>
+    <link rel="stylesheet" href="css/register.css" type="text/css">
 </head>
 <body>
 
@@ -39,8 +37,8 @@ error_reporting(E_ALL);
         <label>DOB :</label><input type="date" name="dob" placeholder="Enter birth of date" required=""
                                    value="<?php echo(isset($_GET['dob']) ? $_GET['dob'] : ''); ?>"/><br>
         <button class="button" type="submit">Register
-        </button><?php if (isset($_GET['added'])) echo "<br><br><p style=" . "color:green;margin-left:180px;" . ";> user added succifully</p>";
-        elseif (isset($_GET['wrong'])) echo "<br><br><p style=" . "color:red;margin-left:180px;" . ";> Error 402</p>"; ?>
+        </button><?php if (isset($_GET['added'])) echo "<br><br><p style=" . "color:green;margin-left:180px;" . ";>Registered Successfully!</p>";
+        elseif (isset($_GET['wrong'])) echo "<br><br><p style=" . "color:red;margin-left:180px;" . ";>Error 402</p>"; ?>
     </form>
 </div>
 
@@ -51,7 +49,7 @@ error_reporting(E_ALL);
 
 <?php
 include 'model.php';
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     if ($_POST['password'] != $_POST['cpassword']) {
         header('Location: register.php?error=2&name=' . $_POST['name'] . '&email=' . $_POST['email'] . '&phone=' . $_POST['phone'] . '&address=' . $_POST['address'] . '&dob=' . $_POST['dob']);
