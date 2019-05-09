@@ -157,7 +157,7 @@ if ($_SESSION['userType'] == 1) {
                     function f() {
 
                         let cake = document.getElementById("Birthday_cake").checked;
-                        
+
                         let people = document.getElementById("NumberOfPeople").value;
 
                         let cakeNum = document.getElementById("cakeNum").value;
