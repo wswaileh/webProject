@@ -124,7 +124,7 @@ include 'model.php';
 
                     <label id="prefix">xxx-</label>
                     <input type="text" placeholder="xxx-xxx" id="card-num" name="card-num"
-                           pattern="[0-9][0-9][0-9]-[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9]">
+                           pattern="[0-9]{3}-[0-9]{3}|[0-9]{6}">
                     <input id="card-name" name="card-name" type="hidden">
                     <br><br>
                     <label for="expire-date"
