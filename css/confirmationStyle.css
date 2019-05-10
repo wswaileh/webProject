@@ -1,0 +1,388 @@
+/*Tables*/
+
+body {
+    margin: 0;
+}
+
+.picnic-table {
+
+    position: relative;
+    top: 100px;
+
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.picnic-table td, .picnic-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.picnic-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.picnic-table tr:hover {
+    background-color: #ddd;
+}
+
+.picnic-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #5F5F5F;
+    color: white;
+}
+
+
+/*Pricing*/
+
+
+/*cards Section*/
+
+
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.pricing {
+
+    position: absolute;
+    left: 45%;
+    top: 55%;
+
+
+    font-size: 0;
+    opacity: 1;
+    transition: opacity .2s ease;
+
+    transition: transform 0.4s ease;
+
+}
+
+
+.price-option {
+    display: inline-block;
+    width: 8em;
+    vertical-align: middle;
+    margin-right: 0.3125em;
+    font-size: 16px;
+    opacity: 1;
+    transition: opacity .2s ease;
+    transition: transform 0.4s ease;
+}
+
+.price-option:last-child {
+    margin-right: 0;
+}
+
+.pricing:hover .price-option:hover {
+
+    transform: scale(1.2);
+
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2)
+
+
+}
+
+.price-option__detail {
+    padding: 2em 0;
+    background: #333333;
+    color: white;
+    text-align: center;
+}
+
+.price-option--low .price-option__detail {
+    border-radius: .25em 0 0 0;
+    height: 100px;
+}
+
+.price-option__cost,
+.price-option__type {
+    display: block;
+}
+
+.price-option__cost {
+    font-size: 1.5em;
+    color: white;
+}
+
+.price-option__type {
+    font-size: .7em;
+    text-transform: uppercase;
+    color: white;
+}
+
+.price-option__purchase {
+    position: relative;
+    display: block;
+    padding: .6em;
+    font-size: .875em;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.price-option--low .price-option__purchase {
+    background: #a7d155;
+    border-radius: 0 0 0 .25em;
+}
+
+
+.price-option__purchase:before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    display: block;
+    width: 0;
+    height: 0;
+    margin-left: -5px;
+    border-width: 0 5px 5px;
+    border-style: solid;
+}
+
+.price-option--low .price-option__purchase:before {
+    border-color: transparent transparent #a7d155;
+}
+
+
+/*Modals*/
+.modal-window {
+    position: fixed;
+    background-color: #808080;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.modal-window:target {
+    opacity: 1;
+    display: inline-block;
+    pointer-events: auto;
+}
+
+.modal-window > div {
+
+    border-radius: 20px 0px;
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background-color: #ffffff;
+    margin: 0;
+
+
+}
+
+.modal-window div:not(:last-of-type) {
+    margin-bottom: 15px;
+}
+
+.modal-close {
+    color: black;
+    line-height: 50px;
+    font-size: 30px;
+    position: absolute;
+    right: -50px;
+    text-align: center;
+    top: -20px;
+    width: 70px;
+    text-decoration: none;
+}
+
+.modal-close:hover {
+    color: darkred !important;
+    cursor: pointer;
+}
+
+.modal-title {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: -20px;
+    width: 100%;
+    height: 30px;
+}
+
+.modal-title strong {
+    font-size: 2rem;
+    position: absolute;
+    left: 120px;
+}
+
+.modal-close:hover {
+    color: black;
+}
+
+.modal-body {
+    margin: 20px auto;
+}
+
+.modal-content {
+    margin-left: 30px;
+}
+
+.modal-content input[type="text"] {
+    width: 350px;
+    height: 35px;
+    overflow: hidden;
+    outline: 0;
+    border: 1px black solid;
+    padding: 5px;
+    border-radius: 0px 0px 5px 0px !important;
+}
+
+.modal-content input[type="date"] {
+    width: 200px;
+    height: 35px;
+    overflow: hidden;
+    outline: 0;
+    border: 1px black solid;
+    padding: 5px;
+    border-radius: 0px 0px 5px 0px;
+}
+
+.payment-card {
+    margin-left: 30px;
+    width: 105px;
+    height: 100px;
+    transition: 0.8s ease;
+
+}
+
+.payment-card:hover {
+    border-radius: 50% !important;
+    transform: scale(1.3);
+    background-color: darkred;
+    border-color: #333333 !important;
+    cursor: pointer;
+}
+
+#prefix {
+    padding: 5px;
+    display: inline-block;
+    position: relative;
+    left: 5px;
+    top: -2px;
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid black;
+    border-radius: 5px 0px 0px 5px;
+    height: 23px;
+    width: 50px;
+    font-weight: bold;
+    z-index: 1;
+
+}
+
+.modal-content input[type="text"] input[type="date"] {
+    background: none;
+}
+
+
+.modal-content input[type="text"]:focus {
+    border-color: green;
+}
+
+.modal-content input[type="submit"] {
+    position: relative;
+    left: 120px;
+    height: 35px;
+    width: 200px;
+    background: none;
+    border-color: #333333;
+    font-size: 15px;
+    color: black;
+    border-radius: 15px 0px 15px 0px;
+}
+
+.modal-content input[type="submit"]:hover {
+    background-color: #333333;
+    color: white;
+}
+
+
+#card-num {
+    margin: 0;
+
+}
+
+#expire-date-label {
+    margin-left: 35px;
+    background-color: #eee;
+    color: #555;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 5px 0px 0px 5px;
+    display: inline-block;
+    height: 23px;
+    padding: 5px;
+    position: relative;
+    left: 3px;
+    top: -3px
+}
+
+#expire-date {
+    position: relative;
+    left: -5px;
+    top: -1px;
+    z-index: 0;
+    border-left: 0px !important
+}
+
+#bank-label {
+    margin-left: 35px;
+    background-color: #eee;
+    font-weight: bold;
+    color: #555;
+    border: 1px solid black;
+    border-radius: 5px 0px 0px 5px;
+    display: inline-block;
+    height: 23px;
+    width: 46px;
+    z-index: 1;
+    padding: 5px;
+    position: relative;
+    left: 5px;
+    top: -2px;
+}
+
+#bank {
+    position: relative;
+    left: 0px;
+    width: 350px;
+
+}
+
+.modal-content input:valid {
+    background: none;
+}
+
+
+form input[type="text"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
+    background: url('../img/icons/cancel.svg') no-repeat;
+    background-size: 20px;
+    padding-left: 10px !important;
+    background-position: 5px, 20px;
+}
+
+

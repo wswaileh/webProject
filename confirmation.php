@@ -3,7 +3,8 @@ include 'model.php';
 ?>
 <html>
 <head>
-    <link rel="stylesheet" href="css/mainStylesheet.css" type="text/css">
+    <link rel="stylesheet" href="css/confirmationStyle.css" type="text/css">
+
     <title>Confirm You order!</title>
 </head>
 
@@ -42,6 +43,7 @@ include 'model.php';
         <tr><?php
             $desc = array();
             $time = array();
+            $cost = 0;
             foreach ($keys as $i) {
 
                 if ($row[$i] == "description") {
@@ -50,10 +52,9 @@ include 'model.php';
                 }
 
                 if ($i == "pid") {
-                    $hidden["pid"] = $row[$i];
                     echo "<td style='padding-left: 80px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
                 } else if ($i == "cost") {
-                    $hidden["cost"] = $row[$i];
+                    $cost = $row[$i];
                     ?>
                     <td style="padding-left: 40px"><?= $row[$i] ?> &#8362;</td><?php
                 } else if (strpos($i, "time")) {
@@ -96,17 +97,92 @@ include 'model.php';
         <div class="[ price-option price-option--low ]">
             <div class="price-option__detail">
                 <span class="price-option__cost"> <?php
+<<<<<<< HEAD
                     if (isset($_POST['cost']) && isset($_POST['Birthday_cake']) && isset($_POST['cakeNum']) && isset($_POST['numOfSeats'])) {
                         echo ($_POST['cost'] * $_POST['numOfSeats']) + ($_POST['cakeNum'] * 20) . "&#8362;";
+=======
+                    if (isset($cost) && isset($_POST['Birthday_cake']) && isset($_POST['numOfSeats'])) {
+                        echo ($cost * $_POST['numOfSeats']) + ($_POST['numOfSeats'] * 20) . "&#8362;";
+                    } else if (isset($cost)) {
+                        echo ($cost * $_POST['numOfSeats']) . "&#8362;";
+>>>>>>> 96da0631515f4528486ce8e67f2334e64e1a0fae
                     }
                     ?></span>
                 <span class="price-option__type">Total Cost</span>
             </div>
-            <a href="#" class="price-option__purchase">Confirm</a>
+            <a href="#checkoutModal" class="price-option__purchase">Confirm</a>
         </div>
+    </div>
+</div>
+
+<div class="modal-window" id="checkoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div>
+        <div class="modal-title"><strong>Picnic-Checkout</strong><a href="#"><span class="modal-close">×</span></a>
+        </div>
+
+        <div class="modal-body">
+
+            <form action="booking.php" method="post" id="checkout-form">
+
+                <img src="img/icons/visa.svg" id="visa" class="payment-card" onclick="changePrefixVisa()">
+                <img src="img/icons/mastercard.svg" id="mastercard" class="payment-card" onclick="changePrefixMaster()">
+                <img src="img/icons/american-express.svg" id="american-express" class="payment-card"
+                     onclick="changePrefixAmerican()">
+
+                <br/>
+                <br>
+                <hr>
+                <br>
+                <span class="modal-content">
+
+
+                    <label id="prefix">xxx-</label>
+                    <input type="text" placeholder="xxx-xxx" id="card-num" name="card-num"
+                           pattern="[0-9][0-9][0-9]-[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9]">
+                    <input id="card-name" name="card-name" type="hidden">
+                    <br><br>
+                    <label for="expire-date"
+                           id="expire-date-label">Expire-Date</label>
+                    <input type="date" name="expire-date"
+                           id="expire-date">
+                    <br><br>
+
+                    <label id="bank-label">Bank</label>
+                    <input type="text" placeholder="Bank Issued" name="bank" id="bank">
+                    <br><br>
+
+                    <input type="submit" value="Checkout" name="checkout">
+
+                    </span>
+            </form>
+
+        </div>
+
     </div>
 </div>
 </body>
 
+<script type="text/javascript">
+
+    function changePrefixVisa() {
+        document.getElementById("prefix").innerHTML = "4444-";
+        document.getElementById("card-name").value = "Visa";
+
+    }
+
+    function changePrefixMaster() {
+        document.getElementById("prefix").innerHTML = "5555-";
+        document.getElementById("card-name").value = "Master";
+
+    }
+
+    function changePrefixAmerican() {
+        document.getElementById("prefix").innerHTML = "6666-";
+        document.getElementById("card-name").value = "American";
+
+    }
+
+
+</script>
 
 </html>
