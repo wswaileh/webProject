@@ -1,5 +1,5 @@
 <?php
-session_name("name");
+
 session_start();
 ?>
 <!DOCTYPE html>
@@ -15,4 +15,4 @@ session_start();
 </head>
 <body>
     <?php require 'navbar.php';
-            require 'footer.php'?>
+          #  require 'footer.php'?>
