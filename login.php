@@ -54,6 +54,7 @@ if(!empty($_POST)) {
 		}
 		elseif(checkCustomer($_POST['email'],$_POST['password'])> 0 ){
  			$_SESSION['userType'] = 2 ;
+            $_SESSION['email'] = $_POST['email'];
  			header("Location:main.php"); 
 		}
 		else {

@@ -1,5 +1,7 @@
 <?php
 include 'model.php';
+session_name("name");
+session_start();
 ?>
 <html>
 <head>
@@ -16,7 +18,7 @@ include 'model.php';
             <th>Picnic Reference ID</th>
             <th>Place</th>
             <th>Date</th>
-            <th>Description</th>
+            <th>Number of Guests</th>
             <th>Cost per one</th>
             <th>Departure Time</th>
             <th>Departure Location</th>
@@ -41,22 +43,32 @@ include 'model.php';
         ?>
 
         <tr><?php
-            $desc = array();
+
             $time = array();
             $cost = 0;
+            $seats = 0;
+            $additions = "";
+            $invoice = 0;
+            $date = date("Y-m-d");
+            $pid = 0;
             foreach ($keys as $i) {
 
-                if ($row[$i] == "description") {
-                    $desc = explode(',', $row[$i]);
-                    $row[$i] = $desc[0];
+                if ($i == "description") {
+
+                    if (isset($_POST['numOfSeats'])) {
+
+                        echo "<td style='padding-left: 40px;font-size: 1.2pc'>" . $_POST['numOfSeats'] . "</td>";
+                        continue;
+                    }
                 }
 
                 if ($i == "pid") {
-                    echo "<td style='padding-left: 80px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
+                    $pid = $row[$i];
+                    echo "<td style='padding-left: 40px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
                 } else if ($i == "cost") {
                     $cost = $row[$i];
                     ?>
-                    <td style="padding-left: 40px"><?= $row[$i] ?> &#8362;</td><?php
+                    <td style="padding-left: 25px"><?= $row[$i] ?> &#8362;</td><?php
                 } else if (strpos($i, "time")) {
                     $time = explode(":", $row[$i]);
                     unset($time[2]);
@@ -77,7 +89,7 @@ include 'model.php';
 
         <tr>
 
-            <td colspan="2"><strong>Total Cost: </strong></td>
+            <td colspan="2"></td>
             <td colspan="1" style="padding-left: 10px;font-size: 16px">
 
             </td>
@@ -99,11 +111,18 @@ include 'model.php';
                 <span class="price-option__cost"> <?php
 
                     if (isset($cost) && isset($_POST['Birthday_cake']) && isset($_POST['numOfSeats'])) {
+
+                        $additions = "Birthday-Cake for " . $_POST['numOfSeats'];
+                        $invoice = ($cost * $_POST['numOfSeats']) + ($_POST['numOfSeats'] * 20);
                         echo ($cost * $_POST['numOfSeats']) + ($_POST['numOfSeats'] * 20) . "&#8362;";
                     } else if (isset($cost)) {
+                        $additions = "None";
+                        $invoice = ($cost * $_POST['numOfSeats']);
                         echo ($cost * $_POST['numOfSeats']) . "&#8362;";
 
                     }
+
+                    $seats = $_POST['numOfSeats']
                     ?></span>
                 <span class="price-option__type">Total Cost</span>
             </div>
@@ -119,10 +138,11 @@ include 'model.php';
 
         <div class="modal-body">
 
-            <form action="booking.php" method="post" id="checkout-form">
+            <form action="checkout-temp.php" method="post" id="checkout-form">
 
                 <img src="img/icons/visa.svg" id="visa" class="payment-card" onclick="changePrefixVisa()">
-                <img src="img/icons/mastercard.svg" id="mastercard" class="payment-card" onclick="changePrefixMaster()">
+                <img src="img/icons/mastercard.svg" id="mastercard" class="payment-card"
+                     onclick="changePrefixMaster()">
                 <img src="img/icons/american-express.svg" id="american-express" class="payment-card"
                      onclick="changePrefixAmerican()">
 
@@ -130,25 +150,33 @@ include 'model.php';
                 <br>
                 <hr>
                 <br>
-                <span class="modal-content">
+                <span class="modal-content" id="content" style="display: none">
 
 
                     <label id="prefix">xxx-</label>
                     <input type="text" placeholder="xxx-xxx" id="card-num" name="card-num"
                            pattern="[0-9]{3}-[0-9]{3}|[0-9]{6}">
+                           <br> <sup class="modal-errors" id="card-error">Please Enter 6-digit valid number xxx-xxx or xxxxxx</sup>
                     <input id="card-name" name="card-name" type="hidden">
                     <br><br>
                     <label for="expire-date"
                            id="expire-date-label">Expire-Date</label>
                     <input type="date" name="expire-date"
                            id="expire-date">
+                    <br><sup class="modal-errors" id="date-error">Please Enter Expire Date</sup>
                     <br><br>
 
                     <label id="bank-label">Bank</label>
                     <input type="text" placeholder="Bank Issued" name="bank" id="bank">
+                        <input type="hidden" name="invoice" value="<?= $invoice ?>">
+                        <input type="hidden" name="additions" value="<?= $additions ?>">
+                        <input type="hidden" name="date" value="<?= $date ?>">
+                        <input type="hidden" name="seats" value="<?= $seats ?>">
+                        <input type="hidden" name="pid" value="<?= $pid ?>">
+                     <br><sup class="modal-errors" id="bank-error">Please Enter Bank issued with card</sup>
                     <br><br>
 
-                    <input type="submit" value="Checkout" name="checkout">
+                    <input type="submit" value="Checkout" name="checkout" onclick="return validate()">
 
                     </span>
             </form>
@@ -161,21 +189,57 @@ include 'model.php';
 
 <script type="text/javascript">
 
+
+    function validate() {
+
+        let cardNum = document.getElementById("card-num");
+        let expire_date = document.getElementById("expire-date");
+        let bank = document.getElementById("bank");
+
+        let state = true;
+
+        if (!cardNum.value) {
+            document.getElementById("card-error").style.display = "inline";
+            state = false;
+        }
+        if (!expire_date.value) {
+            document.getElementById("date-error").style.display = "inline";
+
+            state = false;
+        }
+        if (!bank.value) {
+            document.getElementById("bank-error").style.display = "inline";
+
+            state = false;
+        }
+
+        if (!state) {
+            return false;
+        }
+        return true;
+    }
+
     function changePrefixVisa() {
         document.getElementById("prefix").innerHTML = "4444-";
-        document.getElementById("card-name").value = "Visa";
+        document.getElementById("card-name").value = "Visa/4444";
+        document.getElementById("content").style.display = "block";
+
 
     }
 
     function changePrefixMaster() {
         document.getElementById("prefix").innerHTML = "5555-";
-        document.getElementById("card-name").value = "Master";
+        document.getElementById("card-name").value = "Master/5555";
+        document.getElementById("content").style.display = "block";
+
 
     }
 
     function changePrefixAmerican() {
         document.getElementById("prefix").innerHTML = "6666-";
-        document.getElementById("card-name").value = "American";
+        document.getElementById("card-name").value = "American/6666";
+        document.getElementById("content").style.display = "block";
+
 
     }
 

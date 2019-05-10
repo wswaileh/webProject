@@ -179,7 +179,7 @@ body {
 
     border-radius: 20px 0px;
     width: 500px;
-    height: 400px;
+    height: 480px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -377,12 +377,34 @@ body {
     background: none;
 }
 
-
-form input[type="text"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
-    background: url('../img/icons/cancel.svg') no-repeat;
-    background-size: 20px;
-    padding-left: 10px !important;
-    background-position: 5px, 20px;
+.modal-errors {
+    color: red;
+    display: none;
+    position: relative;
+    left: 35px;
 }
 
 
+#checkout-form input[type="text"]:not(:placeholder-shown):valid {
+    background: url('../img/icons/checked.svg') no-repeat;
+    background-size: 20px;
+    background-position: 325px, 20px;
+    padding-right: 10px !important;
+
+}
+
+#checkout-form input[type="text"]:not(:placeholder-shown) ~ sup {
+    display: none !important;
+}
+
+#checkout-form input:not(:placeholder-shown):valid + sup, #checkout-form input:focus ~ sup {
+    display: none !important;
+}
+
+
+form input[type="text"]:not(:placeholder-shown):invalid {
+    background: url('../img/icons/cancel.svg') no-repeat;
+    background-size: 20px;
+    padding-left: 10px !important;
+    background-position: 325px, 20px;
+}

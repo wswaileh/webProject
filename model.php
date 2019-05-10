@@ -144,11 +144,11 @@ function checkEmail($email)
     return ($count2 > $count1) ? $count2 : $count1;
 }
 
-function addUser($name, $email,$username, $phone, $password, $address, $dob,$id)
+function addUser($name, $email, $username, $phone, $password, $address, $dob, $id)
 {
     global $pdo;
     $sql = "INSERT INTO customers (cid , name, email,username, phone ,password,address,DOB)
-VALUES ('" . $id . "','" . $name . "','" . $email . "','" .$username ."','" . $phone . "','" . $password . "','" . $address . "','" . $dob . "')";
+VALUES (" . $id . ",'" . $name . "','" . $email . "','" . $username . "','" . $phone . "','" . $password . "','" . $address . "','" . $dob . "')";
 
     if ($pdo->exec($sql) === false) {
         return 0;
@@ -162,7 +162,7 @@ function checkId($id)
     $res = $pdo->query("select count(*) from customers where cid = '" . $id . "'");
 
     $count1 = $res->fetchColumn();
-    return $count1 ;
+    return $count1;
 }
 
 function checkUsername($username)
@@ -172,26 +172,72 @@ function checkUsername($username)
 
     $count1 = $res->fetchColumn();
 
-   return $count1 ;
+    return $count1;
 }
 
 function firstEntry()
 {
     global $pdo;
-    $res = $pdo->query("select count(*) from customers" );
+    $res = $pdo->query("select count(*) from customers");
 
     $count1 = $res->fetchColumn();
 
-   return ($count1 == 0 ) ;
+    return ($count1 == 0);
 }
 
-function findIdForCustomer(){
+function findIdForCustomer()
+{
 
-global $pdo;
-    $res = $pdo->query("SELECT MAX(cid) FROM customers" );
+    global $pdo;
+    $res = $pdo->query("SELECT MAX(cid) FROM customers");
 
     $id = $res->fetchColumn();
 
-   return $id ;
+    return $id;
+
+}
+
+function addCredit($name, $num, $date, $bank)
+{
+
+    global $pdo;
+    $sql = "INSERT INTO credit (name, num,expiredate, bank)
+VALUES ('" . $name . "'," . $num . ",'" . $date . "','" . $bank . "')";
+
+    if ($pdo->exec($sql) === false) {
+        return 0;
+    } else return 1;
+
+}
+
+function getCreditByNum($num)
+{
+
+    global $pdo;
+
+    $sql = "select rid from credit where num = " . $num . ";";
+
+    return $pdo->query($sql);
+}
+
+function getCreditId()
+{
+
+    global $pdo;
+
+    $sql = "select max(rid) from credit";
+
+    return $pdo->query($sql);
+}
+
+function book($pid, $cid, $date, $rid, $additions, $invoice, $pnum)
+{
+    global $pdo;
+    $sql = "INSERT INTO book (pid, cid,date , rid , additions , invoice , pnum)
+VALUES (" . $pid . "," . $cid . ",'" . $date . "'," . $rid . ", '" . $additions . "' , " . $invoice . " , " . $pnum . ")";
+
+    if ($pdo->exec($sql) === false) {
+        return 0;
+    } else return 1;
 
 }
