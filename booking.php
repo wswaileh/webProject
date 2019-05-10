@@ -38,7 +38,7 @@ if ($_SESSION['userType'] == 1) {
 
             $keys = ["pid", "place", "date", "description", "cost", "departuretime", "departurelocation", "arrivaltime", "returntime"];
 
-            $hidden = ["pid", "cost"];
+            $hidden = ["pid"];
             if ($row = $res->fetch()) {
 
             ?>
@@ -57,7 +57,7 @@ if ($_SESSION['userType'] == 1) {
                         $hidden["pid"] = $row[$i];
                         echo "<td style='padding-left: 80px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
                     } else if ($i == "cost") {
-                        $hidden["cost"] = $row[$i];
+
                         ?>
                         <td style="padding-left: 40px"><?= $row[$i] ?> &#8362;</td><?php
                     } else if (strpos($i, "time")) {
@@ -92,11 +92,7 @@ if ($_SESSION['userType'] == 1) {
 
 
                 <td colspan="1">
-                    <div class="tooltip"><input type="number" class="filter-input" min="1" max="50"
-                                                name="cakeNum" id="cakeNum" placeholder=" " disabled>
-                        <label for="cakeNum" class="placeholder-label">#people</label>
-                        <span class="tooltiptext">For how many people do you want the cake? Maximum 50</span>
-                    </div>
+
                 </td>
 
 
@@ -118,26 +114,11 @@ if ($_SESSION['userType'] == 1) {
                 <td colspan="2"><input style="width: 200px" type="submit" name="confirm" value="Confirm The Booking"
                                        class="button"><input
                             type="hidden" value="<?= $hidden["pid"] ?>"
-                            name="pid"><input type="hidden"
-                                              value="<?= $hidden["cost"] ?>"
-                                              name="cost"></td>
+                            name="pid"></td>
 
                 <script type="text/javascript">
 
-
-                    function checkCake() {
-
-                        let cake = document.getElementById("Birthday_cake").checked;
-
-                        if (cake == true)
-                            document.getElementById("cakeNum").disabled = false;
-                        else
-                            document.getElementById("cakeNum").disabled = true;
-                    }
-
-
                     function error(body) {
-
 
                         let er = document.getElementById("error-alert");
                         er.style.display = "block";
@@ -159,15 +140,6 @@ if ($_SESSION['userType'] == 1) {
                         let cake = document.getElementById("Birthday_cake").checked;
 
                         let people = document.getElementById("NumberOfPeople").value;
-
-                        let cakeNum = document.getElementById("cakeNum").value;
-
-
-                        if (cake == true && (cakeNum == null || cakeNum == 0)) {
-
-                            return error("Please assign value for how many people do you want the cake.");
-
-                        }
 
                         if (people) {
 

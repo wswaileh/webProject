@@ -21,6 +21,14 @@ function getmanagers()
     return $pdo->query("select * from manager");
 }
 
+function getCustomerIdByEmail($email)
+{
+
+    global $pdo;
+
+    return $pdo->query("select * from customers where email = '" . $email . "';");
+}
+
 function getcustomers()
 {
     global $pdo;
