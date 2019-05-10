@@ -9,7 +9,7 @@ include 'model.php';
 
 
     <form method="post" action="confirmation.php" id="form">
-               <table class="picnic-table">
+        <table class="picnic-table">
             <thead>
             <tr>
                 <th>Picnic Reference ID</th>
@@ -84,14 +84,12 @@ include 'model.php';
                     </div>
                 </td>
                 <td colspan="1">
-<<<<<<< HEAD
+
                     <div class="tooltip"><input type="number" class="filter-input"
                                                 name="cakeNum" id="cakeNum" placeholder="#People">
                         <span class="tooltiptext">For how many people do you want the cake?</span>
                     </div>
-=======
 
->>>>>>> 96da0631515f4528486ce8e67f2334e64e1a0fae
                 </td>
                 <td colspan="1">
 
@@ -109,7 +107,6 @@ include 'model.php';
 
                 <script type="text/javascript">
 
-<<<<<<< HEAD
                     function f() {
 
                         let left = (screen.width - 800) / 2;
@@ -118,45 +115,44 @@ include 'model.php';
                         let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
 
                         document.getElementById('form').submit();
-=======
-                    function error(body) {
 
-                        let er = document.getElementById("error-alert");
-                        er.style.display = "block";
+                        function error(body) {
 
-                        er.innerHTML = "  <div class=\"alert-heading\">\n" +
-                            "                <span></span><h2>Error!</h2>\n" +
-                            "          </div>\n" +
-                            "          <div class=\"inner-msg\">\n" +
-                            "                <p>" + body + "</p>\n" +
-                            "          </div>"
+                            let er = document.getElementById("error-alert");
+                            er.style.display = "block";
 
-                        return false;
+                            er.innerHTML = "  <div class=\"alert-heading\">\n" +
+                                "                <span></span><h2>Error!</h2>\n" +
+                                "          </div>\n" +
+                                "          <div class=\"inner-msg\">\n" +
+                                "                <p>" + body + "</p>\n" +
+                                "          </div>"
 
-                    }
+                            return false;
 
-
-                    function f() {
-
-                        let cake = document.getElementById("Birthday_cake").checked;
-
-                        let people = document.getElementById("NumberOfPeople").value;
-
-                        if (people) {
-
-                            let left = (screen.width - 800) / 2;
-                            let top = (screen.height - 600) / 4;
-                            document.getElementById('form').target = "confirmation.php";
-                            let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
-                            document.getElementById("error-alert").style.display = "none";
-
-                            document.getElementById('form').submit();
-                        } else {
-
-                            return error("Please enter how many people intend to come!");
                         }
->>>>>>> 96da0631515f4528486ce8e67f2334e64e1a0fae
-                    }
+
+
+                        function f() {
+
+                            let cake = document.getElementById("Birthday_cake").checked;
+
+                            let people = document.getElementById("NumberOfPeople").value;
+
+                            if (people) {
+
+                                let left = (screen.width - 800) / 2;
+                                let top = (screen.height - 600) / 4;
+                                document.getElementById('form').target = "confirmation.php";
+                                let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
+                                document.getElementById("error-alert").style.display = "none";
+
+                                document.getElementById('form').submit();
+                            } else {
+
+                                return error("Please enter how many people intend to come!");
+                            }
+                        }
                 </script>
 
             </tr>
