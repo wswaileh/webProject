@@ -34,22 +34,22 @@ body {
     position: relative;
     padding: 10px;
     margin-bottom: 10px;
-    font-family: "Roboto", sans-serif;
+        font-family: "Roboto", sans-serif;
   }
 
   
   #h{
+    margin-left: 100px;
     text-transform: uppercase;
     color: #448aff;
     font-size: 30px;
     font-family: "Times New Roman";
-    text-align: center;
   }
 
 
 .button {
-    display: block;
-    margin: 0 auto 0 auto;
+    margin-left: 120px;
+    margin-top: 20px;
     color: #fff;
     background-color: #448aff;
     width: 250px;
@@ -66,10 +66,4 @@ form button:hover {
 
 input:focus {
   outline: 2px solid green;
-}
-
-
-.ErrorMsg{
-    color: red;
-    font-size: 0.9em;
 }

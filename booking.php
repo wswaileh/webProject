@@ -1,18 +1,15 @@
 <?php
+
 include 'layout.php';
 include 'model.php';
-if ($_SESSION['userType'] == 1) {
-    $_SESSION['pageCameFrom'] = "booking.php?" . $_SERVER["QUERY_STRING"];
-    header("Location: Login.php");
-}
 
 ?>
 
 <div class="container">
 
 
-    <form method="post" action="confirmation.php" id="form" onsubmit="return f();">
-        <table class="picnic-table">
+    <form method="post" action="confirmation.php" id="form">
+               <table class="picnic-table">
             <thead>
             <tr>
                 <th>Picnic Reference ID</th>
@@ -81,43 +78,47 @@ if ($_SESSION['userType'] == 1) {
             <tr>
 
                 <td colspan="1"><label style="font-size: 16px">Additions~Birthday cake:</label></td>
-
-
                 <td colspan="1" style="padding-left: 20px">
-                    <div class="tooltip"><input type="checkbox" name="Birthday_cake" value="Birthday Cake"
-                                                placeholder=" " id="Birthday_cake" onclick="checkCake()">
+                    <div class="tooltip"><input type="checkbox" name="Birthday_cake" value="Birthday Cake">
                         <span class="tooltiptext">Check the box if you want to add birthday cake to your order!</span>
                     </div>
                 </td>
-
-
                 <td colspan="1">
-
-                </td>
-
-
-                <td colspan="1">
-
-                </td>
-
-
-                <td colspan="3">
-                    <div><input type="number" min="1" max="2"
-                                class="filter-input"
-                                name="numOfSeats" id="NumberOfPeople" placeholder=" ">
-                        <label for="NumberOfPeople" class="placeholder-label">Please Enter Number of People intend to
-                            come</label>
-
+<<<<<<< HEAD
+                    <div class="tooltip"><input type="number" class="filter-input"
+                                                name="cakeNum" id="cakeNum" placeholder="#People">
+                        <span class="tooltiptext">For how many people do you want the cake?</span>
                     </div>
+=======
+
+>>>>>>> 96da0631515f4528486ce8e67f2334e64e1a0fae
                 </td>
+                <td colspan="1">
+
+                </td>
+                <td colspan="3"><input type="number" min="1" max="2"
+                                       class="filter-input"
+                                       name="numOfSeats"
+                                       placeholder="Please Enter Number of People intend to come "
+                                       id="NumberOfPeople"></td>
 
                 <td colspan="2"><input style="width: 200px" type="submit" name="confirm" value="Confirm The Booking"
-                                       class="button"><input
+                                       class="button" onclick="f()"><input
                             type="hidden" value="<?= $hidden["pid"] ?>"
                             name="pid"></td>
 
                 <script type="text/javascript">
 
+<<<<<<< HEAD
+                    function f() {
+
+                        let left = (screen.width - 800) / 2;
+                        let top = (screen.height - 600) / 4;
+                        document.getElementById('form').target = "confirmation.php";
+                        let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
+
+                        document.getElementById('form').submit();
+=======
                     function error(body) {
 
                         let er = document.getElementById("error-alert");
@@ -154,6 +155,7 @@ if ($_SESSION['userType'] == 1) {
 
                             return error("Please enter how many people intend to come!");
                         }
+>>>>>>> 96da0631515f4528486ce8e67f2334e64e1a0fae
                     }
                 </script>
 
@@ -166,10 +168,6 @@ if ($_SESSION['userType'] == 1) {
 
     </form>
 
-
-    <div id="error-alert">
-
-    </div>
 </div>
 
 </body>

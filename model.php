@@ -1,4 +1,5 @@
 <?php
+
 $server = "localhost";
 $username = "root";
 $password = "";
@@ -143,14 +144,54 @@ function checkEmail($email)
     return ($count2 > $count1) ? $count2 : $count1;
 }
 
-function addUser($name, $email, $phone, $password, $address, $dob)
+function addUser($name, $email,$username, $phone, $password, $address, $dob,$id)
 {
-
     global $pdo;
-    $sql = "INSERT INTO customers (name, email, phone ,password,address,DOB)
-VALUES ('" . $name . "','" . $email . "','" . $phone . "','" . $password . "','" . $address . "','" . $dob . "')";
+    $sql = "INSERT INTO customers (cid , name, email,username, phone ,password,address,DOB)
+VALUES ('" . $id . "','" . $name . "','" . $email . "','" .$username ."','" . $phone . "','" . $password . "','" . $address . "','" . $dob . "')";
 
     if ($pdo->exec($sql) === false) {
         return 0;
     } else return 1;
+}
+
+
+function checkId($id)
+{
+    global $pdo;
+    $res = $pdo->query("select count(*) from customers where cid = '" . $id . "'");
+
+    $count1 = $res->fetchColumn();
+    return $count1 ;
+}
+
+function checkUsername($username)
+{
+    global $pdo;
+    $res = $pdo->query("select count(*) from customers where username = '" . $username . "'");
+
+    $count1 = $res->fetchColumn();
+
+   return $count1 ;
+}
+
+function firstEntry()
+{
+    global $pdo;
+    $res = $pdo->query("select count(*) from customers" );
+
+    $count1 = $res->fetchColumn();
+
+   return ($count1 == 0 ) ;
+}
+
+function findIdForCustomer(){
+
+global $pdo;
+    $res = $pdo->query("SELECT MAX(cid) FROM customers" );
+
+    $id = $res->fetchColumn();
+
+   return $id ;
+
 }

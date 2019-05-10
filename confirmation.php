@@ -77,7 +77,16 @@ include 'model.php';
 
         <tr>
 
-            <td colspan="9"></td>
+            <td colspan="2"><strong>Total Cost: </strong></td>
+            <td colspan="1" style="padding-left: 10px;font-size: 16px">
+
+            </td>
+            <td colspan="1">
+
+            </td>
+            <td colspan="5">
+
+            </td>
         </tr>
 
         </tbody>
@@ -88,10 +97,15 @@ include 'model.php';
         <div class="[ price-option price-option--low ]">
             <div class="price-option__detail">
                 <span class="price-option__cost"> <?php
+<<<<<<< HEAD
+                    if (isset($_POST['cost']) && isset($_POST['Birthday_cake']) && isset($_POST['cakeNum']) && isset($_POST['numOfSeats'])) {
+                        echo ($_POST['cost'] * $_POST['numOfSeats']) + ($_POST['cakeNum'] * 20) . "&#8362;";
+=======
                     if (isset($cost) && isset($_POST['Birthday_cake']) && isset($_POST['numOfSeats'])) {
                         echo ($cost * $_POST['numOfSeats']) + ($_POST['numOfSeats'] * 20) . "&#8362;";
                     } else if (isset($cost)) {
                         echo ($cost * $_POST['numOfSeats']) . "&#8362;";
+>>>>>>> 96da0631515f4528486ce8e67f2334e64e1a0fae
                     }
                     ?></span>
                 <span class="price-option__type">Total Cost</span>
