@@ -32,9 +32,7 @@ if (isset($_GET['new'])){session_destroy() ;
   </div>
 
 
-
- </body>
- </html>
+  <?php require 'footer.php'?>
  
 
  <?php

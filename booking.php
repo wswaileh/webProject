@@ -149,5 +149,4 @@ include 'model.php';
 
 </div>
 
-</body>
-</html>
+<?php require 'footer.php'?>

@@ -1,5 +1,4 @@
 <?php
-
 session_name("name");
 session_start();
 ?>
@@ -15,5 +14,6 @@ session_start();
 
     </head>
     <body>
-<?php require 'navbar.php';
-#  require 'footer.php'?>
+    <div style="position: relative; min-height: 100vh">
+        <?php require 'navbar.php' ?>
+        <div style="  padding-bottom: 2.5rem;    /* Footer height */">
