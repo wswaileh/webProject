@@ -89,20 +89,24 @@ include 'model.php';
 
             }
 
-            $cidResult = getCustomerIdByEmail($_SESSION['email']);
-            $cid = 0;
-
-            if ($i = $cidResult->fetch()) {
-                $cid = $i['cid'];
-            }
-
-            $subRes = getCustomerBooks($cid);
             $pids = array();
+            if (isset($_SESSION['email'])) {
+                $cidResult = getCustomerIdByEmail($_SESSION['email']);
+                $cid = 0;
 
-            while ($i = $subRes->fetch()) {
-                $pids[] = $i['pid'];
+                if ($i = $cidResult->fetch()) {
+                    $cid = $i['cid'];
+                }
+
+                $subRes = getCustomerBooks($cid);
+
+
+
+                while ($i = $subRes->fetch()) {
+                    $pids[] = $i['pid'];
+                }
+
             }
-            $k = 0;
 
             $pages = ceil($rowsNum / $RecordsPerPage);
 
@@ -214,6 +218,6 @@ include 'model.php';
     </div>
 </div>
 
-<?php require 'footer.php'?>
+<?php require 'footer.php' ?>
 
 
