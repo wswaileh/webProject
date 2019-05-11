@@ -2,10 +2,11 @@
     <a href="main.php" id="companyTitle">LafLef</a>
     <div class="links">
         <a href="main.php">Main</a>
+        <a href="picnics.php">Picnics</a>
         <?php
             if (!isset($_SESSION['userType']) ||  $_SESSION['userType'] == 1) //GUEST         LINKS MUST BE UPDATED LATER
                 echo '
-                    <a href="main.php">About Us</a>
+                    <a href="aboutUs.php">About Us</a>
                     <a href="register.php?new">Register</a>
                     <a href="login.php?new">Login</a>
                 ';
