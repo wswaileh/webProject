@@ -14,14 +14,14 @@ include 'model.php';
 
             <tr>
                 <td colspan="3"><input class="filter-input" id="filter-place" type="text" name="place"
-                                       placeholder="Search for certain place..." onkeyup="myFunction()">
+                                       placeholder="Search for certain place..." onkeyup="myFunction()" pattern="[A-Za-z]*">
 
                 </td>
 
                 <td colspan="1"><input class="filter-input" id="filter-date" type="date" name="date"
                                        placeholder="Search for certain date..."></td>
 
-                <td colspan="1"><input class="filter-input " id="filter-place" type="text" name="NumOfPages"
+                <td colspan="1"><input class="filter-input " id="filter-place" type="number" name="NumOfPages"
                                        placeholder="# of records per page To display"></td>
                 <td colspan="1"><input class="button" id="filter-submit" type="submit" value="Filter" name="filter"
                     ></td>
@@ -204,7 +204,7 @@ include 'model.php';
                         echo "<td><a href='booking.php?id=" . $row['pid'] . "' class='button' style='text-decoration:none;padding-top:5px'>Book Now</a> |<span style='color: red'>" . ($capacity - $bookers) . " " . $seat . " Left </span></td></tr>";
                     } else if ($capacity != $bookers)
                         echo "<td><a href='booking.php?id=" . $row['pid'] . "' class='button' style='text-decoration:none;padding-top:5px'>Book Now</a></td></tr>";
-                } else {
+                } else if ($_SESSION['userType'] == 3) {
 
 
                     if ($bookers != $capacity)

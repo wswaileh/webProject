@@ -20,7 +20,7 @@ error_reporting(E_ALL);
 
 <div class="form">
 	 <h2 id="h"> Add Picnic</h2>
-    <form action="#"" method="POST" enctype="multipart/form-data"">      
+    <form action="#" method="POST" enctype="multipart/form-data">
      
       <label>Title : </label><input type="text" name="title"
       placeholder="Picnic Ttile"  required="" />
@@ -56,7 +56,7 @@ error_reporting(E_ALL);
 
       <label>Date : </label><input type="date" name="date"
       placeholder="Picnic  Date"  required="" />
-"
+
         <label>image1 : </label><input type="file" name="image1" />
         <label>image2 : </label><input type="file" name="image2" />
         <label>image3 : </label><input type="file" name="image3" />

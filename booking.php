@@ -3,6 +3,11 @@
 include 'layout.php';
 include 'model.php';
 
+if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
+    $_SESSION['page-came-from'] = "picnics.php";
+    header("Location:login.php");
+}
+
 ?>
 
 <div class="container">
