@@ -3,8 +3,6 @@ include 'layout.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-
 	?>
 
  <link rel="stylesheet" href="css/addpicnic.css" type="text/css">
@@ -16,12 +14,12 @@ error_reporting(E_ALL);
 	<title>Add picnic</title>
 </head>
 <body>
-	
+
 
 <div class="form">
 	 <h2 id="h"> Add Picnic</h2>
     <form action="#"" method="POST" enctype="multipart/form-data"">      
-     
+
       <label>Title : </label><input type="text" name="title"
       placeholder="Picnic Ttile"  required="" />
 
@@ -38,7 +36,7 @@ error_reporting(E_ALL);
      <label>Description : </label><textarea  name="description"
       placeholder="Picnic Description"  required=""  rows="3" cols="64"></textarea>
 
-    
+
         <label>Food : </label><textarea  name="food"
       placeholder="Picnic Food"  required=""  rows="3" cols="64"></textarea>
 
@@ -60,7 +58,7 @@ error_reporting(E_ALL);
         <label>image1 : </label><input type="file" name="image1" />
         <label>image2 : </label><input type="file" name="image2" />
         <label>image3 : </label><input type="file" name="image3" />
-    
+
 
 
  		 <label>Activities : </label><textarea  name="activities"
@@ -80,35 +78,25 @@ error_reporting(E_ALL);
 
 
  <?php
-
 	
 include 'model.php';
 	
 if(!empty($_POST)) {
-
   $add = addPicnic($_POST['title'],$_POST['place'], $_POST['price'], $_POST['capacity'],$_POST['description'] , $_POST['food'], $_POST['departurelocation'],$_POST['departuretime'] , $_POST['arrivaltime'],$_POST['returntime'],$_POST['date'],$_POST['activities']);
-
 	if($add == 1) {
-
 ############################################################upload images
 		
 		$id = getIdForLastPicnic();
 		$target_file = 'picnics/'.$id."_1".".".pathinfo( $_FILES['image1']['name'], PATHINFO_EXTENSION) ;
  move_uploaded_file($_FILES["image1"]["tmp_name"], $target_file);
  
-
  $target_file = 'picnics/'.$id."_2".".".pathinfo( $_FILES['image2']['name'], PATHINFO_EXTENSION) ;
  move_uploaded_file($_FILES["image2"]["tmp_name"], $target_file);
  
-
  $target_file = 'picnics/'.$id."_3".".".pathinfo( $_FILES['image3']['name'], PATHINFO_EXTENSION);
  move_uploaded_file($_FILES["image3"]["tmp_name"], $target_file);
        
-
-
-
 ####################################################################
-
 		echo ("<script LANGUAGE='JavaScript'>
     #window.alert('User added succifully');
     #window.location.href='main.php';
