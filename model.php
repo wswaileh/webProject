@@ -210,6 +210,15 @@ VALUES ('" . $name . "'," . $num . ",'" . $date . "','" . $bank . "')";
 
 }
 
+
+function getCreditById($id)
+{
+    global $pdo;
+
+    return $pdo->query("select  * from credit where rid = " . $id);
+}
+
+
 function getCreditByNum($num)
 {
 
@@ -240,4 +249,41 @@ VALUES (" . $pid . "," . $cid . ",'" . $date . "'," . $rid . ", '" . $additions 
         return 0;
     } else return 1;
 
+}
+
+
+function trackPicnicsCapacity($pid)
+{
+    global $pdo;
+
+    return $pdo->query("select sum(pnum) from book where pid = " . $pid);
+}
+
+function getPicnicsCapacity($pid)
+{
+    global $pdo;
+    return $pdo->query("select capacity from picnic where pid = " . $pid);
+}
+
+function getBooksId()
+{
+    global $pdo;
+
+    return $pdo->query("select max(bid) from book");
+}
+
+function getRidByBid($bid)
+{
+
+    global $pdo;
+
+    return $pdo->query("select rid from book where bid =" . $bid);
+
+}
+
+function getCustomerBooks($cid)
+{
+    global $pdo;
+
+    return $pdo->query("select pid from book where cid = " . $cid);
 }

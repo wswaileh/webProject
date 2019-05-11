@@ -64,7 +64,7 @@ session_start();
 
                 if ($i == "pid") {
                     $pid = $row[$i];
-                    echo "<td style='padding-left: 40px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
+                    echo "<td class='pid' style='padding-left: 40px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
                 } else if ($i == "cost") {
                     $cost = $row[$i];
                     ?>
@@ -167,12 +167,14 @@ session_start();
                     <br><br>
 
                     <label id="bank-label">Bank</label>
-                    <input type="text" placeholder="Bank Issued" name="bank" id="bank">
+                    <input type="text" placeholder="Bank Issued" name="bank" id="bank"
+                           data-tool-tip="Bank issued with the Card">
                         <input type="hidden" name="invoice" value="<?= $invoice ?>">
                         <input type="hidden" name="additions" value="<?= $additions ?>">
                         <input type="hidden" name="date" value="<?= $date ?>">
                         <input type="hidden" name="seats" value="<?= $seats ?>">
                         <input type="hidden" name="pid" value="<?= $pid ?>">
+                    <input type="hidden" name="cost" value="<?= $cost ?>">
                      <br><sup class="modal-errors" id="bank-error">Please Enter Bank issued with card</sup>
                     <br><br>
 
@@ -229,7 +231,7 @@ session_start();
 
     function changePrefixMaster() {
         document.getElementById("prefix").innerHTML = "5555-";
-        document.getElementById("card-name").value = "Master/5555";
+        document.getElementById("card-name").value = "Master-Card/5555";
         document.getElementById("content").style.display = "block";
 
 
@@ -237,7 +239,7 @@ session_start();
 
     function changePrefixAmerican() {
         document.getElementById("prefix").innerHTML = "6666-";
-        document.getElementById("card-name").value = "American/6666";
+        document.getElementById("card-name").value = "American-Express/6666";
         document.getElementById("content").style.display = "block";
 
 

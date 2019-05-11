@@ -329,3 +329,59 @@ div#error-alert p {
     margin-left: 5px;
 }
 
+input[data-tool-tip]::after {
+    content: attr(data-tool-tip);
+    display: block;
+    position: absolute;
+    background-color: #333333;
+    padding: 1em 3em;
+    color: white;
+    border-radius: 5px;
+    font-size: 10px;
+    bottom: 100%;
+    left: 0;
+    white-space: nowrap;
+    transform: scale(0);
+    transition: transform ease-out 150ms;
+}
+
+input[data-tool-tip]:hover::after {
+    transform: scale(1);
+}
+
+
+a[data-tool-tip]::after {
+    content: attr(data-tool-tip);
+    display: block;
+    position: absolute;
+    background-color: #333333;
+    padding: 1em 3em;
+    color: white;
+    border-radius: 5px;
+    font-size: 10px;
+    bottom: 100%;
+    left: 0;
+    white-space: nowrap;
+    transform: scale(0);
+    transition: transform ease-out 150ms;
+}
+
+a[data-tool-tip]:hover::after {
+    transform: scale(1);
+}
+
+
+.pid::after {
+    font-family: "Font Awesome 5 Free";
+    content: ' \f59c';
+
+    color: #0000EE;
+}
+
+#Bcake::after{
+    font-family: "Font Awesome 5 Free";
+    content: '   \f1fd    ';
+    font-weight: 900;
+
+}
+

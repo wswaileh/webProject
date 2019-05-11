@@ -28,10 +28,27 @@ include 'model.php';
 
             <?php
             $res = null;
+            $capacityNum = 0;
+            $bookers = 0;
 
             if (isset($_GET['id'])) {
+                $capacity = getPicnicsCapacity($_GET['id']);
+                $booker = trackPicnicsCapacity($_GET['id']);
+                if ($i = $capacity->fetch()) {
+                    $capacityNum = $i['capacity'];
+
+                }
+
+                if ($j = $booker->fetch()) {
+                    $bookers = $j[0];
+                }
                 $res = getPicnicById($_GET['id']);
             }
+
+            if ($bookers == $capacity) {
+                header("Location:picnics.php");
+            }
+
 
             $keys = ["pid", "place", "date", "description", "cost", "departuretime", "departurelocation", "arrivaltime", "returntime"];
 
@@ -52,7 +69,7 @@ include 'model.php';
 
                     if ($i == "pid") {
                         $hidden["pid"] = $row[$i];
-                        echo "<td style='padding-left: 80px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
+                        echo "<td  data-tool-tip='For more Details' class='pid' style='padding-left: 80px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
                     } else if ($i == "cost") {
 
                         ?>
@@ -76,8 +93,7 @@ include 'model.php';
                 } ?>
 
             <tr>
-
-                <td colspan="1"><label style="font-size: 16px">Additions~Birthday cake:</label></td>
+                <td colspan="1"><label style="font-size: 16px" id="Bcake">Additions~Birthday cake:</label></td>
                 <td colspan="1" style="padding-left: 20px">
                     <div class="tooltip"><input type="checkbox" name="Birthday_cake" value="Birthday Cake">
                         <span class="tooltiptext">Check the box if you want to add birthday cake to your order!</span>
@@ -89,11 +105,16 @@ include 'model.php';
                 <td colspan="1">
 
                 </td>
-                <td colspan="3"><input type="number" min="1" max="50"
+
+                <td colspan="3"><input type="number" min="1" max="<?= ($capacityNum - $bookers) ?>"
                                        class="filter-input"
                                        name="numOfSeats"
                                        placeholder="Please Enter Number of People intend to come "
-                                       id="NumberOfPeople"></td>
+                                       id="NumberOfPeople" data-tool-tip="Number of Guests intend to come">
+                    <input type="hidden" id="available" value="<?= ($capacityNum - $bookers) ?>">
+                    <sup id="availableLabel" style="display: none;color: red"><?= ($capacityNum - $bookers) ?> Available
+                        only!</sup>
+                </td>
 
                 <td colspan="2"><input style="width: 200px" type="submit" name="confirm" value="Confirm The Booking"
                                        class="button" onclick=" return f()"><input
@@ -102,17 +123,29 @@ include 'model.php';
 
                 <script type="text/javascript">
 
+
                     function f() {
 
                         let people = document.getElementById("NumberOfPeople").value;
+
+                        if (people > document.getElementById("available").value) {
+                            document.getElementById("availableLabel").style.display = "inline"
+
+                            return false;
+                        }
+
                         if (people) {
                             let left = (screen.width - 800) / 2;
                             let top = (screen.height - 600) / 4;
                             document.getElementById('form').target = "confirmation.php";
                             let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
+
+                            window.location.replace("picnics.php");
+
                             document.getElementById("error-alert").style.display = "none";
                             document.getElementById('form').submit();
                         } else {
+
                             return error("Please enter how many people intend to come!");
                         }
 
@@ -151,3 +184,4 @@ include 'model.php';
 
 </body>
 </html>
+
