@@ -57,12 +57,19 @@ function getPinicsForTableWithFilter($place, $date, $start_limit, $records)
     global $pdo;
     $inp = ["place" => $place, "date" => $date];
     $res = "";
+    $query = "select pid , place,date,description,cost from picnic where ";
     foreach ($inp as $i => $value) {
-        if (isset($value) && !empty($value))
-            $res = $pdo->query("select pid , place,date,description,cost from picnic where " . $i . " = '" . $value . "' limit " . $start_limit . "," . $records . ";");
+        if (isset($value) && !empty($value)) {
+
+            if ($i == "place") {
+                $query .= $i . " like '" . $value . "%'";
+            } else {
+                $query .= $i . " = '" . $value . "'";
+            }
+        }
     }
 
-    return $res;
+    return $res = $pdo->query($query . " limit " . $start_limit . ", " . $records . ";");
 }
 
 
@@ -210,6 +217,15 @@ VALUES ('" . $name . "'," . $num . ",'" . $date . "','" . $bank . "')";
 
 }
 
+
+function getCreditById($id)
+{
+    global $pdo;
+
+    return $pdo->query("select  * from credit where rid = " . $id);
+}
+
+
 function getCreditByNum($num)
 {
 
@@ -243,7 +259,43 @@ VALUES (" . $pid . "," . $cid . ",'" . $date . "'," . $rid . ", '" . $additions 
 }
 
 
-function addPicnic($title, $place, $price, $capacity,$description , $food , $departurelocation,$departuretime , $arrivaltime,$returntime,$date,$activities)
+function trackPicnicsCapacity($pid)
+{
+    global $pdo;
+
+    return $pdo->query("select sum(pnum) from book where pid = " . $pid);
+}
+
+function getPicnicsCapacity($pid)
+{
+    global $pdo;
+    return $pdo->query("select capacity from picnic where pid = " . $pid);
+}
+
+function getBooksId()
+{
+    global $pdo;
+
+    return $pdo->query("select max(bid) from book");
+}
+
+function getRidByBid($bid)
+{
+
+    global $pdo;
+
+    return $pdo->query("select rid from book where bid =" . $bid);
+
+}
+
+function getCustomerBooks($cid)
+{
+    global $pdo;
+
+    return $pdo->query("select pid from book where cid = " . $cid);
+}
+
+function addPicnic($title, $place, $price, $capacity, $description, $food, $departurelocation, $departuretime, $arrivaltime, $returntime, $date, $activities)
 {
 
     global $pdo;

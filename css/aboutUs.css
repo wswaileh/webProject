@@ -1,0 +1,18 @@
+.row {
+    margin-bottom: 5rem;
+}
+
+.row:nth-child(even) img {
+    float: right;
+    margin-left: 1rem;
+}
+
+
+.row:nth-child(odd) img {
+    float: left;
+    margin-right: 1rem;
+}
+
+.row img{
+    width: 10rem;
+}

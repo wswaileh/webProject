@@ -46,10 +46,7 @@ error_reporting(E_ALL);
     </form>
 </div>
 
-
-</body>
-</html>
-
+<?php require 'footer.php'?>
 
 <?php
 

@@ -133,7 +133,7 @@ body {
 }
 
 
-.price-option__purchase:before {
+.price-option__purchase::before {
     content: '';
     position: absolute;
     bottom: 100%;
@@ -146,7 +146,7 @@ body {
     border-style: solid;
 }
 
-.price-option--low .price-option__purchase:before {
+.price-option--low .price-option__purchase::before {
     border-color: transparent transparent #a7d155;
 }
 
@@ -154,7 +154,8 @@ body {
 /*Modals*/
 .modal-window {
     position: fixed;
-    background-color: #808080;
+    background: url("../img/icons/blury.jpg") no-repeat;
+    background-size: cover;
     top: 0;
     left: 0;
     z-index: 1050;
@@ -228,7 +229,7 @@ body {
 }
 
 .modal-close:hover {
-    color: black;
+    color: red;
 }
 
 .modal-body {
@@ -407,4 +408,26 @@ form input[type="text"]:not(:placeholder-shown):invalid {
     background-size: 20px;
     padding-left: 10px !important;
     background-position: 325px, 20px;
+}
+
+
+input[data-tool-tip]::after {
+    content: attr(data-tool-tip);
+    display: block;
+    position: absolute;
+    background-color: #333333;
+    padding: 1em 3em;
+    color: white;
+    border-radius: 5px;
+    font-size: 6px;
+    bottom: 100%;
+    left: 0;
+    white-space: nowrap;
+    transform: scale(0);
+    transition: transform ease-out 150ms;
+
+}
+
+input[data-tool-tip]:hover::after {
+    transform: scale(1);
 }

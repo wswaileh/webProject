@@ -54,7 +54,7 @@ error_reporting(E_ALL);
 
       <label>Date : </label><input type="date" name="date"
       placeholder="Picnic  Date"  required="" />
-"
+
         <label>image1 : </label><input type="file" name="image1" />
         <label>image2 : </label><input type="file" name="image2" />
         <label>image3 : </label><input type="file" name="image3" />

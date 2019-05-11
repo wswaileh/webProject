@@ -1,0 +1,27 @@
+body {
+    border: 2px black solid;
+    background-color: #FFCF31;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.laflef {
+    position: absolute;
+    width: 100px;
+    height: 35px;
+    border: 1px black solid;
+}
+
+.container {
+
+}
+
+.first-row {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    align-content: center;
+    position: relative;
+    padding: 50px;
+}
