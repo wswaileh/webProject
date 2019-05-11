@@ -57,12 +57,19 @@ function getPinicsForTableWithFilter($place, $date, $start_limit, $records)
     global $pdo;
     $inp = ["place" => $place, "date" => $date];
     $res = "";
+    $query = "select pid , place,date,description,cost from picnic where ";
     foreach ($inp as $i => $value) {
-        if (isset($value) && !empty($value))
-            $res = $pdo->query("select pid , place,date,description,cost from picnic where " . $i . " = '" . $value . "' limit " . $start_limit . "," . $records . ";");
+        if (isset($value) && !empty($value)) {
+
+            if ($i == "place") {
+                $query .= $i . " like '" . $value . "%'";
+            } else {
+                $query .= $i . " = '" . $value . "'";
+            }
+        }
     }
 
-    return $res;
+    return $res = $pdo->query($query . " limit " . $start_limit . ", " . $records . ";");
 }
 
 
