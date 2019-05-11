@@ -294,3 +294,27 @@ function getCustomerBooks($cid)
 
     return $pdo->query("select pid from book where cid = " . $cid);
 }
+
+function addPicnic($title, $place, $price, $capacity, $description, $food, $departurelocation, $departuretime, $arrivaltime, $returntime, $date, $activities)
+{
+
+    global $pdo;
+    $sql = "INSERT INTO picnic (food, cost,capacity, description,returntime,arrivaltime,departuretime,date,departurelocation,place,activities)
+VALUES ('" . $food . "'," . $price . ",'" . $capacity . "','" . $description . "','" . $returntime . "','" . $arrivaltime . "','" . $departuretime . "','" . $date . "','" . $departurelocation . "','" . $place . "','" . $activities . "')";
+
+    if ($pdo->exec($sql) === false) {
+        return 0;
+    } else return 1;
+
+}
+
+function getIdForLastPicnic()
+{
+
+    global $pdo;
+    $res = $pdo->query("SELECT MAX(pid) FROM picnic");
+    $id = $res->fetchColumn();
+
+    return $id;
+
+}
