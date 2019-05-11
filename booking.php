@@ -37,6 +37,7 @@ if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
             $bookers = 0;
 
             if (isset($_GET['id'])) {
+
                 $capacity = getPicnicsCapacity($_GET['id']);
                 $booker = trackPicnicsCapacity($_GET['id']);
                 if ($i = $capacity->fetch()) {
@@ -45,12 +46,20 @@ if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
                 }
 
                 if ($j = $booker->fetch()) {
-                    $bookers = $j[0];
+                    $bookers = $j['total_bookers'];
+
                 }
+
+                if (!$bookers) {
+                    $bookers = 0;
+                }
+
+
                 $res = getPicnicById($_GET['id']);
             }
 
-            if ($bookers == $capacity) {
+
+            if ($bookers == $capacityNum) {
                 header("Location:picnics.php");
             }
 
@@ -131,29 +140,35 @@ if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
 
                     function f() {
 
-                        let people = document.getElementById("NumberOfPeople").value;
+                        let people = parseInt(document.getElementById("NumberOfPeople").value, 10);
+                        let available = parseInt(document.getElementById("available").value, 10);
+                        
 
-                        if (people > document.getElementById("available").value) {
+                        if (people > available) {
+
                             document.getElementById("availableLabel").style.display = "inline"
 
                             return false;
-                        }
-
-                        if (people) {
-                            let left = (screen.width - 800) / 2;
-                            let top = (screen.height - 600) / 4;
-                            document.getElementById('form').target = "confirmation.php";
-                            let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
-
-                            window.location.replace("picnics.php");
-
-                            document.getElementById("error-alert").style.display = "none";
-                            document.getElementById('form').submit();
                         } else {
 
-                            return error("Please enter how many people intend to come!");
-                        }
+                            document.getElementById("availableLabel").style.display = "none"
+                            if (people) {
+                                let left = (screen.width - 800) / 2;
+                                let top = (screen.height - 600) / 4;
+                                document.getElementById('form').target = "confirmation.php";
+                                let myWindow = window.open("confirmation.php", "confirmation.php", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 800 + ', height=' + 600 + ', top=' + top + ', left=' + left);
 
+                                window.location.replace("picnics.php");
+
+                                document.getElementById("error-alert").style.display = "none";
+                                document.getElementById('form').submit();
+                            } else {
+
+                                return error("Please enter how many people intend to come!");
+                            }
+
+
+                        }
                     }
 
                     function error(body) {
