@@ -101,7 +101,6 @@ include 'model.php';
                 $subRes = getCustomerBooks($cid);
 
 
-
                 while ($i = $subRes->fetch()) {
                     $pids[] = $i['pid'];
                 }
@@ -148,7 +147,7 @@ include 'model.php';
                         $bookers = 0;
                     }
 
-                    if ($capacity != $bookers) {
+                    if ($capacity != $bookers || $_SESSION['userType'] == 3) {
                         if ($row[$i] == "description") {
                             $desc = explode(',', $row[$i]);
                             $row[$i] = $desc[0];
