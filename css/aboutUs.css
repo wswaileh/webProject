@@ -1,5 +1,7 @@
 .row {
-    margin-bottom: 5rem;
+    padding : 3rem 5rem 3rem 5rem;
+    height: fit-content;
+    border-bottom: solid;
 }
 
 .row:nth-child(even) img {
@@ -14,5 +16,54 @@
 }
 
 .row img{
-    width: 10rem;
+    width: 15%;
+}
+
+label,input,textarea{
+    display: block;
+    margin-right: 10rem;
+    width: 75%;
+    border-radius: 1rem;
+
+}
+
+label{
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+textarea,input{
+    height: 2rem;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: black;
+}
+textarea{
+    height: 5rem;
+    resize: none;
+}
+button{
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    color: white;
+    margin-left: 30%;
+    width: 20%;
+    background-color: black;
+}
+
+button:hover{
+    padding: 1rem 2.2rem;
+    transition-duration: 0.1s;
+    background-color: darkgray;
+}
+
+input:focus,textarea:focus{
+    width: 80%;
+    transition-duration: 0.1s;
+}
+
+input::placeholder,textarea::placeholder{
+    padding-left: 1rem;
+    font-size: 0.75rem;
 }
