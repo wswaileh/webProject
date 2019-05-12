@@ -57,12 +57,19 @@ function getPinicsForTableWithFilter($place, $date, $start_limit, $records)
     global $pdo;
     $inp = ["place" => $place, "date" => $date];
     $res = "";
+    $query = "select pid , place,date,description,cost from picnic where ";
     foreach ($inp as $i => $value) {
-        if (isset($value) && !empty($value))
-            $res = $pdo->query("select pid , place,date,description,cost from picnic where " . $i . " = '" . $value . "' limit " . $start_limit . "," . $records . ";");
+        if (isset($value) && !empty($value)) {
+
+            if ($i == "place") {
+                $query .= $i . " like '" . $value . "%'";
+            } else {
+                $query .= $i . " = '" . $value . "'";
+            }
+        }
     }
 
-    return $res;
+    return $res = $pdo->query($query . " limit " . $start_limit . ", " . $records . ";");
 }
 
 
@@ -256,7 +263,7 @@ function trackPicnicsCapacity($pid)
 {
     global $pdo;
 
-    return $pdo->query("select sum(pnum) from book where pid = " . $pid);
+    return $pdo->query("select sum(pnum) total_bookers from book where pid = " . $pid);
 }
 
 function getPicnicsCapacity($pid)
@@ -286,4 +293,28 @@ function getCustomerBooks($cid)
     global $pdo;
 
     return $pdo->query("select pid from book where cid = " . $cid);
+}
+
+function addPicnic($title, $place, $price, $capacity, $description, $food, $departurelocation, $departuretime, $arrivaltime, $returntime, $date, $activities)
+{
+
+    global $pdo;
+    $sql = "INSERT INTO picnic (food, cost,capacity, description,returntime,arrivaltime,departuretime,date,departurelocation,place,activities)
+VALUES ('" . $food . "'," . $price . ",'" . $capacity . "','" . $description . "','" . $returntime . "','" . $arrivaltime . "','" . $departuretime . "','" . $date . "','" . $departurelocation . "','" . $place . "','" . $activities . "')";
+
+    if ($pdo->exec($sql) === false) {
+        return 0;
+    } else return 1;
+
+}
+
+function getIdForLastPicnic()
+{
+
+    global $pdo;
+    $res = $pdo->query("SELECT MAX(pid) FROM picnic");
+    $id = $res->fetchColumn();
+
+    return $id;
+
 }

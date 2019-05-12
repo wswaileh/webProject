@@ -17,17 +17,60 @@
 </div>
 
 <div class="row">
-    <img src="img/aboutUs/contact%20us.png">
+    <img src="img/aboutUs/contactUs.png">
     <h1>Contact Us</h1>
     <form>
-        <label for="name">Name:</label>
-        <input name="name" placeholder="NAME">
-        <label for="email">Email:</label>
-        <input type="email" name="email" placeholder="EMAIL">
-        <label for="name">Message:</label>
-        <textarea placeholder="Please Enter Your Message Here ..."></textarea>
-        <button type="submit">SEND EMAIL</button>
+        <label id="nameLabel"></label>
+        <input placeholder="Name" id="nameField">
+        <label id="emailLabel"></label>
+        <input placeholder="Email" id="emailField">
+        <label id="messageLabel"></label>
+        <textarea placeholder="Message..." id="messageField"></textarea>
+        <button type="submit">Send Message</button>
     </form>
 </div>
 
+<script>
+    document.getElementById("nameField").addEventListener("focus", nameFocus);
+    document.getElementById("nameField").addEventListener("focusout", nameOutOfFocus);
+
+    document.getElementById("emailField").addEventListener("focus", emailFocus);
+    document.getElementById("emailField").addEventListener("focusout", emailOutOfFocus);
+
+    document.getElementById("messageField").addEventListener("focus", messageFocus);
+    document.getElementById("messageField").addEventListener("focusout", messageOutOfFocus);
+
+
+    function nameFocus() {
+        document.getElementById("nameField").placeholder = "";
+        document.getElementById("nameLabel").innerText = "Name";
+    }
+
+    function nameOutOfFocus() {
+        document.getElementById("nameField").placeholder = "Name";
+        document.getElementById("nameLabel").innerText = "";
+    }
+
+    function emailFocus(){
+        document.getElementById("emailField").placeholder = "";
+        document.getElementById("emailLabel").innerText = "Email";
+    }
+
+    function emailOutOfFocus() {
+        document.getElementById("emailField").placeholder = "Email";
+        document.getElementById("emailLabel").innerText = "";
+    }
+
+    function messageFocus (){
+        document.getElementById("messageField").placeholder = "";
+        document.getElementById("messageLabel").innerHTML = "Message";
+    }
+
+
+    function messageOutOfFocus() {
+        document.getElementById("messageField").placeholder = "Message...";
+        document.getElementById("messageLabel").innerText = "";
+    }
+
+</script>
 <?php require 'footer.php' ?>

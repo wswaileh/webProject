@@ -1,7 +1,16 @@
+@media only screen and (max-width: 600px) {
+    .row h1{
+        display: block
+    }
+    .row input,textarea{
+        width: 90%;
+    }
+}
+
 .row {
-    padding : 3rem 5rem 3rem 5rem;
-    height: fit-content;
-    border-bottom: solid;
+    padding: 3rem 5rem 3rem 5rem;
+    border-bottom: 3px solid black;
+
 }
 
 .row:nth-child(even) img {
@@ -16,6 +25,7 @@
 }
 
 .row img{
+<<<<<<< HEAD
     width: 15%;
 }
 
@@ -67,3 +77,27 @@ input::placeholder,textarea::placeholder{
     padding-left: 1rem;
     font-size: 0.75rem;
 }
+=======
+    width: 10rem;
+}
+
+input,textarea{
+    display: block;
+    margin-bottom: 2rem;
+    width: 25%;
+}
+
+input::placeholder, textarea::placeholder {
+    font-size: 0.75rem;
+}
+
+.row label{
+    margin-bottom: 1rem;
+}
+
+textarea{
+    resize: none;
+    height: 4rem;
+}
+
+>>>>>>> Waleed

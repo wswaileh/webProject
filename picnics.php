@@ -8,21 +8,49 @@ include 'model.php';
 
 <div class="container">
 
-    <form action="picnics.php" method="get">
-        <table class="picnic-table">
+    <form action="picnics.php" method="get" id="picnic-search">
+        <table class="picnic-table" id="table">
             <thead>
 
             <tr>
                 <td colspan="3"><input class="filter-input" id="filter-place" type="text" name="place"
-                                       placeholder="Search for certain place..."></td>
+                                       placeholder="Search for certain place..." onkeyup="myFunction()" pattern="[A-Za-z]*">
+
+                </td>
+
                 <td colspan="1"><input class="filter-input" id="filter-date" type="date" name="date"
                                        placeholder="Search for certain date..."></td>
 
-                <td colspan="1"><input class="filter-input " id="filter-place" type="text" name="NumOfPages"
+                <td colspan="1"><input class="filter-input " id="filter-place" type="number" name="NumOfPages"
                                        placeholder="# of records per page To display"></td>
                 <td colspan="1"><input class="button" id="filter-submit" type="submit" value="Filter" name="filter"
                     ></td>
             </tr>
+            <script type="text/javascript">
+
+                function myFunction() {
+
+                    var input, filter, table, tr, td, i, txtValue;
+                    input = document.getElementById("filter-place");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("table");
+                    tr = table.getElementsByTagName("tr");
+
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[1];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                if (i != 0)
+                                    tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+
+            </script>
             <tr>
                 <th>Picnic Reference ID</th>
                 <th>Place</th>
@@ -176,7 +204,7 @@ include 'model.php';
                         echo "<td><a href='booking.php?id=" . $row['pid'] . "' class='button' style='text-decoration:none;padding-top:5px'>Book Now</a> |<span style='color: red'>" . ($capacity - $bookers) . " " . $seat . " Left </span></td></tr>";
                     } else if ($capacity != $bookers)
                         echo "<td><a href='booking.php?id=" . $row['pid'] . "' class='button' style='text-decoration:none;padding-top:5px'>Book Now</a></td></tr>";
-                } else {
+                } else if ($_SESSION['userType'] == 3) {
 
 
                     if ($bookers != $capacity)
