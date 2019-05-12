@@ -21,13 +21,13 @@
                 ';
         ?>
     </div>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <a href="#" onclick="navCollapse()" class="icon" onclick="myFunction()">
         <i>▼</i>
     </a>
 </nav>
 
 <script>
-    function myFunction() {
+    function navCollapse() {
         var x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
             x.className += " responsive";

@@ -263,7 +263,7 @@ function trackPicnicsCapacity($pid)
 {
     global $pdo;
 
-    return $pdo->query("select sum(pnum) from book where pid = " . $pid);
+    return $pdo->query("select sum(pnum) total_bookers from book where pid = " . $pid);
 }
 
 function getPicnicsCapacity($pid)
