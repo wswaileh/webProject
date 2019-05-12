@@ -332,3 +332,41 @@ function addImagesToPicnic($id, $imgs)
 
 
 }
+
+/*              CONTACT US FUNCTIONS                 */
+function insertMessage($name, $email, $message)
+{
+    global $pdo;
+    $sql = "INSERT INTO messages (name,email,message) VALUES ('$name','$email','$message')";
+
+    if ($pdo->exec($sql) === false)
+        return 0;
+
+    return 1;
+}
+
+function printMessages()
+{
+    global $pdo;
+    $sql = "SELECT * FROM messages";
+    $result = $pdo->query($sql);
+    if ($result->rowCount() == 0)
+        echo '<p>No Messages!</p>';
+    else {
+        echo "<div style='overflow-x:auto;'><table>
+                <th>Name</th><th>Email</th><th>Message</th>";
+        while ($row = $result->fetch()) {
+            echo "
+            <tr>
+                <td>" . $row['name'] . "</td>
+                <td>" . $row['email'] . "</td>
+                <td>" . $row['message'] . "</td>
+            </tr>
+            ";
+        }
+        echo "</table></div>";
+
+
+    }
+
+}
