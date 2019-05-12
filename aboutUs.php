@@ -1,4 +1,8 @@
-<?php require 'layout.php' ?>
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require 'layout.php' ?>
 <link rel="stylesheet" href="css/aboutUs.css" type="text/css">
 <div class="row">
     <img src="img/aboutUs/salt.png">
@@ -19,14 +23,14 @@
 <div class="row">
     <img src="img/aboutUs/contactUs.png">
     <h1>Contact Us</h1>
-    <form>
+    <form method="post" id="contactUs">
         <label id="nameLabel"></label>
-        <input placeholder="Name" id="nameField">
+        <input name="name" placeholder="Name" id="nameField">
         <label id="emailLabel"></label>
-        <input placeholder="Email" id="emailField">
+        <input name="email" placeholder="Email" id="emailField" type="email">
         <label id="messageLabel"></label>
-        <textarea placeholder="Message..." id="messageField"></textarea>
-        <button type="submit">Send Message</button>
+        <textarea name="message" placeholder="Message..." id="messageField"></textarea>
+        <button type="submit" onclick="btFade()" class="bt" id="sendMessageBT">Send Message</button>
     </form>
 </div>
 
@@ -39,7 +43,6 @@
 
     document.getElementById("messageField").addEventListener("focus", messageFocus);
     document.getElementById("messageField").addEventListener("focusout", messageOutOfFocus);
-
 
     function nameFocus() {
         document.getElementById("nameField").placeholder = "";
@@ -72,5 +75,39 @@
         document.getElementById("messageLabel").innerText = "";
     }
 
+    function btFade() {
+        var name = document.getElementById("nameField").value;
+        var email = document.getElementById("emailField").value;
+        var message = document.getElementById("messageField").value;
+        if (name == ""){
+            event.preventDefault();
+            alert("Name Field Cannot Be Empty!");
+        }
+        else if (email == ""){
+            event.preventDefault();
+            alert("Email Field Cannot Be Empty!");
+        }
+
+        else if (message == ""){
+            event.preventDefault();
+            alert("Message Field Cannot Be Empty!");
+        }
+        else{
+            //event.preventDefault();
+            document.getElementById("sendMessageBT").className += " clicked";
+            window.setTimeout('this.disabled=true',0);
+            document.getElementById("contactUs").submit();
+        }
+
+        }
+
 </script>
 <?php require 'footer.php' ?>
+
+<?php
+    require 'model.php';
+    if ($_SERVER['REQUEST_METHOD']==='POST'){
+        //if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['message']) )
+            insertMessage($_POST['name'],$_POST['email'],$_POST['message']);
+    }
+?>

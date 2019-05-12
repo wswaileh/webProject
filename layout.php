@@ -1,6 +1,9 @@
 <?php
-session_name("name");
-session_start();
+if (!isset($_SESSION)){
+    session_name("name");
+    session_start();
+}
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
