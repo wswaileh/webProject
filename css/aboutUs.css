@@ -2,7 +2,14 @@
     .row h1{
         display: block
     }
-    .row input,textarea{
+    .row input{
+        width: 90%;
+    }
+    .row textarea{
+        width: 90%;
+    }
+
+    .row button{
         width: 90%;
     }
 }
@@ -32,6 +39,9 @@ input,textarea{
     display: block;
     margin-bottom: 2rem;
     width: 25%;
+    border: 0;
+    outline: 0;
+    border-bottom: 2px solid black;
 }
 
 input::placeholder, textarea::placeholder {
@@ -47,4 +57,9 @@ textarea{
     height: 4rem;
 }
 
->>>>>>> Waleed
+button{
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    background-color: #333;
+    color: white;
+    border-radius: 1rem;
+}
