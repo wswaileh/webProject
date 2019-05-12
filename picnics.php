@@ -14,7 +14,8 @@ include 'model.php';
 
             <tr>
                 <td colspan="3"><input class="filter-input" id="filter-place" type="text" name="place"
-                                       placeholder="Search for certain place..." onkeyup="myFunction()" pattern="[A-Za-z]*">
+                                       placeholder="Search for certain place..." onkeyup="myFunction()"
+                                       pattern="[A-Za-z]*">
 
                 </td>
 
@@ -70,7 +71,7 @@ include 'model.php';
 
             <?php
             $res = null;
-
+           
 
             $rowsNum = 0;
 
@@ -176,12 +177,147 @@ include 'model.php';
                     }
 
                     if ($capacity != $bookers || $_SESSION['userType'] == 3) {
-                        if ($row[$i] == "description") {
+                        if ($i == "description") {
+
                             $desc = explode(',', $row[$i]);
                             $row[$i] = $desc[0];
+
                         }
                         if ($i == "pid") {
-                            echo "<td class='pid' style='padding-left: 80px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
+                            echo "<td class='pid' style='padding-left: 80px;font-size: 1.4pc'><button  type='button' class='picnic-pid' id='link-" . $row[$i] . "'  onclick=' display(" . $row[$i] . ");'>" . $row[$i] . "</button></td>";
+
+                            ?>
+
+                            <div class="detail-modal" id="modal-<?= $row[$i] ?>">
+                                <div class="detail-modal-content">
+                                    <div class="detail-modal-header"><h3>Picnic #<?= $row[$i] ?>
+                                            - <?= $row['place'] ?></h3>
+                                        <span class="detail-modal-close" id="close-<?= $row[$i] ?>">&times;</span>
+                                    </div>
+                                    <div class="detail-modal-body">
+                                        <?php
+
+                                        $details = getpicnicsDetails($row[$i]);
+                                        $Details = array();
+
+                                        if ($d = $details->fetch()) {
+
+
+                                            while ($element = current($d)) {
+                                                $AM_PM = [];
+                                                if (strpos(key($d), "time")) {
+                                                    $timeItems = array();
+                                                    $timeItems = explode(':', $d[key($d)]);
+                                                    $AM_PM = explode(' ', $timeItems[2]);
+                                                    $timeItems[2] = $AM_PM[1];
+                                                    $d[key($d)] = implode(':', $timeItems);
+                                                }
+
+                                                $Details[key($d)] = $d[key($d)];
+
+                                                next($d);
+                                            }
+
+                                        }
+
+                                        ?>
+
+                                        <div class="time">
+
+                                            <strong>Departure Time: </strong><strong>Arrival Time</strong><strong>Return
+                                                Time</strong>
+                                            <i><?= $Details['departuretime'] ?></i>
+                                            <i><?= $Details['arrivaltime'] ?></i> <i><?= $Details['returntime'] ?></i>
+
+                                        </div>
+
+                                        <div class="details-desc">
+                                            <ul>
+                                                <dl>
+                                                    <li><strong><?= $Details['title'] ?></strong></li>
+
+                                                    <li>
+                                                        <dt><strong>Food</strong></dt>
+                                                        <dd><?= $Details['food'] ?></dd>
+                                                    </li>
+
+                                                    <li>
+                                                        <dt><strong>Activities</strong></dt>
+                                                        <dd><?= $Details['activities'] ?></dd>
+                                                    </li>
+                                                </dl>
+                                            </ul>
+
+                                            <p><strong>Description: </strong><br><?= $row['description'] ?></p>
+                                        </div>
+                                        <strong style="padding: 30px">Photos Related: </strong><br>
+                                        <div class="photos-container">
+
+
+                                            <?php
+                                            $images = array();
+                                            $images = explode(';', $Details['images']);
+                                            if (in_array("default", $images)) {
+                                                ?> <img src="img/icons/logo.jpg" width="250px" height="250px">
+                                                <img src="img/icons/logo.jpg" width="250px" height="250px">
+                                                <img src="img/icons/logo.jpg" width="250px" height="250px">
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <div class="card">
+                                                    <img src="img/picnics/<?= $images[0] ?>.jpg" width="250px"
+                                                         height="250px" class="card__img">
+                                                    <div class="card__text">
+                                                        <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
+                                                        </h3>
+                                                        <p><?= $Details['title'] ?></p>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <img src="img/picnics/<?= $images[1] ?>.jpg" width="250px"
+                                                         height="250px" class="card__img">
+                                                    <div class="card__text">
+                                                        <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
+                                                        </h3>
+                                                        <p><?= $Details['title'] ?></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card">
+                                                    <img src="img/picnics/<?= $images[2] ?>.jpg" width="250px"
+                                                         height="250px" class="card__img">
+                                                    <div class="card__text">
+                                                        <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
+                                                        </h3>
+                                                        <p><?= $Details['title'] ?></p>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+
+                                        <div class="detail-links-related">
+                                            <strong>Links Related To the picnic's Place:</strong><br>
+                                            <a href="https://en.wikipedia.org/wiki/<?= $row['place'] ?>"
+                                               target="_blank" style="text-decoration: none">
+                                                <ul>
+                                                    <li><?= $row['place'] ?></li>
+                                                </ul>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <div class="detail-modal-footer">
+                                        <a href="aboutUs.php" style="text-decoration: none; color: white">
+                                            <sub>Laflef</sub><sup>Team</sup>&copy;
+                                            <img src="img/icons/logo.jpg" width="100px" height="50px">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
                         } else if ($i == "cost") {
                             ?>
                             <td style="padding-left: 80px"><?= $row[$i] ?> &#8362;</td><?php
@@ -243,6 +379,8 @@ include 'model.php';
         <a href="#">&raquo;</a>
 
     </div>
+
+    <script src="javascript/main.js"></script>
 </div>
 
 <?php require 'footer.php' ?>

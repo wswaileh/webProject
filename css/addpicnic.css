@@ -1,7 +1,8 @@
 body {
-  background: #eee ;  
+    background: #eee;
 }
 
+<<<<<<< HEAD
 .form {  
 
   border-radius:30px;
@@ -14,27 +15,55 @@ body {
   border: 1px solid rgba(0,0,0,0.1);  
   -moz-border-radius:30px;
   -webkit-border-radius:30px;
+=======
+
+*, *::before, *::after {
+    box-sizing: border-box;
+>>>>>>> cd12b06f224b706cb09995ce521ac02c3cdbed8e
+}
+
+.form {
+
+    border-radius: 30px;
+    max-width: 650px;
+    padding: 10px 20px 60px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
 }
 
 
-
- label {
+label {
     float: left;
     width: 100px;
-    margin-top :10px;
+    margin-top: 10px;
     padding-left: 10px;
     color: rgba(0, 0, 0, 0.6);
     font-family: "Roboto", sans-serif;
-  }
+}
 
-   input {
+input {
     float: left;
     width: 190px;
     font-size: 16px;
     position: relative;
-    padding :10px;
+    padding: 10px;
     margin-left: 10px;
     margin-bottom: 10px;
+    font-family: "Roboto", sans-serif;
+    border: 0.5px solid #CECECD;
+
+}
+
+textarea {
+    resize: none;
+    margin-left: 10px;
+    margin-bottom: 10px;
+<<<<<<< HEAD
      font-family: "Roboto", sans-serif;
       border: 0.5px solid #CECECD;
 
@@ -46,6 +75,13 @@ body {
   }
 
   #h{
+=======
+    max-height: 100px;
+
+}
+
+#h {
+>>>>>>> cd12b06f224b706cb09995ce521ac02c3cdbed8e
     text-align: center;
     width: 106%;
     height: 35px;
@@ -54,10 +90,16 @@ body {
     font-size: 30px;
     font-family: "Times New Roman";
     background-color: #B8B8B8;
-  }
+}
+
 input[type=submit] {
     margin-left: 120px;
 
+<<<<<<< HEAD
+=======
+    position: relative;
+    top: -45px;
+>>>>>>> cd12b06f224b706cb09995ce521ac02c3cdbed8e
     color: #fff;
     background-color: #448aff;
     width: 400px;
@@ -66,15 +108,68 @@ input[type=submit] {
     border: 1px solid transparent;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 10px !important;
 
 }
 
 input[type=submit]:hover {
-  background: green;
+    background: green;
+}
+
+
+input:focus {
+<<<<<<< HEAD
+  outline: 2px solid green;
+} 
+=======
+    outline: 2px solid green;
+}
+
+
+.description-label {
+    position: relative;
+    display: block;
+    top: -200px;
+    left: 150px;
+    white-space: nowrap;
+    font-size: 25px;
+    font-weight: 900;
+    transition: tranform 1s ease;
+
+}
+
+.description-label::before {
+    content: open-quote;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.description-label::after {
+    content: close-quote;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.description-label:hover {
+    transform: scale(1.4);
+    color: red;
 }
 
 
 
-input:focus {
-  outline: 2px solid green;
-} 
+form input[type="text"]:not(:placeholder-shown):valid, form input[type="email"]:not(:placeholder-shown):valid form input[type="password"]:not(:placeholder-shown):valid, form input[type="number"]:not(:placeholder-shown):valid {
+    background: url('../img/icons/checked.svg') no-repeat;
+    background-size: 20px;
+    background-position: 163px, 20px;
+    padding-left: 10px !important;
+
+}
+
+
+form input[type="text"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
+    background: url('../img/icons/cancel.svg') no-repeat;
+    background-size: 20px;
+    padding-left: 10px !important;
+    background-position: 163px, 20px;
+}
+>>>>>>> cd12b06f224b706cb09995ce521ac02c3cdbed8e

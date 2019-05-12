@@ -52,12 +52,12 @@ if (!empty($_POST)) {
     } elseif (checkManger($_POST['email'], $_POST['password']) > 0) {
         $_SESSION['userType'] = 3;
         header("Location:main.php");
-    } elseif (checkCustomer($_POST['email'], $_POST['password']) > 0) {
+    } elseif (checkCustomer($_POST['email'], md5($_POST['password']) > 0)) {
         $_SESSION['userType'] = 2;
         $_SESSION['email'] = $_POST['email'];
 
-        if (isset($_SESSION['page-came-from'])) {
-            header("Location:" . $_SESSION['page-came-from']);
+        if (isset($_SESSION['page-want-to-go'])) {
+            header("Location:" . $_SESSION['page-want-to-go']);
         } else {
             header("Location:main.php");
         }

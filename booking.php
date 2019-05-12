@@ -4,7 +4,7 @@ include 'layout.php';
 include 'model.php';
 
 if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
-    $_SESSION['page-came-from'] = "picnics.php";
+    $_SESSION['page-want-to-go'] = "booking.php";
     header("Location:login.php");
 }
 
@@ -142,7 +142,7 @@ if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
 
                         let people = parseInt(document.getElementById("NumberOfPeople").value, 10);
                         let available = parseInt(document.getElementById("available").value, 10);
-                        
+
 
                         if (people > available) {
 

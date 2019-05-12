@@ -37,18 +37,18 @@ function getcustomers()
     return $pdo->query("select * from customers");
 }
 
-function getpicnics()
+function getpicnicsDetails($pid)
 {
     global $pdo;
 
-    return $pdo->query("select * from picnic");
+    return $pdo->query("select title,food, DATE_FORMAT(departuretime, '%r') as departuretime ,DATE_FORMAT(returntime, '%r') as returntime,DATE_FORMAT(arrivaltime, '%r') as arrivaltime , departurelocation , activities , images  from picnic where pid = " . $pid);
 }
 
 function getPinicsForTable($start_limit, $records)
 {
     global $pdo;
 
-    return $pdo->query("select pid , place,date,description,cost from picnic limit " . $start_limit . ", " . $records . ";");
+    return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE limit " . $start_limit . ", " . $records . ";");
 }
 
 
@@ -57,7 +57,7 @@ function getPinicsForTableWithFilter($place, $date, $start_limit, $records)
     global $pdo;
     $inp = ["place" => $place, "date" => $date];
     $res = "";
-    $query = "select pid , place,date,description,cost from picnic where ";
+    $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE and ";
     foreach ($inp as $i => $value) {
         if (isset($value) && !empty($value)) {
 
@@ -77,7 +77,7 @@ function getRowNum()
 {
     global $pdo;
 
-    return $pdo->query("select count(*) from picnic");
+    return $pdo->query("select count(*) from picnic as a  where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE");
 }
 
 function getRowNumFiltered($place, $date)
@@ -88,7 +88,7 @@ function getRowNumFiltered($place, $date)
     $res = 0;
     foreach ($inp as $i => $value) {
         if (isset($value) && !empty($value))
-            $res = $pdo->query("select count(*) from picnic where " . $i . " = '" . $value . "';");
+            $res = $pdo->query("select count(*) from picnic as a  where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE and " . $i . " = '" . $value . "';");
     }
 
     return $res;
@@ -299,8 +299,8 @@ function addPicnic($title, $place, $price, $capacity, $description, $food, $depa
 {
 
     global $pdo;
-    $sql = "INSERT INTO picnic (food, cost,capacity, description,returntime,arrivaltime,departuretime,date,departurelocation,place,activities)
-VALUES ('" . $food . "'," . $price . ",'" . $capacity . "','" . $description . "','" . $returntime . "','" . $arrivaltime . "','" . $departuretime . "','" . $date . "','" . $departurelocation . "','" . $place . "','" . $activities . "')";
+    $sql = "INSERT INTO picnic (food, cost,capacity, description,returntime,arrivaltime,departuretime,date,departurelocation,place,activities , title)
+VALUES ('" . $food . "'," . $price . ",'" . $capacity . "','" . $description . "','" . $returntime . "','" . $arrivaltime . "','" . $departuretime . "','" . $date . "','" . $departurelocation . "','" . $place . "','" . $activities . "','" . $title . "')";
 
     if ($pdo->exec($sql) === false) {
         return 0;
@@ -319,8 +319,23 @@ function getIdForLastPicnic()
 
 }
 
+function addImagesToPicnic($id, $imgs)
+{
+    global $pdo;
+
+    $sql = " UPDATE picnic set images = '" . $imgs . "' where pid = " . $id;
+
+
+    if ($pdo->exec($sql) === false) {
+        return 0;
+    } else return 1;
+
+
+}
+
 /*              CONTACT US FUNCTIONS                 */
-function insertMessage($name, $email, $message){
+function insertMessage($name, $email, $message)
+{
     global $pdo;
     $sql = "INSERT INTO messages (name,email,message) VALUES ('$name','$email','$message')";
 
@@ -330,21 +345,22 @@ function insertMessage($name, $email, $message){
     return 1;
 }
 
-function printMessages(){
+function printMessages()
+{
     global $pdo;
     $sql = "SELECT * FROM messages";
-    $result = $pdo ->query($sql);
+    $result = $pdo->query($sql);
     if ($result->rowCount() == 0)
         echo '<p>No Messages!</p>';
-    else{
+    else {
         echo "<div style='overflow-x:auto;'><table>
                 <th>Name</th><th>Email</th><th>Message</th>";
-        while ($row = $result->fetch()){
+        while ($row = $result->fetch()) {
             echo "
             <tr>
-                <td>".$row['name']."</td>
-                <td>".$row['email']."</td>
-                <td>".$row['message']."</td>
+                <td>" . $row['name'] . "</td>
+                <td>" . $row['email'] . "</td>
+                <td>" . $row['message'] . "</td>
             </tr>
             ";
         }
