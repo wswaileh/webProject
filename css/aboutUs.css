@@ -57,9 +57,14 @@ textarea{
     height: 4rem;
 }
 
-button{
+.bt{
     padding: 0.5rem 2rem 0.5rem 2rem;
     background-color: #333;
     color: white;
     border-radius: 1rem;
+}
+
+.bt.clicked{
+    cursor: not-allowed;
+    background-color: grey;
 }

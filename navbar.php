@@ -16,6 +16,7 @@
                 ';
             else
                 echo '
+                    <a href="viewMessages.php">View Messages</a>
                     <a href="addPicnic.php">Add Picnic</a>
                     <a href="logout.php">Logout</a>
                 ';
