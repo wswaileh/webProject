@@ -18,24 +18,42 @@ if (isset($_GET['new'])) {
     <title>Login</title>
 </head>
 <body>
+<div id="container">
+    <div class="left-sidebar" id="left-sidebar">
 
-<div class="form">
-    <form class="form1" action="" method="post">
-        <h2 id="h"> login Form</h2>
-        <label>Email : </label><input type="email" name="email"
-                                      value="<?php echo(isset($_SESSION['email']) ? $_SESSION['email'] : ''); ?>"
-                                      placeholder="Email Address"
-                                      required=""/><?php if (isset($_SESSION['wrong']) && $_SESSION['wrong'] == 1) echo "<sup style=" . "color:red;margin-left:125px;" . ";> email doesn't exist </sup>"; ?>
-        <br><br>
-        <label>Password :</label><input type="password" name="password" placeholder="Password"
-                                        required=""/> <?php if ((isset($_SESSION['wrong'])) && $_SESSION['wrong'] == 2) echo "<sup style=" . "color:red;margin-left:125px;" . "> wrong password </sup>"; ?>
+        <a href="#" id="close-sidebar" class="fas fa-arrow-left"></a>
+        <a href="#" class="fas fa-thumbtack"> Latest Picnics</a>
+        <a href="#" class="fas fa-newspaper"> News</a>
+        <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] == 2) { ?>
+            <a href="#" class="fas fa-shopping-cart"> Cart</a>
+        <?php } ?>
+    </div>
+    <div class="form">
+        <form class="form1" action="" method="post">
+            <h2 id="h"> login Form</h2>
+            <label>Email : </label><input type="email" name="email"
+                                          value="<?php echo(isset($_SESSION['email']) ? $_SESSION['email'] : ''); ?>"
+                                          placeholder="Email Address"
+                                          required=""/><?php if (isset($_SESSION['wrong']) && $_SESSION['wrong'] == 1) echo "<sup style=" . "color:red;margin-left:125px;" . ";> email doesn't exist </sup>"; ?>
+            <br><br>
+            <label>Password :</label><input type="password" name="password" placeholder="Password"
+                                            required=""/> <?php if ((isset($_SESSION['wrong'])) && $_SESSION['wrong'] == 2) echo "<sup style=" . "color:red;margin-left:125px;" . "> wrong password </sup>"; ?>
 
 
-        <br><br>
-        <button class="button" type="submit">Login</button>
-    </form>
+            <br><br>
+            <button class="button" type="submit">Login</button>
+        </form>
+    </div>
 </div>
 
+<script type="text/javascript">
+
+
+    document.getElementById('close-sidebar').addEventListener('click', function (event) {
+        event.preventDefault();
+        closeSlidMenu();
+    });
+</script>
 
 <?php require 'footer.php' ?>
 
@@ -52,7 +70,7 @@ if (!empty($_POST)) {
     } elseif (checkManger($_POST['email'], $_POST['password']) > 0) {
         $_SESSION['userType'] = 3;
         header("Location:main.php");
-    } elseif (checkCustomer($_POST['email'], md5($_POST['password']) > 0)) {
+    } elseif (checkCustomer($_POST['email'], md5($_POST['password'])) > 0) {
         $_SESSION['userType'] = 2;
         $_SESSION['email'] = $_POST['email'];
 

@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_name("name");
     session_start();
 }
@@ -18,9 +18,10 @@ if (!isset($_SESSION)){
           integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
           crossorigin="anonymous">
 
-
+    <script src="javascript/main.js"></script>
 </head>
 <body>
 <div style="position: relative; min-height: 100vh">
     <?php require 'navbar.php' ?>
     <div style="  padding-bottom: 2.5rem;    /* Footer height */">
+

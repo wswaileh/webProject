@@ -61,11 +61,12 @@ textarea {
     font-size: 30px;
     font-family: "Times New Roman";
     background-color: #B8B8B8;
+
+
 }
 
 input[type=submit] {
     margin-left: 120px;
-
     position: relative;
     top: -45px;
     color: #fff;

@@ -10,7 +10,17 @@ if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
 
 ?>
 
-<div class="container">
+<div class="container" id="container">
+
+    <div class="left-sidebar" id="left-sidebar">
+
+        <a href="#" id="close-sidebar" class="fas fa-arrow-left"></a>
+        <a href="#" class="fas fa-thumbtack"> Latest Picnics</a>
+        <a href="#" class="fas fa-newspaper"> News</a>
+        <?php if ($_SESSION['userType'] == 2) { ?>
+            <a href="#" class="fas fa-shopping-cart"> Cart</a>
+        <?php } ?>
+    </div>
 
 
     <form method="post" action="confirmation.php" id="form">
@@ -199,6 +209,14 @@ if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
     </form>
 
     <div id="error-alert"></div>
+
+
+    <script type="text/javascript">
+        document.getElementById('close-sidebar').addEventListener('click', function (event) {
+            event.preventDefault();
+            closeSlidMenu();
+        });
+    </script>
 
 </div>
 

@@ -29,3 +29,18 @@ function closeModal() {
     modal.style.display = "none";
 
 }
+
+function openSlidMenu() {
+
+    document.getElementById("left-sidebar").style.width = "250px";
+    document.getElementById("container").style.paddingLeft = "250px";
+
+
+}
+
+function closeSlidMenu() {
+
+    document.getElementById("left-sidebar").style.width = "0";
+    document.getElementById("container").style.paddingLeft = "0";
+
+}

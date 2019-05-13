@@ -44,20 +44,31 @@ function getpicnicsDetails($pid)
     return $pdo->query("select title,food, DATE_FORMAT(departuretime, '%r') as departuretime ,DATE_FORMAT(returntime, '%r') as returntime,DATE_FORMAT(arrivaltime, '%r') as arrivaltime , departurelocation , activities , images  from picnic where pid = " . $pid);
 }
 
-function getPinicsForTable($start_limit, $records)
+function getPinicsForTable($start_limit, $records, $userType)
 {
     global $pdo;
 
-    return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE limit " . $start_limit . ", " . $records . ";");
+    if ($userType != 3) {
+
+        return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE limit " . $start_limit . ", " . $records . ";");
+
+    } else {
+        return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a limit " . $start_limit . ", " . $records . ";");
+    }
 }
 
 
-function getPinicsForTableWithFilter($place, $date, $start_limit, $records)
+function getPinicsForTableWithFilter($place, $date, $start_limit, $records, $userType)
 {
     global $pdo;
     $inp = ["place" => $place, "date" => $date];
-    $res = "";
-    $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE and ";
+
+    $query = "";
+    if ($userType != 3) {
+        $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE and ";
+    } else {
+        $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid where ";
+    }
     foreach ($inp as $i => $value) {
         if (isset($value) && !empty($value)) {
 
@@ -73,23 +84,34 @@ function getPinicsForTableWithFilter($place, $date, $start_limit, $records)
 }
 
 
-function getRowNum()
+function getRowNum($userType)
 {
     global $pdo;
 
-    return $pdo->query("select count(*) from picnic as a  where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE");
+    if ($userType != 3) {
+
+        return $pdo->query("select count(*) from picnic as a  where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE");
+    } else {
+        return $pdo->query("select count(*) from picnic");
+    }
 }
 
-function getRowNumFiltered($place, $date)
+
+function getRowNumFiltered($place, $date, $userType)
 {
 
     global $pdo;
+    $query = "select count(*) from picnic as a";
     $inp = ["place" => $place, "date" => $date];
     $res = 0;
     foreach ($inp as $i => $value) {
-        if (isset($value) && !empty($value))
-            $res = $pdo->query("select count(*) from picnic as a  where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE and " . $i . " = '" . $value . "';");
+        if (isset($value) && !empty($value) && $userType != 3)
+            $res = $pdo->query($query . " where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE and " . $i . " = '" . $value . "';");
+        else if (isset($value) && !empty($value) && $userType == 3)
+            $res = $pdo->query($query . " where  " . $i . " = '" . $value . "';");
+
     }
+
 
     return $res;
 }
@@ -353,8 +375,10 @@ function printMessages()
     if ($result->rowCount() == 0)
         echo '<p>No Messages!</p>';
     else {
-        echo "<div style='overflow-x:auto;'><table>
-                <th>Name</th><th>Email</th><th>Message</th>";
+        echo "<div id='container' style='overflow-x:auto;'>
+<h1>Contact Us Messages</h1>            
+<table>
+                <th><span class='fas fa-signature'></span> Name</th><th><span class='fas fa-envelope'></span> Email</th><th><span class='fas fa-edit'></span> Message</th>";
         while ($row = $result->fetch()) {
             echo "
             <tr>

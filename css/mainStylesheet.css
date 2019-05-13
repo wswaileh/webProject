@@ -4,14 +4,18 @@
 
 body {
     margin: 0px;
-    font-family: 'segoe ui';
+    font-family: 'segoe ui', Serif, "Arial";
 
 }
 
 .container {
 
-    margin-top: 6%;
+
+    padding-top: 10%;
     width: 100%;
+    overflow: hidden;
+    transition: padding-left 0.5s ease;
+
 }
 
 .picnic-table {
@@ -76,7 +80,7 @@ body {
 
 .pagination {
     display: inline-block;
-    margin: 40px 40%;
+    margin: 40px 30%;
 }
 
 .pagination a {
@@ -372,9 +376,10 @@ a[data-tool-tip]:hover::after {
 }
 
 
-.pid::after {
+.pid::before {
     font-family: "Font Awesome 5 Free";
-    content: ' \f59c';
+    content: ' \f0c1';
+    font-weight: 900;
 
 
 }
@@ -602,4 +607,49 @@ a[data-tool-tip]:hover::after {
     font-size: 15px;
 }
 
+.wrapper {
+    position: relative;
+}
+
+.left-sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    opacity: 0.9;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+
+}
+
+
+.left-sidebar a {
+    padding: 50px 10px 10px 30px;
+    text-decoration: none;
+    font-size: 22px;
+    color: #ccc;
+    display: block;
+    transition: 0.3s;
+
+}
+
+.left-sidebar a:first-child {
+    font-size: 23px;
+    padding-top: 0px !important;
+}
+
+
+.left-sidebar a:hover {
+    background-color: #DDDDDD;
+    color: black;
+}
+
+
+.right-sidebar {
+
+}
 
