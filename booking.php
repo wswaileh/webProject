@@ -8,6 +8,10 @@ if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
     header("Location:login.php");
 }
 
+
+if (!isset($_GET['id'])) {
+    header("location:main.php");
+}
 ?>
 
 <div class="container" id="container">
@@ -86,28 +90,183 @@ if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
                 $time = array();
                 foreach ($keys as $i) {
 
-                    if ($row[$i] == "description") {
+                    if ($i == "description") {
                         $desc = explode(',', $row[$i]);
                         $row[$i] = $desc[0];
                     }
 
                     if ($i == "pid") {
                         $hidden["pid"] = $row[$i];
-                        echo "<td  data-tool-tip='For more Details' class='pid' style='padding-left: 80px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
-                    } else if ($i == "cost") {
+                        echo "<td  data-tool-tip='For more Details' class='pid' style='padding-left: 80px;font-size: 1.4pc'><a id='pidA' href='#'" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
 
                         ?>
-                        <td style="padding-left: 40px"><?= $row[$i] ?> &#8362;</td><?php
+
+                        <script type="text/javascript">
+
+                            document.getElementById('pidA').addEventListener('click', function (event) {
+                                event.preventDefault();
+                                display(<?=$row[$i]?>);
+
+                            });
+
+                        </script>
+
+                        <div class="detail-modal" id="modal-<?= $row[$i] ?>">
+                            <div class="detail-modal-content">
+                                <div class="detail-modal-header"><h3>Picnic #<?= $row[$i] ?>
+                                        - <?= $row['place'] ?></h3>
+                                    <span class="detail-modal-close" id="close-<?= $row[$i] ?>">&times;</span>
+                                </div>
+                                <div class="detail-modal-body">
+                                    <?php
+
+                                    $details = getpicnicsDetails($row[$i]);
+                                    $Details = array();
+
+                                    if ($d = $details->fetch()) {
+
+
+                                        while ($element = current($d)) {
+                                            $AM_PM = [];
+                                            if (strpos(key($d), "time")) {
+                                                $timeItems = array();
+                                                $timeItems = explode(':', $d[key($d)]);
+                                                $AM_PM = explode(' ', $timeItems[2]);
+                                                $timeItems[2] = $AM_PM[1];
+                                                $d[key($d)] = implode(':', $timeItems);
+
+                                            }
+
+                                            $Details[key($d)] = $d[key($d)];
+
+                                            next($d);
+                                        }
+
+                                    }
+
+
+                                    ?>
+
+                                    <div class="time">
+
+                                        <strong class="far fa-clock">Departure Time: </strong><strong
+                                                class="far fa-clock">Arrival Time</strong><strong
+                                                class="far fa-clock">Return
+                                            Time</strong>
+                                        <i><?= $Details['departuretime'] ?></i>
+                                        <i><?= $Details['arrivaltime'] ?></i>
+                                        <i><?= $Details['returntime'] ?></i>
+
+                                    </div>
+
+                                    <div class="details-desc">
+                                        <ul>
+                                            <dl>
+                                                <li><strong><?= $Details['title'] ?></strong></li>
+
+                                                <li>
+                                                    <dt><strong class="fas fa-utensils-alt"
+                                                                style="font-weight: 900">Food</strong></dt>
+                                                    <dd><?= $Details['food'] ?></dd>
+                                                </li>
+
+                                                <li>
+                                                    <dt><strong class="fas fa-hiking">Activities</strong></dt>
+                                                    <dd><?= $Details['activities'] ?></dd>
+                                                </li>
+                                            </dl>
+                                        </ul>
+
+                                        <p>
+                                            <strong class="fas fa-info-circle">Description: </strong><br><?= $row['description'] ?>
+                                        </p>
+                                    </div>
+                                    <strong style="padding: 30px" class="fas fa-images">Photos
+                                        Related: </strong><br>
+                                    <div class="photos-container">
+
+
+                                        <?php
+                                        $images = array();
+                                        $images = explode(';', $Details['images']);
+                                        if (in_array("default", $images)) {
+                                            ?> <img src="img/icons/logo.jpg" width="250px" height="250px">
+                                            <img src="img/icons/logo.jpg" width="250px" height="250px">
+                                            <img src="img/icons/logo.jpg" width="250px" height="250px">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <div class="card">
+                                                <img src="img/picnics/<?= $images[0] ?>.jpg" width="250px"
+                                                     height="250px" class="card__img">
+                                                <div class="card__text">
+                                                    <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
+                                                    </h3>
+                                                    <p><?= $Details['title'] ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <img src="img/picnics/<?= $images[1] ?>.jpg" width="250px"
+                                                     height="250px" class="card__img">
+                                                <div class="card__text">
+                                                    <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
+                                                    </h3>
+                                                    <p><?= $Details['title'] ?></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="card">
+                                                <img src="img/picnics/<?= $images[2] ?>.jpg" width="250px"
+                                                     height="250px" class="card__img">
+                                                <div class="card__text">
+                                                    <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
+                                                    </h3>
+                                                    <p><?= $Details['title'] ?></p>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+
+                                    <div class="detail-links-related">
+                                        <strong class="fas fa-link">Links Related To the picnic's
+                                            Place:</strong><br>
+                                        <a href="https://en.wikipedia.org/wiki/<?= $row['place'] ?>"
+                                           target="_blank" style="text-decoration: none">
+                                            <ul>
+                                                <li><?= $row['place'] ?></li>
+                                            </ul>
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <div class="detail-modal-footer">
+                                    <a href="aboutUs.php" style="text-decoration: none; color: white">
+                                        <sub>Laflef</sub><sup>Team</sup>&copy;
+                                        <img src="img/icons/logo.jpg" width="100px" height="50px">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    <?php
+
+                    } else if ($i == "cost") {
+
+                    ?>
+                    <td style="padding-left: 40px"><?= $row[$i] ?> &#8362;</td><?php
                     } else if (strpos($i, "time")) {
                         $time = explode(":", $row[$i]);
                         unset($time[2]);
                         $row[$i] = implode(":", $time);
 
                         ?>
-                        <td style="padding-left: 20px">
+                    <td style="padding-left: 20px">
                         <time><?= $row[$i] ?></time></td><?php
                     } else { ?>
-                        <td><?= $row[$i] ?></td><?php
+                    <td><?= $row[$i] ?></td><?php
                     }
 
 

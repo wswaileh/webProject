@@ -2,6 +2,9 @@
 include 'model.php';
 session_name("name");
 session_start();
+
+if (!isset($_POST['pid']))
+    header("location:main.php");
 ?>
 <html>
 <head>

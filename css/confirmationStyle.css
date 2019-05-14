@@ -431,3 +431,9 @@ input[data-tool-tip]::after {
 input[data-tool-tip]:hover::after {
     transform: scale(1);
 }
+
+.disabledA:hover{
+
+    color:red;
+
+}

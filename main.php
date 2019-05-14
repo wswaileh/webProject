@@ -56,7 +56,7 @@ if (!isset($_SESSION['userType']))
         </div>
 
 
-        <div style="height: 150px;text-align: center;font-size: 20px;font-family: Times New Roman;background-color: #90DE01;">
+        <div style="height: 150px;text-align: center;font-size: 20px;font-family: Times New Roman;background-color: rgb(51,51,50);">
             <br><b>L a f l e f</b><br><br>Our site Offer the best picnics Across the west bank area
         </div>
 

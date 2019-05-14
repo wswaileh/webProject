@@ -32,7 +32,7 @@ require 'layout.php' ?>
             <p>Here at Picnics R Us we promise to bring to your picnic only the most top quality foods and set ups.</p>
         </div>
 
-        <div class="row">
+        <div class="row" id="contact">
             <img src="img/aboutUs/contactUs.png">
             <h1>Contact Us</h1>
             <form method="post" id="contactUs">

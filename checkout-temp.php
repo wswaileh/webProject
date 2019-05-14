@@ -4,7 +4,9 @@ include 'model.php';
 session_name("name");
 session_start();
 
-
+if (!isset($_POST['checkout']) && !isset($_POST['total'])) {
+    header("location:main.php");
+}
 if (isset($_POST['checkout'])) {
     $email = "";
     if (isset($_SESSION['email'])) {
@@ -222,9 +224,9 @@ if (!isset($_POST['total'])) {
                                 Ramallah, Palestine
                             </td>
 
-                            <td>
+                            <td>For:
                                 <?= $name ?><br>
-                                <?= $_SESSION['email'] ?>
+                                E-mail: <?= $_SESSION['email'] ?>
                             </td>
                         </tr>
                     </table>

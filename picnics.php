@@ -17,6 +17,7 @@ include 'model.php';
             <a href="#" class="fas fa-shopping-cart"> Cart</a>
         <?php } ?>
     </div>
+
     <div class="container" id="container">
 
         <form action="picnics.php" method="get" id="picnic-search">
@@ -417,7 +418,8 @@ include 'model.php';
             </table>
         </form>
         <div class="pagination">
-            <a href="picnics.php?page=<?php ($_GET['page'] - 1) != 0 ? print($_GET['page'] - 1) : print 1 ?>">&laquo;</a>
+            <a id="backward"
+               href="picnics.php?page=<?php ($_GET['page'] - 1) != 0 ? print($_GET['page'] - 1) : print 1 ?>">&laquo;</a>
             <?php
 
             for ($page = 1; $page <= $pages; $page++) {
@@ -428,10 +430,29 @@ include 'model.php';
                     echo "<a href='picnics.php?page=" . $page . "'>" . $page . "</a>";
 
             }
+
+            ?> <a id="forward"
+                  href="picnics.php?page=<?php $_GET['page'] != $pages ? print($_GET['page'] + 1) : print 1 ?>">&raquo;</a>
+            <?php
+
+            if ($_GET['page'] == $pages) {
+                echo "<script>document.getElementById('forward').href='#'</script>";
+                echo "<script>document.getElementById('forward').style.cursor='default'</script>";
+
+            } else {
+                echo "<script>document.getElementById('forward'). href='picnics.php?page=" . ($_GET['page'] + 1) . "'</script>";
+            }
+
+            if ($_GET['page'] == 1) {
+                echo "<script>document.getElementById('backward').href='#'</script>";
+                echo "<script>document.getElementById('backward').style.cursor='default'</script>";
+                echo "<script>document.getElementById('backward').className='disabledA'</script>";
+            } else {
+                echo "<script>document.getElementById('backward').href='picnics.php?page=" . ($_GET['page'] - 1) . "'</script>";
+            }
+
+
             ?>
-
-
-            <a href="picnics.php?page=<?php $_GET['page'] != $pages ? print($_GET['page'] + 1) : print 1 ?>">&raquo;</a>
 
         </div>
 

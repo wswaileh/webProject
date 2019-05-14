@@ -11,7 +11,7 @@ body {
 .container {
 
 
-    padding-top: 10%;
+    padding-top: 9%;
     width: 100%;
     overflow: hidden;
     transition: padding-left 0.5s ease;
@@ -121,6 +121,7 @@ time {
     position: relative;
     display: inline-block;
 
+
 }
 
 /* Tooltip text */
@@ -135,6 +136,7 @@ time {
 
     /* Position the tooltip text - see examples below! */
     position: absolute;
+    top:-70px;
     z-index: 1;
 }
 
@@ -652,4 +654,32 @@ a[data-tool-tip]:hover::after {
 .right-sidebar {
 
 }
+
+
+footer{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0.5rem 3rem 5rem 4rem;
+    display: grid;
+    overflow: hidden;
+    background-color: #333333!important;
+    grid-template-columns: 33.3rem 33.3rem 33.3rem;
+
+}
+
+footer a {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: 900;
+
+}
+footer strong{
+    font-size: 18px;
+    color: whitesmoke;
+}
+
+
 
