@@ -201,7 +201,7 @@ if (!empty($_POST)) {
     } else {
 
 
-        $add = addPicnic($_POST['title'], $_POST['place'], $_POST['price'], $_POST['capacity'], $_POST['description'], $_POST['food'], $_POST['departurelocation'], $_POST['departuretime'], $_POST['arrivaltime'], $_POST['returntime'], $_POST['date'], $_POST['activities']);
+        $add = addPicnic($_POST['title'], $_POST['place'], $_POST['price'], $_POST['capacity'], $_POST['description'], $_POST['food'], $_POST['departurelocation'], $_POST['departuretime'], $_POST['arrivaltime'], $_POST['returntime'], $_POST['date'], $_POST['activities'],$_POST['escorts'],$_POST['escorttel']);
 
         if ($add == 1) {
 

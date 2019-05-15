@@ -133,22 +133,6 @@ body {
 }
 
 
-.price-option__purchase::before {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    display: block;
-    width: 0;
-    height: 0;
-    margin-left: -5px;
-    border-width: 0 5px 5px;
-    border-style: solid;
-}
-
-.price-option--low .price-option__purchase::before {
-    border-color: transparent transparent #a7d155;
-}
 
 
 /*Modals*/

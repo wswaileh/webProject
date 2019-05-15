@@ -5,6 +5,42 @@ if (isset($_GET['new'])) {
     session_destroy();
     header('Location: register.php');
 }
+
+
+include 'registerValidation.php';
+if (!empty($_POST)) {
+
+    $_SESSION['emailr'] = $_POST['email'];
+    $_SESSION['dob'] = $_POST['dob'];
+    $_SESSION['address'] = $_POST['address'];
+    $_SESSION['phone'] = $_POST['phone'];
+    $_SESSION['name'] = $_POST['name'];
+
+    $error = checkRegister($_POST['email']);
+
+    $dob = strtotime($_POST['dob']);
+    $current = strtotime("today");
+    $res = ($current - $dob);
+    $res = ceil($res / 3.17098e-8);
+    $res=explode('.',$res)[0];
+
+    if ($res > 0 && $res < 8) {
+        echo "<script type='text/javascript'>alert('You are Too young to register sorry...')</script>";
+    } else {
+
+        if ($error != 0) {
+            unset($_SESSION['added']);
+            $_SESSION['error'] = $error;
+            header('Location: register.php');
+        } else {
+
+            unset($_SESSION['error']);
+            header('Location: eAccount.php');
+
+        }
+    }
+
+}
 ?>
 
 
@@ -71,8 +107,9 @@ if (isset($_GET['new'])) {
             <?php if (isset($_SESSION['error']) && $_SESSION['error'] == 1) echo "<sup style=" . "color:red;margin-left:180px;" . ";> email already exist </sup>"; ?>
             <br>
 
-            <label>PHONE :</label><input type="text" name="phone" placeholder="Enter your phone" required=""
-                                         value="<?php echo(isset($_SESSION['phone']) ? $_SESSION['phone'] : ''); ?>"/><br>
+            <label>PHONE :</label><input type="tel" name="phone" placeholder="Enter your phone" required=""
+                                         value="<?php echo(isset($_SESSION['phone']) ? $_SESSION['phone'] : ''); ?>"
+                                         pattern="[0-9]*"/><br>
 
 
             <label>Address :</label> <input type="text" name="address" placeholder="Enter your address" required=""
@@ -86,31 +123,7 @@ if (isset($_GET['new'])) {
         </form>
     </div>
 </div>
-
-
 <?php
-include 'registerValidation.php';
-if (!empty($_POST)) {
-
-    $_SESSION['emailr'] = $_POST['email'];
-    $_SESSION['dob'] = $_POST['dob'];
-    $_SESSION['address'] = $_POST['address'];
-    $_SESSION['phone'] = $_POST['phone'];
-    $_SESSION['name'] = $_POST['name'];
-
-    $error = checkRegister($_POST['email']);
-    if ($error != 0) {
-        unset($_SESSION['added']);
-        $_SESSION['error'] = $error;
-        header('Location: register.php');
-    } else {
-
-        unset($_SESSION['error']);
-        header('Location: eAccount.php');
-
-    }
-
-}
 
 
 require 'footer.php' ?>

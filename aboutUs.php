@@ -12,7 +12,9 @@ require 'layout.php' ?>
             <a href="picnics.php" class="fas fa-thumbtack"> Latest Picnics</a>
             <a href="news.php" class="fas fa-newspaper"> News</a>
             <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] == 2) { ?>
-                <a href="#" class="fas fa-shopping-cart" id="openCart"> Cart <span id="openCart-span" class="fas fa-sort-down" style="float: right"></span></a>
+                <a href="#" class="fas fa-shopping-cart" id="openCart"> Cart <span id="openCart-span"
+                                                                                   class="fas fa-sort-down"
+                                                                                   style="float: right"></span></a>
                 <div class="purchase" id="purchase">
                     <?php $customer = getCustomerIdByEmail($_SESSION['email']);
 
@@ -38,7 +40,7 @@ require 'layout.php' ?>
 
         <script type="text/javascript">
 
-            document.getElementById('openCart').addEventListener('click' ,function (event) {
+            document.getElementById('openCart').addEventListener('click', function (event) {
                 event.preventDefault();
 
                 openAndCloseCart();
@@ -63,13 +65,13 @@ require 'layout.php' ?>
         </div>
 
         <div class="row" id="contact">
-            <img src="img/aboutUs/contactUs.png">
+            <img src="img/aboutUs/contactUs.png" style="float: right">
             <h1>Contact Us</h1>
             <form method="post" id="contactUs">
                 <label id="nameLabel"></label>
                 <input name="name" placeholder="Name" id="nameField">
                 <label id="emailLabel"></label>
-                <input name="email" placeholder="Email" id="emailField" type="email">
+                <input name="email" placeholder="Email" id="emailField">
                 <label id="messageLabel"></label>
                 <textarea name="message" placeholder="Message..." id="messageField"></textarea>
                 <button type="submit" onclick="btFade()" class="bt" id="sendMessageBT">Send Message</button>
@@ -129,6 +131,9 @@ require 'layout.php' ?>
                 var name = document.getElementById("nameField").value;
                 var email = document.getElementById("emailField").value;
                 var message = document.getElementById("messageField").value;
+
+                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
                 if (name == "") {
                     event.preventDefault();
                     alert("Name Field Cannot Be Empty!");
@@ -138,6 +143,9 @@ require 'layout.php' ?>
                 } else if (message == "") {
                     event.preventDefault();
                     alert("Message Field Cannot Be Empty!");
+                } else if (!re.test(String(document.getElementById("emailField").value).toLowerCase())) {
+                    event.preventDefault();
+                    alert("Please Enter valid E-mail....e.g example@example.com");
                 } else {
                     //event.preventDefault();
                     document.getElementById("sendMessageBT").className += " clicked";
@@ -146,6 +154,7 @@ require 'layout.php' ?>
                 }
 
             }
+
 
         </script>
 

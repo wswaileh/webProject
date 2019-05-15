@@ -20,7 +20,7 @@
 
             <?php
             echo '
-                    <a href="logout.php" class="fas fa-sign-out-alt"> Logout</a>
+                    <a href="#" class="fas fa-sign-out-alt" id="customer-logout"> Logout</a>
                 ';
 
         } else
@@ -28,7 +28,7 @@
                     <a href="viewMessages.php" class="fas fa-envelope" > View Messages</a>
                     <a href="addPicnic.php" class="fas fa-plus"> Add Picnic</a>
                     <a href="addNews.php" class="fas fa-newspaper"> Spread News</a>
-                    <a href="logout.php" class="fas fa-sign-out-alt"> Logout</a>
+                    <a href="#" class="fas fa-sign-out-alt" id="admin-logout"> Logout</a>
                 ';
         ?>
     </div>
@@ -37,7 +37,6 @@
     </a>
 </nav>
 
-<script src="javascript/main.js"></script>
 
 <script>
 
@@ -56,4 +55,30 @@
             x.className = "topnav";
         }
     }
+</script>
+
+
+<script type="text/javascript">
+
+    var role = <?=$_SESSION['userType']?>;
+
+    if (role == 2) {
+        document.getElementById('customer-logout').addEventListener('click', function (event) {
+            event.preventDefault();
+            if (window.confirm("Are you sure you want to logout ?")) {
+                window.location.replace('logout.php');
+            }
+
+
+        })
+    } else if (role == 3) {
+        document.getElementById('admin-logout').addEventListener('click', function (event) {
+            event.preventDefault();
+            if (window.confirm("Are you sure you want to logout ?")) {
+                window.location.replace('logout.php');
+            }
+
+        })
+    }
+
 </script>

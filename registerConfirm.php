@@ -10,6 +10,39 @@ if (!isset($_POST)) {
     header("location:register.php");
 }
 
+
+include 'registerValidation.php';
+if (!empty($_POST)) {
+
+    $_SESSION['emailr'] = $_POST['email'];
+    $_SESSION['dob'] = $_POST['dob'];
+    $_SESSION['address'] = $_POST['address'];
+    $_SESSION['phone'] = $_POST['phone'];
+    $_SESSION['name'] = $_POST['name'];
+    $_SESSION['username'] = $_POST['username'];
+
+
+    $error = finalCheck($_SESSION['emailr'], $_SESSION['username']);
+    if ($error != 0) {
+        unset($_SESSION['added']);
+        $_SESSION['errorc'] = $error;
+        header('Location: registerConfirm.php');
+    } elseif (addUser($_SESSION['name'], $_SESSION['emailr'], $_SESSION['username'], $_SESSION['phone'], md5($_SESSION['password']), $_SESSION['address'], $_SESSION['dob'], $_SESSION['id']) == 1) {
+        $_SESSION['userType'] = 2;
+        $_SESSION['Customer_Name']=$_SESSION['name'];
+        echo("<script LANGUAGE='JavaScript'>
+    window.alert('User added succifully');
+    window.location.href='main.php';
+    </script>");
+    } else {
+        $_SESSION['added'] = 0;
+        unset($_SESSION['errorc']);
+        header('Location: registerConfirm.php');
+    }
+
+
+}
+
 ?>
 
 
@@ -119,39 +152,3 @@ if (!isset($_POST)) {
 </body>
 </html>
 
-
-<?php
-
-include 'registerValidation.php';
-if (!empty($_POST)) {
-
-    $_SESSION['emailr'] = $_POST['email'];
-    $_SESSION['dob'] = $_POST['dob'];
-    $_SESSION['address'] = $_POST['address'];
-    $_SESSION['phone'] = $_POST['phone'];
-    $_SESSION['name'] = $_POST['name'];
-    $_SESSION['username'] = $_POST['username'];
-
-
-    $error = finalCheck($_SESSION['emailr'], $_SESSION['username']);
-    if ($error != 0) {
-        unset($_SESSION['added']);
-        $_SESSION['errorc'] = $error;
-        header('Location: registerConfirm.php');
-    } elseif (addUser($_SESSION['name'], $_SESSION['emailr'], $_SESSION['username'], $_SESSION['phone'], md5($_SESSION['password']), $_SESSION['address'], $_SESSION['dob'], $_SESSION['id']) == 1) {
-        $_SESSION['userType'] = 2;
-        echo("<script LANGUAGE='JavaScript'>
-    window.alert('User added succifully');
-    window.location.href='main.php';
-    </script>");
-    } else {
-        $_SESSION['added'] = 0;
-        unset($_SESSION['errorc']);
-        header('Location: registerConfirm.php');
-    }
-
-
-}
-
-
-?>

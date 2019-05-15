@@ -1,10 +1,10 @@
 body {
-  background: #eee ;  
+    background: #eee;
 }
 
-.form {  
-  margin-top: 50px;
-  margin-bottom: 50px;
+.form {
+    margin-top: 50px;
+    margin-bottom: 50px;
 
 
 }
@@ -13,16 +13,14 @@ body {
     box-shadow: 3px 3px 10px 1px black;
     padding: 0px 70px 20px;
     margin: 7rem auto;
-  width: 600px;
-  background-color: #fff;
-  border: 1px solid rgba(0,0,0,0.1);  
- 
- }
+    width: 600px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
+}
 
 
-
-
-  input {
+input {
     float: left;
     width: 250px;
     font-size: 16px;
@@ -30,30 +28,31 @@ body {
     padding: 10px;
     margin-bottom: 10px;
     font-family: "Roboto", sans-serif;
-  }
-  label {
+}
+
+label {
     float: left;
     width: 180px;
-    margin-top :10px;
+    margin-top: 10px;
     font-family: "Roboto", sans-serif;
-     color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.6);
 
-  }
+}
 
-  #h{
+#h {
     margin-left: 130px;
     text-transform: uppercase;
     color: #448aff;
     font-size: 30px;
     font-family: "Roboto", sans-serif;
-  }
+}
 
 
 .button {
     margin-left: 180px;
     margin-top: 20px;
     color: #fff;
-    background-color:#448aff;
+    background-color: #448aff;
     width: 250px;
     font-size: 16px;
     text-align: center;
@@ -61,15 +60,16 @@ body {
     border-radius: 4px;
     cursor: pointer;
 }
+
 form button:hover {
-  background: green;
+    background: green;
 }
 
 input:focus {
-  outline: 2px solid green;
+    outline: 2px solid green;
 }
 
-form input[type="text"]:not(:placeholder-shown):valid, form input[type="email"]:not(:placeholder-shown):valid form input[type="password"]:not(:placeholder-shown):valid, form input[type="number"]:not(:placeholder-shown):valid {
+form input[type="text"]:not(:placeholder-shown):valid, form input[type="tel"]:not(:placeholder-shown):valid, form input[type="email"]:not(:placeholder-shown):valid form input[type="password"]:not(:placeholder-shown):valid, form input[type="number"]:not(:placeholder-shown):valid {
     background: url('../img/icons/checked.svg') no-repeat;
     background-size: 20px;
     background-position: 220px, 20px;
@@ -78,7 +78,7 @@ form input[type="text"]:not(:placeholder-shown):valid, form input[type="email"]:
 }
 
 
-form input[type="text"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
+form input[type="text"]:not(:placeholder-shown):invalid, form input[type="tel"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
     background: url('../img/icons/cancel.svg') no-repeat;
     background-size: 20px;
     padding-left: 10px !important;
