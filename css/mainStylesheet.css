@@ -4,6 +4,7 @@
 
 body {
     margin: 0px;
+
     font-family: 'segoe ui', Serif, "Arial";
 
 }
@@ -11,7 +12,7 @@ body {
 .container {
 
 
-    padding-top: 9%;
+    padding-top: 11%;
     width: 100%;
     overflow: hidden;
     transition: padding-left 0.5s ease;
@@ -80,7 +81,7 @@ body {
 
 .pagination {
     display: inline-block;
-    margin: 40px 30%;
+    margin: 90px 30%;
 }
 
 .pagination a {
@@ -136,7 +137,7 @@ time {
 
     /* Position the tooltip text - see examples below! */
     position: absolute;
-    top:-70px;
+    top: -70px;
     z-index: 1;
 }
 
@@ -255,7 +256,7 @@ time {
 /*Inputs Check*/
 
 
-form input[type="text"]:not(:placeholder-shown):valid, form input[type="email"]:not(:placeholder-shown):valid form input[type="password"]:not(:placeholder-shown):valid, form input[type="number"]:not(:placeholder-shown):valid {
+form input[type="text"]:not(:placeholder-shown):valid, form input[type="tel"]:not(:placeholder-shown):valid, form input[type="email"]:not(:placeholder-shown):valid form input[type="password"]:not(:placeholder-shown):valid, form input[type="number"]:not(:placeholder-shown):valid {
     background: url('../img/icons/checked.svg') no-repeat;
     background-size: 20px;
     background-position: 5px, 20px;
@@ -264,7 +265,7 @@ form input[type="text"]:not(:placeholder-shown):valid, form input[type="email"]:
 }
 
 
-form input[type="text"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
+form input[type="text"]:not(:placeholder-shown):invalid, form input[type="text"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
     background: url('../img/icons/cancel.svg') no-repeat;
     background-size: 20px;
     padding-left: 10px !important;
@@ -310,7 +311,8 @@ form input:not(:placeholder-shown) ~ .placeholder-label {
 
 /*Error Handling*/
 div#error-alert {
-    display: none;
+    visibility: hidden;
+
 
     background: #ececec;
     width: 550px;
@@ -656,15 +658,15 @@ a[data-tool-tip]:hover::after {
 }
 
 
-footer{
-    position: absolute;
+footer {
+
     right: 0;
     bottom: 0;
     left: 0;
-    padding: 0.5rem 3rem 5rem 4rem;
+    padding: 1rem 3rem 5rem 4rem;
     display: grid;
-    overflow: hidden;
-    background-color: #333333!important;
+    overflow-x: hidden;
+    background-color: #333333 !important;
     grid-template-columns: 33.3rem 33.3rem 33.3rem;
 
 }
@@ -676,9 +678,35 @@ footer a {
     font-weight: 900;
 
 }
-footer strong{
+
+footer strong {
     font-size: 18px;
     color: whitesmoke;
+}
+
+.purchase li, .purchase small, .purchase small strong {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.purchase {
+    transition: height 1s ease;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 0;
+    transition: 0.2s ease;
+}
+
+.container-news {
+    position: relative;
+    margin: 7% auto;
+    box-shadow: 1px 1px 20px 1px black;
+    background-color: #EEEEEE;
+    width: 800px;
+    height: auto;
+    justify-content: center;
 }
 
 

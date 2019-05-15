@@ -3,7 +3,7 @@
     <a href="main.php" id="companyTitle">LafLef</a>
 
     <div class="links">
-        <a href="main.php" class="fas fa-home">Main</a>
+        <a href="main.php" class="fas fa-home"> Main</a>
         <a href="picnics.php" class="fas fa-smile-beam"> Picnics</a>
         <?php
         if (!isset($_SESSION['userType']) || $_SESSION['userType'] == 1) //GUEST         LINKS MUST BE UPDATED LATER
@@ -12,14 +12,22 @@
                     <a href="register.php?new" class="fas fa-user-plus"> Register</a>
                     <a href="login.php?new" class="fas fa-sign-in-alt"> Login</a>
                 ';
-        else if ($_SESSION['userType'] == 2) //USER         LINKS MUST BE UPDATED LATER
+        else if ($_SESSION['userType'] == 2) { //USER         LINKS MUST BE UPDATED LATER
+            ?>
+
+            <a href="#" class="fas fa-user"> <?= $_SESSION['Customer_Name'] ?></a>
+
+
+            <?php
             echo '
                     <a href="logout.php" class="fas fa-sign-out-alt"> Logout</a>
                 ';
-        else
+
+        } else
             echo '
                     <a href="viewMessages.php" class="fas fa-envelope" > View Messages</a>
                     <a href="addPicnic.php" class="fas fa-plus"> Add Picnic</a>
+                    <a href="addNews.php" class="fas fa-newspaper"> Spread News</a>
                     <a href="logout.php" class="fas fa-sign-out-alt"> Logout</a>
                 ';
         ?>

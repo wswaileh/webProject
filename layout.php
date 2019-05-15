@@ -4,7 +4,10 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+if (!isset($_SESSION['userType']))
+    $_SESSION['userType'] = 1;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

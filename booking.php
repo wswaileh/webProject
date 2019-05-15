@@ -5,6 +5,8 @@ include 'model.php';
 
 if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
     $_SESSION['page-want-to-go'] = "booking.php";
+    $_SESSION['picnicNum'] = $_GET['id'];
+
     header("Location:login.php");
 }
 
@@ -12,19 +14,26 @@ if ($_SESSION['userType'] != 3 && $_SESSION['userType'] != 2) {
 if (!isset($_GET['id'])) {
     header("location:main.php");
 }
+
+
+$Customer = getCustomerIdByEmail($_SESSION['email']);
+$cid = 0;
+
+if ($row = $Customer->fetch()) {
+    $cid = $row['cid'];
+
+}
+
+if ($Check = checkIfBooked($_GET['id'], $cid)->fetch()) {
+    if ($Check[0] > 0) {
+        echo "<script>alert('You have already booked this Picnic....');window.location.replace('picnics.php');</script>";
+    }
+
+}
+
 ?>
 
 <div class="container" id="container">
-
-    <div class="left-sidebar" id="left-sidebar">
-
-        <a href="#" id="close-sidebar" class="fas fa-arrow-left"></a>
-        <a href="#" class="fas fa-thumbtack"> Latest Picnics</a>
-        <a href="#" class="fas fa-newspaper"> News</a>
-        <?php if ($_SESSION['userType'] == 2) { ?>
-            <a href="#" class="fas fa-shopping-cart"> Cart</a>
-        <?php } ?>
-    </div>
 
 
     <form method="post" action="confirmation.php" id="form">
@@ -329,7 +338,7 @@ if (!isset($_GET['id'])) {
 
                                 window.location.replace("picnics.php");
 
-                                document.getElementById("error-alert").style.display = "none";
+                                document.getElementById("error-alert").style.visibility = "hidden";
                                 document.getElementById('form').submit();
                             } else {
 
@@ -343,7 +352,7 @@ if (!isset($_GET['id'])) {
                     function error(body) {
 
                         let er = document.getElementById("error-alert");
-                        er.style.display = "block";
+                        er.style.visibility = "visible";
 
                         er.innerHTML = "  <div class=\"alert-heading\">\n" +
                             "                <span></span><h2>Error!</h2>\n" +
@@ -368,6 +377,48 @@ if (!isset($_GET['id'])) {
     </form>
 
     <div id="error-alert"></div>
+
+    <div class="left-sidebar" id="left-sidebar">
+
+        <a href="#" id="close-sidebar" class="fas fa-arrow-left"></a>
+        <a href="picnics.php" class="fas fa-thumbtack"> Latest Picnics</a>
+        <a href="news.php" class="fas fa-newspaper"> News</a>
+        <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] == 2) { ?>
+            <a href="#" class="fas fa-shopping-cart" id="openCart"> Cart <span id="openCart-span"
+                                                                               class="fas fa-sort-down"
+                                                                               style="float: right"></span></a>
+            <div class="purchase" id="purchase">
+                <?php $customer = getCustomerIdByEmail($_SESSION['email']);
+
+                $cid = 0;
+                if ($i = $customer->fetch())
+                    $cid = $i['cid'];
+
+                $order = getPurchase($cid);
+
+                ?>
+                <ul><?php
+                    while ($i = $order->fetch()) {
+                        echo "<li>" . $i['pid'] . " | " . $i['title'] . "</li>";
+                        echo "<small>" . $i['invoice'] . " <strong class='fas fa-shekel-sign'></strong></small>";
+                        echo "<hr>";
+                    }
+
+                    ?> </ul><?php
+                ?>
+            </div>
+        <?php } ?>
+    </div>
+
+    <script type="text/javascript">
+
+        document.getElementById('openCart').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            openAndCloseCart();
+
+        });
+    </script>
 
 
     <script type="text/javascript">

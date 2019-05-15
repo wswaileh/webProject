@@ -121,8 +121,7 @@ input:focus {
 }
 
 
-
-form input[type="text"]:not(:placeholder-shown):valid, form input[type="email"]:not(:placeholder-shown):valid form input[type="password"]:not(:placeholder-shown):valid, form input[type="number"]:not(:placeholder-shown):valid {
+form input[type="text"]:not(:placeholder-shown):valid, form input[type="tel"]:not(:placeholder-shown):valid, form input[type="email"]:not(:placeholder-shown):valid form input[type="password"]:not(:placeholder-shown):valid, form input[type="number"]:not(:placeholder-shown):valid {
     background: url('../img/icons/checked.svg') no-repeat;
     background-size: 20px;
     background-position: 163px, 20px;
@@ -131,7 +130,7 @@ form input[type="text"]:not(:placeholder-shown):valid, form input[type="email"]:
 }
 
 
-form input[type="text"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
+form input[type="text"]:not(:placeholder-shown):invalid, form input[type="tel"]:not(:placeholder-shown):invalid, form input[type="email"]:not(:placeholder-shown):invalid form input[type="password"]:not(:placeholder-shown):invalid, form input[type="number"]:not(:placeholder-shown):invalid {
     background: url('../img/icons/cancel.svg') no-repeat;
     background-size: 20px;
     padding-left: 10px !important;

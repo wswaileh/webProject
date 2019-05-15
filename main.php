@@ -1,9 +1,7 @@
 <?php
 include 'layout.php';
-if (!isset($_SESSION['userType']))
-    $_SESSION['userType'] = 1;
+include 'model.php';
 ?>
-
 
     <!DOCTYPE html>
     <html>
@@ -14,35 +12,71 @@ if (!isset($_SESSION['userType']))
     </head>
     <body>
     <div id="container">
+
         <div class="left-sidebar" id="left-sidebar">
 
             <a href="#" id="close-sidebar" class="fas fa-arrow-left"></a>
-            <a href="#" class="fas fa-thumbtack"> Latest Picnics</a>
-            <a href="#" class="fas fa-newspaper"> News</a>
+            <a href="picnics.php" class="fas fa-thumbtack"> Latest Picnics</a>
+            <a href="news.php" class="fas fa-newspaper"> News</a>
             <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] == 2) { ?>
-                <a href="#" class="fas fa-shopping-cart"> Cart</a>
+                <a href="#" class="fas fa-shopping-cart" id="openCart"> Cart <span id="openCart-span" class="fas fa-sort-down" style="float: right"></span></a>
+                <div class="purchase" id="purchase">
+                    <?php $customer = getCustomerIdByEmail($_SESSION['email']);
+
+                    $cid = 0;
+                    if ($i = $customer->fetch())
+                        $cid = $i['cid'];
+
+                    $order = getPurchase($cid);
+
+                    ?>
+                    <ul><?php
+                        while ($i = $order->fetch()) {
+                            echo "<li>" . $i['pid'] . " | " . $i['title'] . "</li>";
+                            echo "<small>" . $i['invoice'] . " <strong class='fas fa-shekel-sign'></strong></small>";
+                            echo "<hr>";
+                        }
+
+                        ?> </ul><?php
+                    ?>
+                </div>
             <?php } ?>
         </div>
 
+        <script type="text/javascript">
+
+            document.getElementById('openCart').addEventListener('click' ,function (event) {
+                event.preventDefault();
+
+                openAndCloseCart();
+
+            })
+        </script>
 
         <div class="slideshow-container">
 
             <div class="mySlides fade">
                 <div class="numbertext">1/3</div>
-                <img src="img/main/1.jpg" style="width:100%;height: 500px">
-                <div class="text">واد القلط</div>
+                <img src="img/picnics/p1.jpg" style="width:100%;height: 500px">
+                <div class="text">L A F L E F
+                    <small>&copy;2019</small>
+                </div>
             </div>
 
             <div class="mySlides fade">
                 <div class="numbertext">2/3</div>
-                <img src="img/main/2.jpg" style="width:100%;height: 500px">
-                <div class="text">واد القلط</div>
+                <img src="img/picnics/p2.jpg" style="width:100%;height: 500px">
+                <div class="text">L A F L E F
+                    <small>&copy;2019</small>
+                </div>
             </div>
 
             <div class="mySlides fade">
                 <div class="numbertext">3/3</div>
-                <img src="img/main/3.jpg" style="width:100%;height:500px;">
-                <div class="text">واد القلط</div>
+                <img src="img/picnics/p1.jpg" style="width:100%;height: 500px">
+                <div class="text">L A F L E F
+                    <small>&copy;2019</small>
+                </div>
             </div>
 
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>

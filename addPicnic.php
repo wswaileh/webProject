@@ -4,6 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+if (!isset($_SESSION['userType']) && $_SESSION['userType'] != 3) {
+    header("location:main.php");
+}
+
+
 ?>
 
 
@@ -72,11 +77,21 @@ error_reporting(E_ALL);
                     today! </sup>
 
                 <label>image1 : </label><input type="file" name="image1"
-                                               value="<?php isset($_SESSION['image1']) ? print $_SESSION['image1'] : ''; ?>"/>
+                                               value="<?php isset($_SESSION['image1']) ? print $_SESSION['image1'] : ''; ?>"
+                                               accept="image/jpeg"/>
                 <label>image2 : </label><input type="file" name="image2"
-                                               value="<?php isset($_SESSION['image1']) ? print $_SESSION['image1'] : ''; ?>"/>
+                                               value="<?php isset($_SESSION['image1']) ? print $_SESSION['image1'] : ''; ?>"
+                                               accept="image/jpeg"/>
                 <label>image3 : </label><input type="file" name="image3"
-                                               value="<?php isset($_SESSION['image3']) ? print $_SESSION['image3'] : ''; ?>"/>
+                                               value="<?php isset($_SESSION['image3']) ? print $_SESSION['image3'] : ''; ?>"
+                                               accept="image/jpeg"/>
+
+                <label>Escorts : </label><input type="text" name="escorts"
+                                              placeholder="Picnics's Escort" required=""
+                                              value="<?php isset($_SESSION['escorts']) ? print $_SESSION['escorts'] : ''; ?>"pattern="[a-z]*"/>
+
+                <label>Escort Tel. :</label><input type="tel" name="escorttel" placeholder="Escort Tel." required=""
+                                             value="<?php isset($_SESSION['tel']) ? print $_SESSION['tel'] : ''; ?>" pattern="[0-9]{10}"/>
 
 
                 <label>Activities : </label><textarea name="activities"
@@ -95,17 +110,46 @@ error_reporting(E_ALL);
             </form>
         </div>
 
+
         <div class="left-sidebar" id="left-sidebar">
 
             <a href="#" id="close-sidebar" class="fas fa-arrow-left"></a>
-            <a href="#" class="fas fa-thumbtack"> Latest Picnics</a>
-            <a href="#" class="fas fa-newspaper"> News</a>
-            <?php if ($_SESSION['userType'] == 2) { ?>
-                <a href="#" class="fas fa-shopping-cart"> Cart</a>
+            <a href="picnics.php" class="fas fa-thumbtack"> Latest Picnics</a>
+            <a href="news.php" class="fas fa-newspaper"> News</a>
+            <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] == 2) { ?>
+                <a href="#" class="fas fa-shopping-cart" id="openCart"> Cart <span id="openCart-span" class="fas fa-sort-down" style="float: right"></span></a>
+                <div class="purchase" id="purchase">
+                    <?php $customer = getCustomerIdByEmail($_SESSION['email']);
+
+                    $cid = 0;
+                    if ($i = $customer->fetch())
+                        $cid = $i['cid'];
+
+                    $order = getPurchase($cid);
+
+                    ?>
+                    <ul><?php
+                        while ($i = $order->fetch()) {
+                            echo "<li>" . $i['pid'] . " | " . $i['title'] . "</li>";
+                            echo "<small>" . $i['invoice'] . " <strong class='fas fa-shekel-sign'></strong></small>";
+                            echo "<hr>";
+                        }
+
+                        ?> </ul><?php
+                    ?>
+                </div>
             <?php } ?>
         </div>
 
-    </div>
+        <script type="text/javascript">
+
+            document.getElementById('openCart').addEventListener('click' ,function (event) {
+                event.preventDefault();
+
+                openAndCloseCart();
+
+            })
+        </script>
     <script>
         CKEDITOR.replace('description', {
             extraPlugins: 'placeholder',

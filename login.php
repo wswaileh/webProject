@@ -19,15 +19,48 @@ if (isset($_GET['new'])) {
 </head>
 <body>
 <div id="container">
+
     <div class="left-sidebar" id="left-sidebar">
 
         <a href="#" id="close-sidebar" class="fas fa-arrow-left"></a>
-        <a href="#" class="fas fa-thumbtack"> Latest Picnics</a>
-        <a href="#" class="fas fa-newspaper"> News</a>
+        <a href="picnics.php" class="fas fa-thumbtack"> Latest Picnics</a>
+        <a href="news.php" class="fas fa-newspaper"> News</a>
         <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] == 2) { ?>
-            <a href="#" class="fas fa-shopping-cart"> Cart</a>
+            <a href="#" class="fas fa-shopping-cart" id="openCart"> Cart <span id="openCart-span"
+                                                                               class="fas fa-sort-down"
+                                                                               style="float: right"></span></a>
+            <div class="purchase" id="purchase">
+                <?php $customer = getCustomerIdByEmail($_SESSION['email']);
+
+                $cid = 0;
+                if ($i = $customer->fetch())
+                    $cid = $i['cid'];
+
+                $order = getPurchase($cid);
+
+                ?>
+                <ul><?php
+                    while ($i = $order->fetch()) {
+                        echo "<li>" . $i['pid'] . " | " . $i['title'] . "</li>";
+                        echo "<small>" . $i['invoice'] . " <strong class='fas fa-shekel-sign'></strong></small>";
+                        echo "<hr>";
+                    }
+
+                    ?> </ul><?php
+                ?>
+            </div>
         <?php } ?>
     </div>
+
+    <script type="text/javascript">
+
+        document.getElementById('openCart').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            openAndCloseCart();
+
+        })
+    </script>
     <div class="form">
         <form class="form1" action="" method="post">
             <h2 id="h"> login Form</h2>
@@ -68,14 +101,21 @@ if (!empty($_POST)) {
         $_SESSION['email'] = $_POST['email'];
         header("Location:login.php");
     } elseif (checkManger($_POST['email'], $_POST['password']) > 0) {
+        $_SESSION['email'] = $_POST['email'];
         $_SESSION['userType'] = 3;
         header("Location:main.php");
     } elseif (checkCustomer($_POST['email'], md5($_POST['password'])) > 0) {
         $_SESSION['userType'] = 2;
         $_SESSION['email'] = $_POST['email'];
 
+        $customer = getCustomerIdByEmail($_SESSION['email']);
+        $name = "";
+        if ($row = $customer->fetch()) {
+            $name = $row['name'];
+            $_SESSION['Customer_Name'] = $name;
+        }
         if (isset($_SESSION['page-want-to-go'])) {
-            header("Location:" . $_SESSION['page-want-to-go']);
+            header("Location:" . $_SESSION['page-want-to-go'] . "?id=" . $_SESSION['picnicNum']);
         } else {
             header("Location:main.php");
         }

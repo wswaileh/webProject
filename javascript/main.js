@@ -44,3 +44,15 @@ function closeSlidMenu() {
     document.getElementById("container").style.paddingLeft = "0";
 
 }
+var i =1;
+function openAndCloseCart() {
+        i++;
+    if (i%2==0) {
+        document.getElementById('purchase').style.height = 'auto';
+        document.getElementById('openCart-span').className='fas fa-sort-up';
+    }else {
+        document.getElementById('purchase').style.height = '0';
+        document.getElementById('openCart-span').className='fas fa-sort-down';
+    }
+
+}

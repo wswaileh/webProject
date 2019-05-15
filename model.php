@@ -50,7 +50,7 @@ function getPinicsForTable($start_limit, $records, $userType)
 
     if ($userType != 3) {
 
-        return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE limit " . $start_limit . ", " . $records . ";");
+        return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE limit " . $start_limit . ", " . $records . ";");
 
     } else {
         return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a limit " . $start_limit . ", " . $records . ";");
@@ -65,7 +65,7 @@ function getPinicsForTableWithFilter($place, $date, $start_limit, $records, $use
 
     $query = "";
     if ($userType != 3) {
-        $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE and ";
+        $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE and ";
     } else {
         $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid where ";
     }
@@ -90,7 +90,7 @@ function getRowNum($userType)
 
     if ($userType != 3) {
 
-        return $pdo->query("select count(*) from picnic as a  where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE");
+        return $pdo->query("select count(*) from picnic as a  where a.pid not in (select b.pid from book as b having   (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE");
     } else {
         return $pdo->query("select count(*) from picnic");
     }
@@ -106,7 +106,7 @@ function getRowNumFiltered($place, $date, $userType)
     $res = 0;
     foreach ($inp as $i => $value) {
         if (isset($value) && !empty($value) && $userType != 3)
-            $res = $pdo->query($query . " where a.pid not in (select b.pid from book as b having  sum(b.pnum) = a.capacity) and a.date > CURRENT_DATE and " . $i . " = '" . $value . "';");
+            $res = $pdo->query($query . " where a.pid not in (select b.pid from book as b having   (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE and " . $i . " = '" . $value . "';");
         else if (isset($value) && !empty($value) && $userType == 3)
             $res = $pdo->query($query . " where  " . $i . " = '" . $value . "';");
 
@@ -124,6 +124,24 @@ function getPicnicById($pid)
 
     return $pdo->query("select pid , place , date , description , cost , departuretime , departurelocation , arrivaltime , returntime from picnic where pid = " . $pid . ";");
 }
+
+
+function getPicnics()
+{
+
+    global $pdo;
+
+    return $pdo->query("select pid,images,title from picnic");
+}
+
+function getPicnicsNum()
+{
+
+    global $pdo;
+
+    return $pdo->query("select COUNT(*) from picnic");
+}
+
 
 function getbookings()
 {
@@ -317,12 +335,12 @@ function getCustomerBooks($cid)
     return $pdo->query("select pid from book where cid = " . $cid);
 }
 
-function addPicnic($title, $place, $price, $capacity, $description, $food, $departurelocation, $departuretime, $arrivaltime, $returntime, $date, $activities)
+function addPicnic($title, $place, $price, $capacity, $description, $food, $departurelocation, $departuretime, $arrivaltime, $returntime, $date, $activities, $excorts, $escorttel)
 {
 
     global $pdo;
-    $sql = "INSERT INTO picnic (food, cost,capacity, description,returntime,arrivaltime,departuretime,date,departurelocation,place,activities , title)
-VALUES ('" . $food . "'," . $price . ",'" . $capacity . "','" . $description . "','" . $returntime . "','" . $arrivaltime . "','" . $departuretime . "','" . $date . "','" . $departurelocation . "','" . $place . "','" . $activities . "','" . $title . "')";
+    $sql = "INSERT INTO picnic (food, cost,capacity, description,returntime,arrivaltime,departuretime,date,departurelocation,place,activities , title,escorts,escorttel)
+VALUES ('" . $food . "'," . $price . ",'" . $capacity . "','" . $description . "','" . $returntime . "','" . $arrivaltime . "','" . $departuretime . "','" . $date . "','" . $departurelocation . "','" . $place . "','" . $activities . "','" . $title . "','" . $excorts . "'," . $escorttel . ")";
 
     if ($pdo->exec($sql) === false) {
         return 0;
@@ -388,9 +406,54 @@ function printMessages()
             </tr>
             ";
         }
-        echo "</table></div>";
+        echo "</table></div></div>";
 
 
     }
 
+}
+
+function getPurchase($cid)
+{
+    global $pdo;
+
+    return $pdo->query("select DISTINCT a.pid,a.title ,b.invoice from picnic as a ,book as b where  a.pid = b.pid and b.cid =" . $cid . " and a.pid in(SELECT c.pid from book as c where c.cid = " . $cid . ")");
+}
+
+function insertNews($mid, $text)
+{
+    global $pdo;
+
+    $query = "insert into news (mid , news) values (" . $mid . " , '" . $text . "')";
+
+    if ($pdo->exec($query)) {
+        return 1;
+    } else
+        return 0;
+}
+
+function getNews()
+{
+    global $pdo;
+    return $pdo->query("select * from news");
+}
+
+function getOwnerOfNew($id)
+{
+    global $pdo;
+
+    return $pdo->query("select m.username from manager as m where m.mid in (SELECT n.mid from news as n where n.nid =" . $id . ")");
+}
+
+function getManagerIdByemail($email)
+{
+    global $pdo;
+    return $pdo->query("select mid from manager where email ='" . $email . "'");
+}
+
+function checkIfBooked($pid, $cid)
+{
+    global $pdo;
+
+    return $pdo->query("select COUNT(*) from customers as c WHERE c.cid=" . $cid . " and c.cid in(select b.cid from book as b where b.pid =" . $pid . ")");
 }

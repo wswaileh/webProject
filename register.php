@@ -5,31 +5,61 @@ if (isset($_GET['new'])) {
     session_destroy();
     header('Location: register.php');
 }
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 ?>
 
 
 <link rel="stylesheet" href="css/register.css" type="text/css">
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register</title>
-</head>
-<body>
 <div id="container">
+
     <div class="left-sidebar" id="left-sidebar">
 
         <a href="#" id="close-sidebar" class="fas fa-arrow-left"></a>
-        <a href="#" class="fas fa-thumbtack"> Latest Picnics</a>
-        <a href="#" class="fas fa-newspaper"> News</a>
+        <a href="picnics.php" class="fas fa-thumbtack"> Latest Picnics</a>
+        <a href="news.php" class="fas fa-newspaper"> News</a>
         <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] == 2) { ?>
-            <a href="#" class="fas fa-shopping-cart"> Cart</a>
+            <a href="#" class="fas fa-shopping-cart" id="openCart"> Cart <span id="openCart-span"
+                                                                               class="fas fa-sort-down"
+                                                                               style="float: right"></span></a>
+            <div class="purchase" id="purchase">
+                <?php $customer = getCustomerIdByEmail($_SESSION['email']);
+
+                $cid = 0;
+                if ($i = $customer->fetch())
+                    $cid = $i['cid'];
+
+                $order = getPurchase($cid);
+
+                ?>
+                <ul><?php
+                    while ($i = $order->fetch()) {
+                        echo "<li>" . $i['pid'] . " | " . $i['title'] . "</li>";
+                        echo "<small>" . $i['invoice'] . " <strong class='fas fa-shekel-sign'></strong></small>";
+                        echo "<hr>";
+                    }
+
+                    ?> </ul><?php
+                ?>
+            </div>
         <?php } ?>
     </div>
+
+    <script type="text/javascript">
+
+        document.getElementById('openCart').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            openAndCloseCart();
+
+        })
+    </script>
+    <script>
+
+        document.getElementById('close-sidebar').addEventListener('click', function (event) {
+            event.preventDefault();
+            closeSlidMenu();
+        });
+    </script>
     <div class="form">
         <form class="form1" action="" method="post">
             <h2 id="h"> register Form</h2>
@@ -56,19 +86,9 @@ error_reporting(E_ALL);
         </form>
     </div>
 </div>
-<script type="text/javascript">
 
-
-    document.getElementById('close-sidebar').addEventListener('click', function (event) {
-        event.preventDefault();
-        closeSlidMenu();
-    });
-</script>
-
-<?php require 'footer.php' ?>
 
 <?php
-
 include 'registerValidation.php';
 if (!empty($_POST)) {
 
@@ -93,6 +113,8 @@ if (!empty($_POST)) {
 }
 
 
-?>
+require 'footer.php' ?>
+
+
 
 

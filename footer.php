@@ -10,7 +10,7 @@
 
     </div>
     <div>
-        <strong>Code Src of Project:</strong><br>
+        <strong>Src Code of Project:</strong><br>
 
         <a class="fab fa-github" href="https://github.com/wswaileh/webProject" target="_blank"> Github</a>
     </div>
