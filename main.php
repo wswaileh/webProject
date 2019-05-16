@@ -90,7 +90,7 @@ include 'model.php';
         </div>
 
 
-        <div style="height: 150px;text-align: center;font-size: 20px;font-family: Times New Roman;background-color: rgb(51,51,50);">
+        <div style="height: 150px;text-align: center;font-size: 20px;font-family: Times New Roman;background-color: rgb(51,51,50);color: yellow">
             <br><b>L a f l e f</b><br><br>Our site Offer the best picnics Across the west bank area
         </div>
 
