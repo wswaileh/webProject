@@ -45,12 +45,16 @@ include 'model.php';
 
         <script type="text/javascript">
 
-            document.getElementById('openCart').addEventListener('click' ,function (event) {
-                event.preventDefault();
+            var role = <?=$_SESSION['userType']?>;
 
-                openAndCloseCart();
+            if (role ==2) {
+                document.getElementById('openCart').addEventListener('click', function (event) {
+                    event.preventDefault();
 
-            })
+                    openAndCloseCart();
+
+                });
+            }
         </script>
 
         <div class="slideshow-container">
@@ -73,7 +77,7 @@ include 'model.php';
 
             <div class="mySlides fade">
                 <div class="numbertext">3/3</div>
-                <img src="img/picnics/p1.jpg" style="width:100%;height: 500px">
+                <img src="img/picnics/p3.jpg" style="width:100%;height: 500px">
                 <div class="text">L A F L E F
                     <small>&copy;2019</small>
                 </div>

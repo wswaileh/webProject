@@ -18,14 +18,15 @@ if (!empty($_POST)) {
 
     $error = checkRegister($_POST['email']);
 
-    $dob = strtotime($_POST['dob']);
-    $current = strtotime("today");
-    $res = ($current - $dob);
-    $res = ceil($res / 3.17098e-8);
-    $res=explode('.',$res)[0];
+    $dob = explode('-', $_POST['dob'])[0];
+    $current = date("Y");
+    $res = $current - $dob;
 
-    if ($res > 0 && $res < 8) {
-        echo "<script type='text/javascript'>alert('You are Too young to register sorry...')</script>";
+    if ($res > 0 && $res < 16) {
+        echo "<script type='text/javascript'>alert('You are Too young to register sorry... 16 Years Old And above is allowed!');</script>";
+
+    } else if ($res < 0) {
+        echo "<script type='text/javascript'>alert('No Future Dates Allowed!')</script>";
     } else {
 
         if ($error != 0) {
@@ -80,15 +81,6 @@ if (!empty($_POST)) {
         <?php } ?>
     </div>
 
-    <script type="text/javascript">
-
-        document.getElementById('openCart').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            openAndCloseCart();
-
-        })
-    </script>
     <script>
 
         document.getElementById('close-sidebar').addEventListener('click', function (event) {
@@ -103,7 +95,7 @@ if (!empty($_POST)) {
                                           value="<?php echo(isset($_SESSION['name']) ? $_SESSION['name'] : ''); ?>"/><br>
 
             <label>EMAIL :</label> <input type="email" name="email" placeholder="Enter Email Address" required=""
-                                          value="<?php echo(isset($_SESSION['emailr']) ? $_SESSION['emailr'] : ''); ?>"/>
+                                          value="<?php echo(isset($_SESSION['emailr']) ? $_SESSION['emailr'] : ''); ?>" />
             <?php if (isset($_SESSION['error']) && $_SESSION['error'] == 1) echo "<sup style=" . "color:red;margin-left:180px;" . ";> email already exist </sup>"; ?>
             <br>
 
@@ -116,7 +108,8 @@ if (!empty($_POST)) {
                                             value="<?php echo(isset($_SESSION['address']) ? $_SESSION['address'] : ''); ?>"/><br>
 
             <label>DOB :</label><input type="date" name="dob" placeholder="Enter birth of date" required=""
-                                       value="<?php echo(isset($_SESSION['dob']) ? $_SESSION['dob'] : ''); ?>"/><br>
+                                       value="<?php echo(isset($_SESSION['dob']) ? $_SESSION['dob'] : ''); ?>"
+                                       id="dob"/><br>
             <button class="button" type="submit">Register
             </button>
 

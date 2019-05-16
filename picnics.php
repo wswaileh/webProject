@@ -14,7 +14,9 @@ include 'model.php';
         <a href="picnics.php" class="fas fa-thumbtack"> Latest Picnics</a>
         <a href="news.php" class="fas fa-newspaper"> News</a>
         <?php if (isset($_SESSION['userType']) && $_SESSION['userType'] == 2) { ?>
-            <a href="#" class="fas fa-shopping-cart" id="openCart"> Cart <span id="openCart-span" class="fas fa-sort-down" style="float: right"></span></a>
+            <a href="#" class="fas fa-shopping-cart" id="openCart"> Cart <span id="openCart-span"
+                                                                               class="fas fa-sort-down"
+                                                                               style="float: right"></span></a>
             <div class="purchase" id="purchase">
                 <?php $customer = getCustomerIdByEmail($_SESSION['email']);
 
@@ -40,12 +42,16 @@ include 'model.php';
 
     <script type="text/javascript">
 
-        document.getElementById('openCart').addEventListener('click' ,function (event) {
-            event.preventDefault();
+        var role = <?=$_SESSION['userType']?>;
+
+        if (role == 2) {
+            document.getElementById('openCart').addEventListener('click', function (event) {
+                event.preventDefault();
 
                 openAndCloseCart();
 
-        })
+            });
+        }
     </script>
 
     <div class="container" id="container">
@@ -381,6 +387,12 @@ include 'model.php';
                                                 ?>
                                             </div>
 
+                                            <div style="padding: 25px">
+                                            <p>Escort responsible for this Picnic: </p>
+                                            <strong><?= $Details['escorts'] ?> | Tel: <a
+                                                        href="tel:<?= $Details['escorttel'] ?>"
+                                                        style="text-decoration: none"><?= $Details['escorttel'] ?></a></strong>
+                                            </div>
                                             <div class="detail-links-related">
                                                 <strong class="fas fa-link">Links Related To the picnic's
                                                     Place:</strong><br>

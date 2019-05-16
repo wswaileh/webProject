@@ -6,7 +6,7 @@ include 'model.php';
 $amjad = "img/avatar/amjad.jpg";
 
 $waleed = "img/avatar/waleed.jpg";
-$mustafa = "img/avatar/mustafa.jpg";
+$mustafa = "img/avatar/mustafa.JPG";
 
 $avatar = "";
 
@@ -37,14 +37,14 @@ $avatar = "";
             <div class="column">
                 <div class="talk-bubble">
 
-                        <div class="avatar"><img src="<?= $avatar ?>"
-                                                 style="max-width: 100%;max-height: 100%;"><br>Spread By:
-                            <strong><?= $i['username'] ?></strong>
-                            <br>
-                            <small>Created At: <?= $row['created_at'] ?></small>
-                        </div>
-                        <p><?= $row['news'] ?></p>
+                    <div class="avatar"><img src="<?= $avatar ?>"
+                                             style="max-width: 100%;max-height: 100%;"><br>Spread By:
+                        <strong><?= $i['username'] ?></strong>
+                        <br>
+                        <small>Created At: <?= $row['created_at'] ?></small>
                     </div>
+                    <p><?= $row['news'] ?></p>
+                </div>
 
             </div>
         </div>
@@ -85,12 +85,16 @@ $avatar = "";
     </div>
     <script type="text/javascript">
 
-        document.getElementById('openCart').addEventListener('click', function (event) {
-            event.preventDefault();
+        var role = <?=$_SESSION['userType']?>
 
-            openAndCloseCart();
+        if (role ==2) {
+            document.getElementById('openCart').addEventListener('click', function (event) {
+                event.preventDefault();
 
-        })
+                openAndCloseCart();
+
+            })
+        }
 
     </script>
 

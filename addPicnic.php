@@ -88,7 +88,7 @@ if (!isset($_SESSION['userType']) && $_SESSION['userType'] != 3) {
 
                 <label>Escorts : </label><input type="text" name="escorts"
                                               placeholder="Picnics's Escort" required=""
-                                              value="<?php isset($_SESSION['escorts']) ? print $_SESSION['escorts'] : ''; ?>"pattern="[a-z]*"/>
+                                              value="<?php isset($_SESSION['escorts']) ? print $_SESSION['escorts'] : ''; ?>"pattern="[A-Za-z]*"/>
 
                 <label>Escort Tel. :</label><input type="tel" name="escorttel" placeholder="Escort Tel." required=""
                                              value="<?php isset($_SESSION['tel']) ? print $_SESSION['tel'] : ''; ?>" pattern="[0-9]{10}"/>
@@ -143,12 +143,16 @@ if (!isset($_SESSION['userType']) && $_SESSION['userType'] != 3) {
 
         <script type="text/javascript">
 
-            document.getElementById('openCart').addEventListener('click' ,function (event) {
-                event.preventDefault();
+            var role = <?=$_SESSION['userType']?>ك
 
-                openAndCloseCart();
+            if (role ==2) {
+                document.getElementById('openCart').addEventListener('click', function (event) {
+                    event.preventDefault();
 
-            })
+                    openAndCloseCart();
+
+                })ك
+            }
         </script>
     <script>
         CKEDITOR.replace('description', {

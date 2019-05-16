@@ -40,12 +40,16 @@ require 'layout.php' ?>
 
         <script type="text/javascript">
 
-            document.getElementById('openCart').addEventListener('click', function (event) {
-                event.preventDefault();
+            var role = <?=$_SESSION['userType']?>;
 
-                openAndCloseCart();
+            if (role ==2) {
+                document.getElementById('openCart').addEventListener('click', function (event) {
+                    event.preventDefault();
 
-            })
+                    openAndCloseCart();
+
+                });
+            }
         </script>
         <div class="row">
             <img src="img/aboutUs/salt.png">

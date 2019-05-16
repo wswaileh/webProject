@@ -56,12 +56,16 @@ if (isset($_POST['news']) && !empty($_POST['news'])) {
 
     <script type="text/javascript">
 
-        document.getElementById('openCart').addEventListener('click', function (event) {
-            event.preventDefault();
+        var role = <?=$_SESSION['userType']?>;
 
-            openAndCloseCart();
+        if (role ==2) {
+            document.getElementById('openCart').addEventListener('click', function (event) {
+                event.preventDefault();
 
-        })
+                openAndCloseCart();
+
+            });
+        }
 
     </script>
 

@@ -238,6 +238,13 @@ if ($Check = checkIfBooked($_GET['id'], $cid)->fetch()) {
                                         ?>
                                     </div>
 
+                                    <div style="padding: 25px">
+                                        <p>Escort responsible for this Picnic: </p>
+                                        <strong><?= $Details['escorts'] ?> | Tel: <a
+                                                    href="tel:<?= $Details['escorttel'] ?>"
+                                                    style="text-decoration: none"><?= $Details['escorttel'] ?></a></strong>
+                                    </div>
+
                                     <div class="detail-links-related">
                                         <strong class="fas fa-link">Links Related To the picnic's
                                             Place:</strong><br>
@@ -412,12 +419,16 @@ if ($Check = checkIfBooked($_GET['id'], $cid)->fetch()) {
 
     <script type="text/javascript">
 
-        document.getElementById('openCart').addEventListener('click', function (event) {
-            event.preventDefault();
+        var role = <?=$_SESSION['userType']?>;
 
-            openAndCloseCart();
+        if (role == 2) {
+            document.getElementById('openCart').addEventListener('click', function (event) {
+                event.preventDefault();
 
-        });
+                openAndCloseCart();
+
+            });
+        }
     </script>
 
 

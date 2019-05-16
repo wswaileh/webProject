@@ -23,24 +23,39 @@ if (!empty($_POST)) {
 
 
     $error = finalCheck($_SESSION['emailr'], $_SESSION['username']);
-    if ($error != 0) {
-        unset($_SESSION['added']);
-        $_SESSION['errorc'] = $error;
-        header('Location: registerConfirm.php');
-    } elseif (addUser($_SESSION['name'], $_SESSION['emailr'], $_SESSION['username'], $_SESSION['phone'], md5($_SESSION['password']), $_SESSION['address'], $_SESSION['dob'], $_SESSION['id']) == 1) {
-        $_SESSION['userType'] = 2;
-        $_SESSION['Customer_Name']=$_SESSION['name'];
-        echo("<script LANGUAGE='JavaScript'>
+
+
+    $dob = explode('-', $_POST['dob'])[0];
+    $current = date("Y");
+    $res = $current - $dob;
+
+
+    if ($res > 0 && $res < 16) {
+        echo "<script type='text/javascript'>alert('You are Too young to register sorry... 16 Years Old And above is allowed!');</script>";
+
+    } else if ($res < 0) {
+        echo "<script type='text/javascript'>alert('No Future Dates Allowed!')</script>";
+    } else {
+
+        if ($error != 0) {
+            unset($_SESSION['added']);
+            $_SESSION['errorc'] = $error;
+            header('Location: registerConfirm.php');
+        } elseif (addUser($_SESSION['name'], $_SESSION['emailr'], $_SESSION['username'], $_SESSION['phone'], md5($_SESSION['password']), $_SESSION['address'], $_SESSION['dob'], $_SESSION['id']) == 1) {
+            $_SESSION['userType'] = 2;
+            $_SESSION['Customer_Name'] = $_SESSION['name'];
+            echo("<script LANGUAGE='JavaScript'>
     window.alert('User added succifully');
     window.location.href='main.php';
     </script>");
-    } else {
-        $_SESSION['added'] = 0;
-        unset($_SESSION['errorc']);
-        header('Location: registerConfirm.php');
+        } else {
+            $_SESSION['added'] = 0;
+            unset($_SESSION['errorc']);
+            header('Location: registerConfirm.php');
+        }
+
+
     }
-
-
 }
 
 ?>
@@ -132,15 +147,6 @@ if (!empty($_POST)) {
     <?php } ?>
 </div>
 
-<script type="text/javascript">
-
-    document.getElementById('openCart').addEventListener('click', function (event) {
-        event.preventDefault();
-
-        openAndCloseCart();
-
-    })
-</script>
 <script>
 
     document.getElementById('close-sidebar').addEventListener('click', function (event) {

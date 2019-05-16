@@ -5,10 +5,24 @@
     <div class="links">
         <a href="main.php" class="fas fa-home"> Main</a>
         <a href="picnics.php" class="fas fa-smile-beam"> Picnics</a>
+
+        <div class="dropdown">
+            <a href="#" class="dropbtn"> Help
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <div class="dropdown-content">
+                <a href="style.html" target="_blank">Style</a>
+            </div>
+        </div>
+
         <?php
+
+        if (!isset($_SESSION['userType']) || $_SESSION['userType'] == 1 || $_SESSION['userType'] == 2) {
+            echo '<a href="aboutUs.php" class="fas fa-address-card"> About Us</a>';
+        }
         if (!isset($_SESSION['userType']) || $_SESSION['userType'] == 1) //GUEST         LINKS MUST BE UPDATED LATER
             echo '
-                    <a href="aboutUs.php" class="fas fa-address-card"> About Us</a>
+                    
                     <a href="register.php?new" class="fas fa-user-plus"> Register</a>
                     <a href="login.php?new" class="fas fa-sign-in-alt"> Login</a>
                 ';

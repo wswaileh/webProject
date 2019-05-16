@@ -1,9 +1,9 @@
 <?php
 
 $server = "localhost";
-$username = "root";
-$password = "";
-$dbname = "laflefbzu";
+$username = "c28MustafaB3irat";
+$password = "mus%^&4545";
+$dbname = "c28LaflefBzu";
 $conn = "mysql:host=$server;dbname=$dbname";
 
 $pdo = null;
@@ -41,7 +41,7 @@ function getpicnicsDetails($pid)
 {
     global $pdo;
 
-    return $pdo->query("select title,food, DATE_FORMAT(departuretime, '%r') as departuretime ,DATE_FORMAT(returntime, '%r') as returntime,DATE_FORMAT(arrivaltime, '%r') as arrivaltime , departurelocation , activities , images  from picnic where pid = " . $pid);
+    return $pdo->query("select title,food, DATE_FORMAT(departuretime, '%r') as departuretime ,DATE_FORMAT(returntime, '%r') as returntime,DATE_FORMAT(arrivaltime, '%r') as arrivaltime , departurelocation , activities , images , escorts , escorttel from picnic where pid = " . $pid);
 }
 
 function getPinicsForTable($start_limit, $records, $userType)
