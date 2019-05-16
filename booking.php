@@ -206,8 +206,15 @@ if ($Check = checkIfBooked($_GET['id'], $cid)->fetch()) {
                                         } else {
                                             ?>
                                             <div class="card">
-                                                <img src="img/picnics/<?= $images[0] ?>.jpg" width="250px"
-                                                     height="250px" class="card__img">
+                                                <?php if (file_exists("img/picnics/" . $images[0] . ".jpg")) { ?>
+                                                    <img src="img/picnics/<?= $images[0] ?>.jpg" width="250px"
+                                                         height="250px" class="card__img">
+                                                    <?php
+                                                } else { ?>
+                                                    <img src="img/icons/logo.jpg" width="250px"
+                                                         height="250px" class="card__img">
+                                                    <?php
+                                                } ?>
                                                 <div class="card__text">
                                                     <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
                                                     </h3>
@@ -215,8 +222,15 @@ if ($Check = checkIfBooked($_GET['id'], $cid)->fetch()) {
                                                 </div>
                                             </div>
                                             <div class="card">
-                                                <img src="img/picnics/<?= $images[1] ?>.jpg" width="250px"
-                                                     height="250px" class="card__img">
+                                                <?php if (file_exists("img/picnics/" . $images[1] . ".jpg")) { ?>
+                                                    <img src="img/picnics/<?= $images[1] ?>.jpg" width="250px"
+                                                         height="250px" class="card__img">
+                                                    <?php
+                                                } else { ?>
+                                                    <img src="img/icons/logo.jpg" width="250px"
+                                                         height="250px" class="card__img">
+                                                    <?php
+                                                } ?>
                                                 <div class="card__text">
                                                     <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
                                                     </h3>
@@ -225,8 +239,15 @@ if ($Check = checkIfBooked($_GET['id'], $cid)->fetch()) {
                                             </div>
 
                                             <div class="card">
-                                                <img src="img/picnics/<?= $images[2] ?>.jpg" width="250px"
-                                                     height="250px" class="card__img">
+                                                <?php if (file_exists("img/picnics/" . $images[2] . ".jpg")) { ?>
+                                                    <img src="img/picnics/<?= $images[2] ?>.jpg" width="250px"
+                                                         height="250px" class="card__img">
+                                                    <?php
+                                                } else { ?>
+                                                    <img src="img/icons/logo.jpg" width="250px"
+                                                         height="250px" class="card__img">
+                                                    <?php
+                                                } ?>
                                                 <div class="card__text">
                                                     <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
                                                     </h3>

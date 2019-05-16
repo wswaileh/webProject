@@ -174,14 +174,14 @@ $cid = 0;
                 } else {
 
                     if (isset($_SESSION['userType'])) {
-                        $res = getPinicsForTableWithFilter($_GET['place'], $_GET['date'], $start_limit, $RecordsPerPage, $_SESSION['userType'],$cid);
+                        $res = getPinicsForTableWithFilter($_GET['place'], $_GET['date'], $start_limit, $RecordsPerPage, $_SESSION['userType'], $cid);
 
-                        $row = getRowNumFiltered($_GET['place'], $_GET['date'], $_SESSION['userType'],$cid);
+                        $row = getRowNumFiltered($_GET['place'], $_GET['date'], $_SESSION['userType'], $cid);
 
 
                     } else {
-                        $res = getPinicsForTableWithFilter($_GET['place'], $_GET['date'], $start_limit, $RecordsPerPage, 1,$cid);
-                        $row = getRowNumFiltered($_GET['place'], $_GET['date'], 1,$cid);
+                        $res = getPinicsForTableWithFilter($_GET['place'], $_GET['date'], $start_limit, $RecordsPerPage, 1, $cid);
+                        $row = getRowNumFiltered($_GET['place'], $_GET['date'], 1, $cid);
 
 
                     }
@@ -354,8 +354,15 @@ $cid = 0;
                                                 } else {
                                                     ?>
                                                     <div class="card">
-                                                        <img src="img/picnics/<?= $images[0] ?>.jpg" width="250px"
-                                                             height="250px" class="card__img">
+                                                        <?php if (file_exists("img/picnics/" . $images[0] . ".jpg")) { ?>
+                                                            <img src="img/picnics/<?= $images[0] ?>.jpg" width="250px"
+                                                                 height="250px" class="card__img">
+                                                            <?php
+                                                        } else { ?>
+                                                            <img src="img/icons/logo.jpg" width="250px"
+                                                                 height="250px" class="card__img">
+                                                            <?php
+                                                        } ?>
                                                         <div class="card__text">
                                                             <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
                                                             </h3>
@@ -363,8 +370,15 @@ $cid = 0;
                                                         </div>
                                                     </div>
                                                     <div class="card">
-                                                        <img src="img/picnics/<?= $images[1] ?>.jpg" width="250px"
-                                                             height="250px" class="card__img">
+                                                        <?php if (file_exists("img/picnics/" . $images[1] . ".jpg")) { ?>
+                                                            <img src="img/picnics/<?= $images[1] ?>.jpg" width="250px"
+                                                                 height="250px" class="card__img">
+                                                            <?php
+                                                        } else { ?>
+                                                            <img src="img/icons/logo.jpg" width="250px"
+                                                                 height="250px" class="card__img">
+                                                            <?php
+                                                        } ?>
                                                         <div class="card__text">
                                                             <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
                                                             </h3>
@@ -373,8 +387,15 @@ $cid = 0;
                                                     </div>
 
                                                     <div class="card">
-                                                        <img src="img/picnics/<?= $images[2] ?>.jpg" width="250px"
-                                                             height="250px" class="card__img">
+                                                        <?php if (file_exists("img/picnics/" . $images[2] . ".jpg")) { ?>
+                                                            <img src="img/picnics/<?= $images[2] ?>.jpg" width="250px"
+                                                                 height="250px" class="card__img">
+                                                        <?php
+                                                        } else { ?>
+                                                            <img src="img/icons/logo.jpg" width="250px"
+                                                                 height="250px" class="card__img">
+                                                        <?php
+                                                        } ?>
                                                         <div class="card__text">
                                                             <h3 class="card__title"><sub>Laflef</sub><sup>Team</sup>&copy;
                                                             </h3>

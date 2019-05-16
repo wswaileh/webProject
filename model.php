@@ -2,7 +2,6 @@
 
 $server = "localhost";
 
-//$dbname = "c28LaflefBzu";
 $username = "root";
 $password = "";
 $dbname = "laflefbzu";
