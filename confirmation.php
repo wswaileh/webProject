@@ -67,7 +67,7 @@ if (!isset($_POST['pid']))
 
                 if ($i == "pid") {
                     $pid = $row[$i];
-                    echo "<td class='pid' style='padding-left: 40px;font-size: 1.4pc'><a href='detailed.php?id=" . $row[$i] . "' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
+                    echo "<td class='pid' style='padding-left: 40px;font-size: 1.4pc'><a href='#' style='text-decoration:none;'>" . $row[$i] . "</a></td>";
                 } else if ($i == "cost") {
                     $cost = $row[$i];
                     ?>
@@ -194,12 +194,55 @@ if (!isset($_POST['pid']))
 
 <script type="text/javascript">
 
+    function checkEnteredDates(current,expired){
+        //seperate the year,month and day for the first date
+        var stryear1 = current.substring(6);
+        var strmth1  = current.substring(0,2);
+        var strday1  = current.substring(5,3);
+        var date1    = new Date(stryear1 ,strmth1 ,strday1);
+
+        //seperate the year,month and day for the second date
+        var stryear2 = expired.substring(6);
+        var strmth2  = expired.substring(0,2);
+        var strday2  = expired.substring(5,3);
+        var date2    = new Date(stryear2 ,strmth2 ,strday2 );
+
+        var datediffval = (date2 - date1 )/864e5;
+
+        if(datediffval <= 0){
+            alert("Expired Card!");
+            return false;
+        }
+        return true;
+    }
+
 
     function validate() {
 
         let cardNum = document.getElementById("card-num");
         let expire_date = document.getElementById("expire-date");
         let bank = document.getElementById("bank");
+
+        var today = new Date();
+        alert(today);
+        var dd = today.getDate();
+
+        var mm = today.getMonth()+1;
+        var yyyy = today.getFullYear();
+        if(dd<10)
+        {
+            dd='0'+dd;
+        }
+
+        if(mm<10)
+        {
+            mm='0'+mm;
+        }
+        today = yyyy+'-'+mm+'-'+dd;
+        alert(today);
+
+        checkEnteredDates(today,expire_date)
+
 
         let state = true;
 

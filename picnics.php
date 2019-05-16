@@ -3,7 +3,7 @@
 include 'layout.php';
 include 'model.php';
 
-
+$cid = 0;
 ?>
 <div class="wrapper">
 
@@ -20,7 +20,6 @@ include 'model.php';
             <div class="purchase" id="purchase">
                 <?php $customer = getCustomerIdByEmail($_SESSION['email']);
 
-                $cid = 0;
                 if ($i = $customer->fetch())
                     $cid = $i['cid'];
 
@@ -157,14 +156,14 @@ include 'model.php';
                 //Filtration Side
                 if (!isset($_GET['filter']) || (isset($_GET['filter']) && isset($_GET['NumOfPages']) && empty($_GET['place']) && empty($_GET['date']))) {
                     if (isset($_SESSION['userType']) && $_SESSION['userType'] != 1) {
-                        $res = getPinicsForTable($start_limit, $RecordsPerPage, $_SESSION['userType']);
-                        if ($row = getRowNum($_SESSION['userType'])->fetch())
+                        $res = getPinicsForTable($start_limit, $RecordsPerPage, $_SESSION['userType'], $cid);
+                        if ($row = getRowNum($_SESSION['userType'], $cid)->fetch())
                             $rowsNum = $row[0];
 
                     } else {
 
-                        $res = getPinicsForTable($start_limit, $RecordsPerPage, 1);
-                        if ($row = getRowNum(1)->fetch()) {
+                        $res = getPinicsForTable($start_limit, $RecordsPerPage, 1, $cid);
+                        if ($row = getRowNum(1, $cid)->fetch()) {
                             $rowsNum = $row[0];
 
                         }
@@ -175,14 +174,14 @@ include 'model.php';
                 } else {
 
                     if (isset($_SESSION['userType'])) {
-                        $res = getPinicsForTableWithFilter($_GET['place'], $_GET['date'], $start_limit, $RecordsPerPage, $_SESSION['userType']);
+                        $res = getPinicsForTableWithFilter($_GET['place'], $_GET['date'], $start_limit, $RecordsPerPage, $_SESSION['userType'],$cid);
 
-                        $row = getRowNumFiltered($_GET['place'], $_GET['date'], $_SESSION['userType']);
+                        $row = getRowNumFiltered($_GET['place'], $_GET['date'], $_SESSION['userType'],$cid);
 
 
                     } else {
-                        $res = getPinicsForTableWithFilter($_GET['place'], $_GET['date'], $start_limit, $RecordsPerPage, 1);
-                        $row = getRowNumFiltered($_GET['place'], $_GET['date'], 1);
+                        $res = getPinicsForTableWithFilter($_GET['place'], $_GET['date'], $start_limit, $RecordsPerPage, 1,$cid);
+                        $row = getRowNumFiltered($_GET['place'], $_GET['date'], 1,$cid);
 
 
                     }
@@ -388,10 +387,10 @@ include 'model.php';
                                             </div>
 
                                             <div style="padding: 25px">
-                                            <p>Escort responsible for this Picnic: </p>
-                                            <strong><?= $Details['escorts'] ?> | Tel: <a
-                                                        href="tel:<?= $Details['escorttel'] ?>"
-                                                        style="text-decoration: none"><?= $Details['escorttel'] ?></a></strong>
+                                                <p>Escort responsible for this Picnic: </p>
+                                                <strong><?= $Details['escorts'] ?> | Tel: <a
+                                                            href="tel:<?= $Details['escorttel'] ?>"
+                                                            style="text-decoration: none"><?= $Details['escorttel'] ?></a></strong>
                                             </div>
                                             <div class="detail-links-related">
                                                 <strong class="fas fa-link">Links Related To the picnic's

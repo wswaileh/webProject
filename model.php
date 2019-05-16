@@ -1,9 +1,11 @@
 <?php
 
 $server = "localhost";
-$username = "c28MustafaB3irat";
-$password = "mus%^&4545";
-$dbname = "c28LaflefBzu";
+
+//$dbname = "c28LaflefBzu";
+$username = "root";
+$password = "";
+$dbname = "laflefbzu";
 $conn = "mysql:host=$server;dbname=$dbname";
 
 $pdo = null;
@@ -44,13 +46,13 @@ function getpicnicsDetails($pid)
     return $pdo->query("select title,food, DATE_FORMAT(departuretime, '%r') as departuretime ,DATE_FORMAT(returntime, '%r') as returntime,DATE_FORMAT(arrivaltime, '%r') as arrivaltime , departurelocation , activities , images , escorts , escorttel from picnic where pid = " . $pid);
 }
 
-function getPinicsForTable($start_limit, $records, $userType)
+function getPinicsForTable($start_limit, $records, $userType ,$cid)
 {
     global $pdo;
 
     if ($userType != 3) {
 
-        return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE limit " . $start_limit . ", " . $records . ";");
+        return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE and " . $cid . " not in (SELECT f.cid from book as f where a.pid = f.pid) limit " . $start_limit . ", " . $records . ";");
 
     } else {
         return $pdo->query("select a.pid , a.place,a.date,a.description,a.cost from picnic as a limit " . $start_limit . ", " . $records . ";");
@@ -58,14 +60,14 @@ function getPinicsForTable($start_limit, $records, $userType)
 }
 
 
-function getPinicsForTableWithFilter($place, $date, $start_limit, $records, $userType)
+function getPinicsForTableWithFilter($place, $date, $start_limit, $records, $userType ,$cid)
 {
     global $pdo;
     $inp = ["place" => $place, "date" => $date];
 
     $query = "";
     if ($userType != 3) {
-        $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE and ";
+        $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid not in (select b.pid from book as b having (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE and " . $cid . " not in (SELECT f.cid from book as f where a.pid = f.pid) and ";
     } else {
         $query = "select a.pid , a.place,a.date,a.description,a.cost from picnic as a where a.pid where ";
     }
@@ -84,20 +86,20 @@ function getPinicsForTableWithFilter($place, $date, $start_limit, $records, $use
 }
 
 
-function getRowNum($userType)
+function getRowNum($userType, $cid)
 {
     global $pdo;
 
     if ($userType != 3) {
 
-        return $pdo->query("select count(*) from picnic as a  where a.pid not in (select b.pid from book as b having   (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE");
+        return $pdo->query("select count(*) from picnic as a  where a.pid not in (select b.pid from book as b having   (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE and " . $cid . " not in (SELECT f.cid from book as f where a.pid = f.pid)");
     } else {
         return $pdo->query("select count(*) from picnic");
     }
 }
 
 
-function getRowNumFiltered($place, $date, $userType)
+function getRowNumFiltered($place, $date, $userType ,$cid)
 {
 
     global $pdo;
@@ -106,7 +108,7 @@ function getRowNumFiltered($place, $date, $userType)
     $res = 0;
     foreach ($inp as $i => $value) {
         if (isset($value) && !empty($value) && $userType != 3)
-            $res = $pdo->query($query . " where a.pid not in (select b.pid from book as b having   (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE and " . $i . " = '" . $value . "';");
+            $res = $pdo->query($query . " where a.pid not in (select b.pid from book as b having   (select sum(pnum) from book as c where a.pid =c.pid) = a.capacity) and a.date > CURRENT_DATE and " . $cid . " not in (SELECT f.cid from book as f where a.pid = f.pid) and a.date > CURRENT_DATE and " . $i . " = '" . $value . "';");
         else if (isset($value) && !empty($value) && $userType == 3)
             $res = $pdo->query($query . " where  " . $i . " = '" . $value . "';");
 

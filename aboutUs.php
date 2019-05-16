@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+require 'model.php';
 require 'layout.php' ?>
     <link rel="stylesheet" href="css/aboutUs.css" type="text/css">
     <div id="container">
@@ -38,19 +39,6 @@ require 'layout.php' ?>
             <?php } ?>
         </div>
 
-        <script type="text/javascript">
-
-            var role = <?=$_SESSION['userType']?>;
-
-            if (role ==2) {
-                document.getElementById('openCart').addEventListener('click', function (event) {
-                    event.preventDefault();
-
-                    openAndCloseCart();
-
-                });
-            }
-        </script>
         <div class="row">
             <img src="img/aboutUs/salt.png">
             <h1>About Us</h1>
@@ -82,14 +70,8 @@ require 'layout.php' ?>
             </form>
         </div>
 
-        <script>
+        <script type="text/javascript">
 
-
-            document.getElementById('close-sidebar').addEventListener('click', function (event) {
-                event.preventDefault();
-                closeSlidMenu();
-
-            })
 
             document.getElementById("nameField").addEventListener("focus", nameFocus);
             document.getElementById("nameField").addEventListener("focusout", nameOutOfFocus);
@@ -159,6 +141,22 @@ require 'layout.php' ?>
 
             }
 
+            var role = <?=$_SESSION['userType']?>;
+
+            if (role == 2) {
+                document.getElementById('openCart').addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    openAndCloseCart();
+
+                });
+            }
+
+            document.getElementById('close-sidebar').addEventListener('click', function (event) {
+                event.preventDefault();
+                closeSlidMenu();
+            });
+
 
         </script>
 
@@ -166,7 +164,7 @@ require 'layout.php' ?>
 <?php require 'footer.php' ?>
 
 <?php
-require 'model.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['message']) )
     insertMessage($_POST['name'], $_POST['email'], $_POST['message']);
