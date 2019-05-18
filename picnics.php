@@ -347,20 +347,20 @@ $cid = 0;
                                                 $images = array();
                                                 $images = explode(';', $Details['images']);
                                                 if (in_array("default", $images)) {
-                                                    ?> <img src="img/icons/logo.jpg" width="250px" height="250px">
-                                                    <img src="img/icons/logo.jpg" width="250px" height="250px">
-                                                    <img src="img/icons/logo.jpg" width="250px" height="250px">
+                                                    ?> <img src="img/icons/logo.jpg" width="250px" height="250px" alt="website logo">
+                                                    <img src="img/icons/logo.jpg" width="250px" height="250px" alt="website logo">
+                                                    <img src="img/icons/logo.jpg" width="250px" height="250px" alt="website logo">
                                                     <?php
                                                 } else {
                                                     ?>
                                                     <div class="card">
                                                         <?php if (file_exists("img/picnics/" . $images[0] . ".jpg")) { ?>
                                                             <img src="img/picnics/<?= $images[0] ?>.jpg" width="250px"
-                                                                 height="250px" class="card__img">
+                                                                 height="250px" class="card__img" alt="<?=$Details['title']?>">
                                                             <?php
                                                         } else { ?>
                                                             <img src="img/icons/logo.jpg" width="250px"
-                                                                 height="250px" class="card__img">
+                                                                 height="250px" class="card__img" alt="website logo">
                                                             <?php
                                                         } ?>
                                                         <div class="card__text">
@@ -372,11 +372,11 @@ $cid = 0;
                                                     <div class="card">
                                                         <?php if (file_exists("img/picnics/" . $images[1] . ".jpg")) { ?>
                                                             <img src="img/picnics/<?= $images[1] ?>.jpg" width="250px"
-                                                                 height="250px" class="card__img">
+                                                                 height="250px" class="card__img" alt="<?=$Details['title']?>">
                                                             <?php
                                                         } else { ?>
                                                             <img src="img/icons/logo.jpg" width="250px"
-                                                                 height="250px" class="card__img">
+                                                                 height="250px" class="card__img" alt="website logo">
                                                             <?php
                                                         } ?>
                                                         <div class="card__text">
@@ -389,11 +389,11 @@ $cid = 0;
                                                     <div class="card">
                                                         <?php if (file_exists("img/picnics/" . $images[2] . ".jpg")) { ?>
                                                             <img src="img/picnics/<?= $images[2] ?>.jpg" width="250px"
-                                                                 height="250px" class="card__img">
+                                                                 height="250px" class="card__img" alt="<?=$Details['title']?>">
                                                         <?php
                                                         } else { ?>
                                                             <img src="img/icons/logo.jpg" width="250px"
-                                                                 height="250px" class="card__img">
+                                                                 height="250px" class="card__img" alt="website logo">
                                                         <?php
                                                         } ?>
                                                         <div class="card__text">

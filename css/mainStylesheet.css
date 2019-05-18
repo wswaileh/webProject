@@ -602,6 +602,10 @@ a[data-tool-tip]:hover::after {
     grid-template-columns: auto auto auto;
 }
 
+.photos-container img:hover, .photos-container .card:hover {
+    cursor: pointer;
+}
+
 .detail-links-related {
     padding: 30px;
 }

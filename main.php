@@ -61,7 +61,7 @@ include 'model.php';
 
             <div class="mySlides fade">
                 <div class="numbertext">1/3</div>
-                <img src="img/picnics/p1.jpg" style="width:100%;height: 500px">
+                <img src="img/picnics/p1.jpg" style="width:100%;height: 500px" alt="Nature-wallpaper">
                 <div class="text">L A F L E F
                     <small>&copy;2019</small>
                 </div>
@@ -69,7 +69,7 @@ include 'model.php';
 
             <div class="mySlides fade">
                 <div class="numbertext">2/3</div>
-                <img src="img/picnics/p2.jpg" style="width:100%;height: 500px">
+                <img src="img/picnics/p2.jpg" style="width:100%;height: 500px" alt="Nature-wallpaper">
                 <div class="text">L A F L E F
                     <small>&copy;2019</small>
                 </div>
@@ -77,7 +77,7 @@ include 'model.php';
 
             <div class="mySlides fade">
                 <div class="numbertext">3/3</div>
-                <img src="img/picnics/p3.jpg" style="width:100%;height: 500px">
+                <img src="img/picnics/p3.jpg" style="width:100%;height: 500px" alt="Nature-wallpaper">
                 <div class="text">L A F L E F
                     <small>&copy;2019</small>
                 </div>

@@ -30,7 +30,7 @@ if (!empty($_POST)) {
     $res = $current - $dob;
 
 
-    if ($res > 0 && $res < 16) {
+    if ($res >= 0 && $res < 16) {
         echo "<script type='text/javascript'>alert('You are Too young to register sorry... 16 Years Old And above is allowed!');</script>";
 
     } else if ($res < 0) {
